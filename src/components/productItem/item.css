@@ -1,0 +1,17 @@
+.card{
+    width:18rem;
+    transition:width 0.3s;
+    box-shadow: 1px 1px 15px #E6BE8A;
+    margin:20px auto;
+}
+.card:hover{
+    cursor: pointer;
+    width:18.5rem;
+}
+.card-link+.card-link{
+    margin-left:0;
+}
+p{
+    display: inline-block;
+    margin-right:5px;
+}

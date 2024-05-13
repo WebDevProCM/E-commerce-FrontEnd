@@ -1,0 +1,69 @@
+.footer{
+    background-color: #E6BE8A;
+}
+.contact-us{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding:80px 50px;
+}
+
+.title, .marketing{
+    flex: 1;
+    flex-shrink: 0;
+    flex-grow: 1;
+    text-align: center;
+    margin-top:20px;
+}
+.follow-us, .call-us{
+    text-align: center;
+    margin-top:20px;
+    width:250px;
+}
+.title h3{
+    font-weight: bold;
+    font-size:2rem;
+}
+.title p{
+    font-style: italic;
+}
+.marketing p{
+    font-weight: bold;
+    font-size:1.2rem;
+}
+.marketing input{
+    border-style: solid;
+    border-radius:20px;
+    padding:5px 10px;
+    margin-right:5px;
+    background-color: rgb(49, 49, 49);
+    color: white;
+}
+.marketing button{
+    margin-top:0;
+}
+.follow-us{
+    text-align: center;
+}
+.follow-us p{
+    font-weight: bold;
+    margin-bottom:2px;
+    padding-left:5px;
+    font-size:1.2rem;
+}
+.follow-us .social-link{
+    display: block;
+}
+.call-us p{
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    margin-bottom:5px;
+    font-size:1.2rem;
+}
+.copyright{
+    margin-top:40px;
+    text-align: center;
+    font-weight: bold;
+}
