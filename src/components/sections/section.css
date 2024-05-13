@@ -1,0 +1,24 @@
+.men-section{
+    padding-top:100px;
+    padding-bottom:50px;
+    text-align: center;
+    background-color: #11235A;
+    color: white;
+    height:100%;
+}
+hr{
+    margin: auto;
+    width:60px;
+    height:10px;
+    border: none;
+    background-color: black;
+}
+button{
+    margin-top:50px;
+}
+
+@media only screen and (max-width: 991px) {
+    .men-section{
+        height:100%;
+    }
+}
