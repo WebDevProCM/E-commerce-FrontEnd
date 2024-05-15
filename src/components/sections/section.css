@@ -6,6 +6,13 @@
     color: white;
     height:100%;
 }
+.section{
+    margin-top:50px;
+}
+.row{
+    justify-content: center;
+    width:100%;
+}
 hr{
     margin: auto;
     width:60px;

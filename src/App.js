@@ -6,6 +6,8 @@ import Mens from './pages/mens'
 import Womens from './pages/womens'
 import Cart from './pages/cart'
 import Item from './pages/item'
+import Login from './pages/login'
+import Footer from './components/footer/footer'
 
 function App() {
   return (
@@ -16,10 +18,12 @@ function App() {
         <Route path='/' element={<Home/>}></Route>
         <Route path='/mens' element={<Mens/>}></Route>
         <Route path='/womens' element={<Womens/>}></Route>
-        <Route path='/item' element={<Item/>}></Route>
-          <Route path=':itemId' element={<Item/>}></Route>
+        <Route path='/item/:itemId' element={<Item/>}></Route>
+          {/* <Route path='item/:itemId' element={<Item/>}></Route> */}
         <Route path='/cart' element={<Cart/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
       </Routes>
+      <Footer></Footer>
       </BrowserRouter>
     </div>
   );

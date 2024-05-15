@@ -1,12 +1,12 @@
 
-.banner{
+.hero{
     padding:100px;
     background-color: #E6BE8A;
 }
-.banner-left{
+.hero-left{
     margin:auto;
 }
-.banner-left h3{
+.hero-left h3{
     text-align: center;
     padding-left:20px;
     width:500px;
@@ -16,15 +16,20 @@
     font-weight: 400;
     font-style: normal;
 }
-.banner-left p{
+.hero-left p{
     width:100%;
     margin-bottom:50px;
 }
-.banner-right img{
+.hero-right img{
     width:60%;
 }
 @media only screen and (max-width: 700px) {
-    .banner-left h3{
+    .hero-left h3{
         width:100%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .hero-left h3{
+        font-size:2rem;
     }
 }

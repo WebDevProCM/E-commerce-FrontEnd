@@ -15,7 +15,7 @@ const Footer = () =>{
                 <div className="marketing">
                     <p>Enter your email to subscribe our Newsletter</p>
                     <input type="text" name="email" id="email" placeholder="Enter your email address"/>
-                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    <button type="submit" className="btn btn-outline-dark">Submit</button>
                 </div>
                 <div className="follow-us">
                     <p>Follow Us</p>
@@ -31,7 +31,7 @@ const Footer = () =>{
                 </div>
             </div>
             <div className="copyright">
-                <span class="material-symbols-outlined">copyright</span><p>All Rights Reserved.</p>
+                <span className="material-symbols-outlined">copyright</span><p>All Rights Reserved.</p>
             </div>
         </div>
     )
