@@ -25,3 +25,24 @@
     width:40%;
     background-color: #dedede;
 }
+
+@media only screen and (max-width: 500px) {
+    .category{
+        padding:1px 10px;
+    }
+    .sort{
+        font-size:0.5rem;
+    }
+    .sort-section{
+        width:100px;
+    }
+    .banner-left{
+        width: 100%;
+    }
+    .banner-left h2{
+        font-size:1.5rem;
+    }
+    .banner-left p{
+        font-size:0.5rem;
+    }
+} 

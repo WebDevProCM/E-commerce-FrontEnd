@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import './css/cart.css'
 import CartItem from "../components/cartItem/CartItem";
 import CartTotal from "../components/cartTotal/CartTotal";
 
-const Cart = () =>{
+const Cart = (props) =>{
+    const [items, setItems] = useState([]);
     return (
         <div className="cart">
             <h5 className="title">Cart</h5>
