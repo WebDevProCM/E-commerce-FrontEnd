@@ -1,12 +1,45 @@
-.cart-total{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top:100px;
+.cartTotal{
+    width:400px;
 }
-.total h4{
+.checkout{
+    box-shadow:1px 1px 10px black;
+    padding:40px 10px;
+    border-radius:20px;
+}
+.checkout .title{
+    font-size:1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.totalDetails{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:20px;
+}
+.total button{
+    margin-top:5px;
+    width:100%;
+    border-radius:20px;
+}
+.promo{
+    margin-top:50px;
+}
+.promo label{
+    font-weight: bold;
+    font-size:.8rem;
+}
+.promo input{
+    width:150px;
+    margin-left:5px;
+}
+.promo button{
+    margin-top:0;
+    margin-left:5px;
+}
+
+
+/* .total h4{
     font-weight: bold;
 }
 .total-cal-sub{
@@ -48,4 +81,4 @@
         padding:5px 2px;
     }
 
-}
+} */

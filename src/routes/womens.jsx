@@ -3,15 +3,13 @@ import Banner from '../components/banner/banner'
 import Category from '../components/category/category'
 import womenBanner from '../components/assets/women-banner.png'
 
-
-
-const mensCategory = (props) =>{
+const WomensCategory = (props) =>{
     return(
-        <div className="mens">
+        <div className="womens">
             <Banner title='Trending Womens Perfume' bannerImg={womenBanner}/>
             <Category category='Women'/>
         </div>
     )
 }
 
-export default mensCategory
+export default WomensCategory

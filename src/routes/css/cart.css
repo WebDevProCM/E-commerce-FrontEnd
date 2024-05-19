@@ -1,0 +1,27 @@
+.cart{
+    padding:30px 50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.title{
+    font-size:2rem;
+    font-weight: bold;
+    margin-bottom:40px;
+    margin-top:50px;
+}
+.cartAllItems{
+    flex: 1;
+    margin-right:80px;
+}
+.cartCheckout{
+    text-align: center;
+}
+.showError{
+    position: fixed;
+}
+@media only screen and (max-width: 900px) {
+    .cart{
+        justify-content: center;
+    }
+}

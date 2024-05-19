@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import './category.css';
 import Item from '../productItem/item'
-import allPerfumes from '../assets/perfumes.json'
+// import allPerfumes from '../assets/perfumes.json'
 
 
 const Category = (props) =>{
+    const allPerfumes = useLoaderData();
+
     const [sort, setSort] = useState([]);
 
     const clickHandler = (e) =>{
@@ -44,7 +46,7 @@ const Category = (props) =>{
                 </div>
                 <div className="sort">
                     <label htmlFor="sortCheck">Parfum</label>
-                    <input type="checkbox" name="Parfum" id="sortCheck"  value='parfum' onClick={clickHandler}/>
+                    <input type="checkbox" name="Parfum" id="sortCheck"  value='parfume' onClick={clickHandler}/>
                 </div>
                 <div className="sort">
                     <label htmlFor="sortCheck">Eau de Toilette</label>
@@ -52,20 +54,20 @@ const Category = (props) =>{
                 </div>
                 <div className="sort">
                     <label htmlFor="sortCheck">Eau Fraiche</label>
-                    <input type="checkbox" name="Fraiche" id="sortCheck" value='eau de fraiche'  onClick={clickHandler}/>
+                    <input type="checkbox" name="Fraiche" id="sortCheck" value='eau fraiche'  onClick={clickHandler}/>
                 </div>
 
             </div>
             <div className="items">
                 <div className="row">
-                    {allPerfumes.map((item) =>{
-                        if(sort.length < 1 && props.category===item.category){
-                            return  <div className="col-lg-4 col-md-6 col-sm-12" key={Math.random()}>
-                                        <Link to={`/item/${item.id}`}> <Item title={item.title} category={item.category} price={item.price} image='item1'/> </Link>
+                    {allPerfumes.map((perfume) =>{
+                        if(sort.length < 1 && props.category===perfume.category){
+                            return  <div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}>
+                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price} image='item1'/> </Link>
                                     </div>
-                        }else if(props.category===item.category && (sort.includes(item.ml) || sort.includes(item.type))){
-                            return  <div className="col-lg-4 col-md-6 col-sm-12" key={Math.random()}>
-                                        <Link to={`/item/${item.id}`}> <Item title={item.title} category={item.category} price={item.price} image='item1'/> </Link>
+                        }else if(props.category===perfume.category && (sort.includes(perfume.ml.toString()) || sort.includes(perfume.type))){
+                            return  <div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}>
+                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price} image='item1'/> </Link>
                                     </div>
                         }else{
                             return null

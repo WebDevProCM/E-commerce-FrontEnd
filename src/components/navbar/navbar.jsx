@@ -30,8 +30,17 @@ const Navbar = () =>{
                 </Link>
             </ul>
             <div className="nav-actions">
-                <Link to='/cart'><span className="material-symbols-outlined" onClick={() =>{setClicked("cart")}}>shopping_cart {clicked==="cart"?<hr className="active-link"></hr>: ""}</span></Link>
-                <Link to='login'><p onClick={() =>{setClicked("sign")}}>Sign in{clicked==="sign"?<hr className="active-link"></hr>: ""}</p></Link>
+                <Link to='/cart' onClick={() =>{setClicked("cart")}} className="cart-count">
+                    <span className="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+                    <span>1</span>
+                    {clicked==="cart"?<hr className="active-link"></hr>: ""}
+                </Link>
+                <Link to='login' onClick={() =>{setClicked("sign")}}>
+                    <p>Sign in</p>
+                    {clicked==="sign"?<hr className="active-link"></hr>: ""}
+                </Link>
             </div>
             </div>
         </div>
