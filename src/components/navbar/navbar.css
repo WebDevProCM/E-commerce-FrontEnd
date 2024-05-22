@@ -1,17 +1,3 @@
-/* .navbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-} */
-
-/* .navbar li{
-    display: inline-block;
-    list-style-type: none;
-    padding:5px; 
-}*/
-/*.nav-actions button{
-    border: none;
-}*/
 .navbar{
     background-color: #E6BE8A;
     margin-bottom: 0;
@@ -21,6 +7,7 @@
 }
 .navbar-nav{
     margin: auto;
+    text-align: center;
 }
 .navbar-brand{
     font-family: "Pacifico", cursive;
@@ -29,8 +16,8 @@
 }
 .nav-item{
     text-align: center;
+    margin-right:5px;
     width:60px;
-    margin-right:10px;
 }
 .nav-actions{
     display: flex;
@@ -46,14 +33,28 @@
 }
 .nav-actions .cart-count{
     width:50px;
+    padding-top:10px;
 }
 .nav-actions .cart-count:hover{
     font-size:1.4rem;
 }
-ul li, .nav-actions span, .nav-actions p{
+.nav-actions button{
+    margin-top:0;
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+.dropdown-toggle{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.dropdown-menu button{
+    margin-top: 0;
+}
+.navbar-nav li, .nav-actions span, .nav-actions p{
     transition: font-size 0.3s;
 }
-ul li:hover, .nav-actions p:hover{
+.navbar-nav li:hover, .nav-actions p:hover{
     cursor: pointer;
     font-size:1.2rem;
 }
@@ -81,9 +82,12 @@ a{
         height:50px;
     }
     .nav-actions a{
-        height:50px;
         margin:0;
         text-align: center;
+    }
+    .dropdown-menu a{
+        height:30px;
+        text-align: left;
     }
 }
 @media only screen and (max-width: 991px) {

@@ -4,6 +4,7 @@ import Banner from '../components/banner/banner'
 import Category from '../components/category/category'
 import mensBanner from '../components/assets/mens-banner.jpg'
 import womensBanner from '../components/assets/women-banner.png'
+import axios from "axios";
 const PerfumesCategory = (props) =>{
     const bannerImg = props.bannerImg === 'mensBanner'?mensBanner:womensBanner; 
     return(
@@ -16,7 +17,14 @@ const PerfumesCategory = (props) =>{
 
 export default PerfumesCategory
 export async function loader(){
-    const response = await fetch("http://localhost:3000/api/product");
-    const data = await response.json();
-    return data;
+    try{
+        const response = await axios.get("http://localhost:3000/api/product", {withCredentials: true});
+        const data = response.data
+        if(data.error){
+            throw new Error(data.error);
+        }
+        return data;
+    }catch(error){
+        throw new Error(error);
+    }
 }

@@ -1,0 +1,16 @@
+.errorPage{
+    text-align: center;
+    padding:150px 50px;
+}
+.title{
+    font-weight: bold;
+}
+.message{
+    font-size:1rem;
+    text-decoration: underline;
+}
+.errorPage a{
+    margin-top:50px;
+    text-decoration: none;
+    font-style: normal;
+}

@@ -29,6 +29,7 @@
     font-style: italic;
     font-size:1rem;
     margin:1px 2px;
+    display: block;
 }
 .marketing p{
     font-weight: bold;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useLoaderData} from "react-router-dom";
+import axios from "axios";
 import './css/items.css'
 import ProductSlides from "../components/productSlides/ProductSlides";
 import ProductDescription from "../components/productDescription/ProductDescription";
@@ -8,6 +9,7 @@ import ProductReview from "../components/productReview/ProductReview";
 
 const Product = () =>{
     const perfume = useLoaderData();
+
     return(
         <div className="product">
             <nav aria-label="breadcrumb">
@@ -23,7 +25,7 @@ const Product = () =>{
                 <ProductDescription classNamed="details" perfume={perfume}
                 />
              </div>
-             <ProductReview/>
+             <ProductReview id={perfume._id}/>
         </div>
     )
 }
@@ -31,8 +33,15 @@ const Product = () =>{
 export default Product
 
 export async function loader(data){
-    const itemId = data.params.itemId;
-    const response = await fetch(`http://localhost:3000/api/product/${itemId}`);
-    const item = await response.json();
-    return item;
+    try{
+        const itemId = data.params.itemId;
+        const response = await axios.get(`http://localhost:3000/api/product/${itemId}`,{withCredentials: true});
+        const item = response.data;
+        if(item.error){
+            throw new Error(item.error);
+        }
+        return item;
+    }catch(error){
+        throw new Error(error);
+    }
 }

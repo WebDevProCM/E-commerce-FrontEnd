@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, {useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CurrentUserContext } from "../../routes/Layout";
 import './ProductDescription.css';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const ProductDescription = (props) =>{
     const [showError, setShowError] = useState(undefined);
     const navigate = useNavigate();
+    const {user} = useContext(CurrentUserContext);
 
     const addToCartHandler = async (prodId) =>{
+        if(!user){
+            return toast.error("Please Log In!");
+        }
         const quantity = document.querySelector("#quantity").value;
         const data = {
             product: prodId,
             quantity: quantity
         }
-        const response =  await fetch("http://localhost:3000/api/cart", {
-            method: "POST",
+        const response =  await axios.post("http://localhost:3000/api/cart", data, {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(data)
-        })
-        const cartItem = await response.json();
+            withCredentials: true
+        });
+
+        const cartItem = response.data;
         if(cartItem.error){
             return setShowError(cartItem.error);
         }
@@ -36,7 +43,7 @@ const ProductDescription = (props) =>{
             <div className="details">
                 {props.perfume.description}
                 <label htmlFor="quantity">Quantity</label>
-                <input type="number" name="quantity" id="quantity"></input>
+                <input type="number" name="quantity" id="quantity" min="1"></input>
             </div>
             <div className="addCart">
                 <button type="button" className="btn btn-danger" onClick={ () => addToCartHandler(props.perfume._id)}>Add to cart</button>

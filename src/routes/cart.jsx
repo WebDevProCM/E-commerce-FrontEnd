@@ -1,42 +1,39 @@
-import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useContext, useEffect, useState } from "react";
+import { useLoaderData} from "react-router-dom";
+import { CurrentUserContext } from "./Layout";
+import axios from "axios";
+import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './css/cart.css'
 import CartItem from "../components/cartItem/CartItem";
 import CartTotal from "../components/cartTotal/CartTotal";
 
-const Cart = (props) =>{
+const Cart = () =>{
     const [cartItems, setCartItems] = useState(useLoaderData());
-    let total = 0; 
+    const {setCartCount} = useContext(CurrentUserContext);
+    let total = 0;
+
     cartItems.forEach((item) =>{
         total = total + item.total;
     });
 
+    useEffect(() =>{
+        setCartCount(cartItems.length);
+    },[cartItems])
+    
     const removeItem = async (id) =>{
         try{
-            const response = await fetch(`http://localhost:3000/api/cart/${id}`, {
-                method: "DELETE",
+            const response = await axios.delete(`http://localhost:3000/api/cart/${id}`, {
                 headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            const deletedItem = await response.json();
+                  'Content-Type': 'application/json'
+                },
+                withCredentials: true
+              })
+            const deletedItem = response.data;
             if(deletedItem.error){
-                return  toast.error(`${deletedItem.error}`, {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true
-                        });;
+                return toast.error(`${deletedItem.error}`);
             }
-            toast.success(`Item Removed!`, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                theme: "dark",
-            });
+            toast.warn(`Item Removed!`);
             const newCartItems = cartItems.filter((item) => item._id !== deletedItem._id);
             setCartItems(newCartItems);
             
@@ -59,22 +56,21 @@ const Cart = (props) =>{
             }
         })
         setCartItems(newItems);
+        toast.success("Cart Updated!");
     }
 
     return (
         <>
-            <ToastContainer/>
             <h5 className="title">My Shopping Cart</h5>
             <div className="cart">
                 <div className="cartAllItems">
-                    {cartItems.map((item) =>{
+                    {cartItems.length < 1? "No Items" : cartItems.map((item) =>{
                         return <CartItem key={item.product.prodId + Math.random()} perfume={item} onRemoveItem={removeItem} onTotalChange={totalChange} />
                     })}
                 </div>
                 <div className="cartCheckout">
                     <CartTotal total={total}/>
                 </div>
-
             </div>
         </>
     )
@@ -83,7 +79,14 @@ const Cart = (props) =>{
 export default Cart;
 
 export async function loader(){
-    const response = await fetch("http://localhost:3000/api/cart");
-    const cartItems = await response.json();
-    return cartItems;
+    try{
+        const response = await axios.get("http://localhost:3000/api/cart", {withCredentials: true});
+        const cartItems = response.data;
+        if(response.data.error){
+            throw new Error(response.data.error);
+        }
+        return cartItems;
+    }catch(error){
+        throw new Error(error);
+    }
 }
