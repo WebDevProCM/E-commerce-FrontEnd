@@ -4,7 +4,7 @@ import { CurrentUserContext } from "./Layout";
 import axios from "axios";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './css/cart.css'
+import classes from './css/cart.module.css'
 import CartItem from "../components/cartItem/CartItem";
 import CartTotal from "../components/cartTotal/CartTotal";
 
@@ -61,14 +61,14 @@ const Cart = () =>{
 
     return (
         <>
-            <h5 className="title">My Shopping Cart</h5>
-            <div className="cart">
-                <div className="cartAllItems">
+            <h5 className={classes.title}>My Shopping Cart</h5>
+            <div className={classes.cart}>
+                <div className={classes.cartAllItems}>
                     {cartItems.length < 1? "No Items" : cartItems.map((item) =>{
                         return <CartItem key={item.product.prodId + Math.random()} perfume={item} onRemoveItem={removeItem} onTotalChange={totalChange} />
                     })}
                 </div>
-                <div className="cartCheckout">
+                <div className={classes.cartCheckout}>
                     <CartTotal total={total}/>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import './css/mens.css'
 import Banner from '../components/banner/banner'
 import Category from '../components/category/category'
 import mensBanner from '../components/assets/mens-banner.jpg'

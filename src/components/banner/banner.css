@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: center;
     padding:1px 10px;
-    align-items: center;
+    align-items: end;
     box-shadow:2px 2px 10px #E6BE8A;
     border-radius:15px;
     margin:50px 50px;
@@ -44,5 +44,8 @@
     }
     .banner-left p{
         font-size:0.5rem;
+    }
+    .banner-right img{
+        width:80%;
     }
 } 

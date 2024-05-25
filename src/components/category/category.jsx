@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import './category.css';
 import Item from '../productItem/item'
-// import allPerfumes from '../assets/perfumes.json'
 
 
 const Category = (props) =>{
@@ -61,13 +60,13 @@ const Category = (props) =>{
             <div className="items">
                 <div className="row">
                     {allPerfumes.map((perfume) =>{
-                        if(sort.length < 1 && props.category===perfume.category){
+                        if(sort.length < 1 && (props.category===perfume.category || "Unisex"===perfume.category)){
                             return  <div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}>
-                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price} image='item1'/> </Link>
+                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price}/> </Link>
                                     </div>
-                        }else if(props.category===perfume.category && (sort.includes(perfume.ml.toString()) || sort.includes(perfume.type))){
+                        }else if((props.category===perfume.category || "Unisex"===perfume.category) && (sort.includes(perfume.ml.toString()) || sort.includes(perfume.type))){
                             return  <div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}>
-                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price} image='item1'/> </Link>
+                                        <Link to={`/item/${perfume.prodId}`}> <Item title={perfume.name} category={perfume.category} price={perfume.price}/> </Link>
                                     </div>
                         }else{
                             return null

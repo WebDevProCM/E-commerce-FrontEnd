@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import classes from './CartItem.module.css'
-import perfume from '../assets/item1.jpg'
 import axios from "axios";
 
 
@@ -12,6 +11,9 @@ const CartItem = (props) =>{
     const changeHandler = async (event) =>{
         const data = {
             quantity: event.target.value
+        }
+        if(event.target.value === ''){
+            return setQuantity(0)
         }
         try{
             const response = await axios.patch(`http://localhost:3000/api/cart/${props.perfume._id}`, data, {
@@ -30,8 +32,8 @@ const CartItem = (props) =>{
             setQuantity(updateItem.quantity);
             setShowError(undefined);
         }catch(error){
-            toast.error("Something went wrong!");
             console.log(error);
+            toast.error("Something went wrong!");
         }
     }
     
@@ -39,7 +41,7 @@ const CartItem = (props) =>{
         <div className={classes.cartItem}>
 
            <div className={classes.itemDetails}>
-                <img className={classes.cartImage} src={perfume} alt="cart-item" />
+                <img className={classes.cartImage} src={`./images/${props.perfume.product.name}.jpg`} alt="cart-item" />
                 <div className={classes.details}>
                     <h3>{props.perfume.product.name}</h3>
                     <p>Category: {props.perfume.product.category}</p>
@@ -51,7 +53,7 @@ const CartItem = (props) =>{
            <div className={classes.itemPrice}>
             <div>
                 <label htmlFor="change-quantity">Quantity</label>
-                <input type="number" name="quantity" id="change-quantity" value={quantity} min="1" onChange={changeHandler} />
+                <input type="number" name="quantity" id="change-quantity" value={quantity} min="0" onChange={changeHandler} />
                 <p className={classes.error}>{showError? showError : ''}</p>
             </div>
             <p className={classes.priceTag}>${Math.round(props.perfume.total * 10) / 10}</p>
@@ -61,3 +63,4 @@ const CartItem = (props) =>{
 }
 
 export default CartItem
+// {require(`../assets/${props.perfume.product.name}.jpg`)}

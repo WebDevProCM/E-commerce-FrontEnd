@@ -1,0 +1,20 @@
+[
+    {
+        "id": "PRODID-1003",
+        "title": "sunlit whisper",
+        "price": 54.95,
+        "category": "Women"
+    },
+    {
+        "id": "PRODID-1007",
+        "title": "vanilla embrace",
+        "price": 72.80,
+        "category": "Women"
+    },
+    {
+        "id": "PRODID-1008",
+        "title": "crimson sunset",
+        "price": 99.00,
+        "category": "Women"
+    }
+]

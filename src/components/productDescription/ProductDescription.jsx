@@ -38,7 +38,9 @@ const ProductDescription = (props) =>{
             <h2>{props.perfume.name}</h2>
             <div className="price">
                 <p className="newPrice">${props.perfume.price}</p>
-                <p className="oldPrice">${props.perfume.oldPrice}</p>
+                {props.perfume.oldpirce &&
+                    <p className="oldPrice">${props.perfume.oldPrice}</p>
+                }
             </div>
             <div className="details">
                 {props.perfume.description}

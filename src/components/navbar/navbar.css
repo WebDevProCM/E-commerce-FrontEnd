@@ -8,6 +8,7 @@
 .navbar-nav{
     margin: auto;
     text-align: center;
+
 }
 .navbar-brand{
     font-family: "Pacifico", cursive;
@@ -15,8 +16,8 @@
     font-style: normal;
 }
 .nav-item{
-    text-align: center;
     margin-right:5px;
+    padding:10px 2px;
     width:60px;
 }
 .nav-actions{
@@ -28,12 +29,16 @@
 .nav-actions p{
     display: inline-block;
     margin-bottom:0;
-    width:100px;
     text-align: center;
+}
+.nav-actions button{
+    width: 100px;
+    text-align: left;
 }
 .nav-actions .cart-count{
     width:50px;
     padding-top:10px;
+    color: rgb(192, 0, 0);
 }
 .nav-actions .cart-count:hover{
     font-size:1.4rem;
@@ -63,36 +68,39 @@
     font-weight: 600;
     font-style: italic;
 }
-.active-link{
-    background-color: black;
-    width:40px;
-    height:4px;
-    border-radius:5px;
-}
 a{
     text-decoration: none;
     color: black;
 }
+.active{
+    color: #FAFAD2	;
+}
 
 @media only screen and (min-width: 992px) {
-    .container-fluid{
-        height:60px;
-    }
     .navbar-nav{
         height:50px;
     }
-    .nav-actions a{
-        margin:0;
-        text-align: center;
-    }
-    .dropdown-menu a{
-        height:30px;
-        text-align: left;
-    }
+
 }
 @media only screen and (max-width: 991px) {
     .nav-actions{
-        justify-content:start;
+        align-items: start;
+        flex-direction: column;
     }
-
+    .nav-actions p{
+        text-align: left;
+        margin-top:5px;
+    }
+    .nav-actions button{
+        padding: 0;
+    }
+    .navbar-toggler{
+        margin-top:15px;
+    }
+    .navbar-nav a{
+        text-align: left;
+    }
+    .dropdown-menu a{
+        padding-left:0;
+    }
 }

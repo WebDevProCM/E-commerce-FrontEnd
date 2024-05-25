@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import './loginSign.css'
 import { CurrentUserContext } from "../../routes/Layout";
 import { toast } from "react-toastify";
-import loginImage from '../assets/login image.png'
 import axios from "axios";
 
 const LoginSign = () =>{
@@ -90,7 +89,7 @@ const LoginSign = () =>{
             </div>
 
             <div className="login-right">
-                <img src={loginImage} alt="shopping-cart" />
+                <img src={`./images/login image.png`} alt="shopping-cart" />
             </div>
         </div>
     )

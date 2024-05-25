@@ -1,0 +1,20 @@
+[
+    {
+        "id": "PRODID-1016",
+        "title": "whispers of vanilla",
+        "price": 58.75,
+        "category": "Unisex"
+    },
+    {
+        "id": "PRODID-1017",
+        "title": "fiery ruby",
+        "price": 110.30,
+        "category": "Women"
+    },
+    {
+        "id": "PRODID-1013",
+        "title": "starry nightfall",
+        "price": 82.10,
+        "category": "Unisex"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "PRODID-1005",
+        "title": "mystic forest",
+        "price": 112.30,
+        "category": "Men"
+    },
+    {
+        "id": "PRODID-1009",
+        "title": "nomad's leather",
+        "price": 87.50,
+        "category": "Men"
+    },
+    {
+        "id": "PRODID-1015",
+        "title": "forest awakening",
+        "price": 91.40,
+        "category": "Men"
+    }
+]
