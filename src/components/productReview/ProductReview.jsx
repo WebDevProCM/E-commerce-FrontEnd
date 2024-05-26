@@ -13,7 +13,6 @@ const ProductReview = (props) =>{
 
     const handleRating = (rate) => {
         setRating(rate)
-        console.log(rating)
     }
 
     const submitHandler = async (e) =>{
@@ -27,7 +26,7 @@ const ProductReview = (props) =>{
                 stars: rating,
                 description: description
             }
-            const response = await axios.post("http://localhost:3000/api/review", data, {
+            const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/review`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -41,7 +40,6 @@ const ProductReview = (props) =>{
             toast.success("Review Submitted!");
             setReviews([newReview, ...reviews]);
         }catch(error){
-            console.log(error);
             toast.error("Something went wrong!");
         }finally{
             setRating(0)
@@ -52,14 +50,13 @@ const ProductReview = (props) =>{
     useEffect(() =>{
         const fetchReviews =async () =>{
             try{
-                const response = await axios.get("http://localhost:3000/api/review", {withCredentials: true});
+                const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/review`, {withCredentials: true});
                 const allReviews = response.data;
                 if(allReviews.error){
                     return toast.error(allReviews.error);
                 }
                 setReviews(allReviews);
             }catch(error){
-                console.log(error);
                 toast.error("Something went wrong!");
             }
         }

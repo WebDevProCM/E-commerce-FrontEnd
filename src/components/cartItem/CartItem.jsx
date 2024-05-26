@@ -16,7 +16,7 @@ const CartItem = (props) =>{
             return setQuantity(0)
         }
         try{
-            const response = await axios.patch(`http://localhost:3000/api/cart/${props.perfume._id}`, data, {
+            const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/cart/${props.perfume._id}`, data, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -32,7 +32,6 @@ const CartItem = (props) =>{
             setQuantity(updateItem.quantity);
             setShowError(undefined);
         }catch(error){
-            console.log(error);
             toast.error("Something went wrong!");
         }
     }
@@ -56,7 +55,8 @@ const CartItem = (props) =>{
                 <input type="number" name="quantity" id="change-quantity" value={quantity} min="0" onChange={changeHandler} />
                 <p className={classes.error}>{showError? showError : ''}</p>
             </div>
-            <p className={classes.priceTag}>${Math.round(props.perfume.total * 10) / 10}</p>
+            <p className={classes.priceTag}>${parseFloat(props.perfume.total).toFixed(2)}</p>
+            
            </div>
         </div>
     )

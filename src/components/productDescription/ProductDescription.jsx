@@ -19,7 +19,7 @@ const ProductDescription = (props) =>{
             product: prodId,
             quantity: quantity
         }
-        const response =  await axios.post("http://localhost:3000/api/cart", data, {
+        const response =  await axios.post(`${process.env.REACT_APP_DOMAIN}/api/cart`, data, {
             headers: {
                 "Content-Type": "application/json"
             },

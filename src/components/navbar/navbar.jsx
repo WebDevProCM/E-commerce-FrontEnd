@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import { toast } from "react-toastify";
 import { CurrentUserContext } from "../../routes/Layout";
-import './navbar.css'
+import './Navbar.css'
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -28,7 +28,6 @@ const Navbar = () =>{
             toast.success("Logged out successfully");
             return navigate("/");
         }catch(error){
-            console.log(error)
             toast.error("Something went wrong!");
         }
     }

@@ -1,10 +1,10 @@
 import React from "react";
-import './item.css'
+import './Item.css'
 
 const item = (props) =>{
     return(
     <div className="card" onClick={() =>{window.scrollTo(0,0)}}>
-        <img src={`./images/${props.title}.jpg`} className="card-img-top" alt="perfume"/>
+        <img src={`/images/${props.title}.jpg`} className="card-img-top" alt="perfume"/>
         <div className="card-body">
             <h5 className="card-title">{props.title}</h5>
             <p className="card-text">Category: {props.category}</p>

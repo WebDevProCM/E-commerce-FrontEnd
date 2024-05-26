@@ -23,7 +23,7 @@ export const UserProfile = () => {
   return (
     <div className={classes.userProfile}>
       <div className={classes.pictureContainer}>
-        <img className={classes.profileImg} src={`http://localhost:3000/images/users/${user.image}`} alt="profile-pic" />
+        <img className={classes.profileImg} src={`${process.env.REACT_APP_DOMAIN}/images/users/${user.image}`} alt="profile-pic" />
       </div>
       <Form method='post' encType='multipart/form-data'>
         <div className="mb-3">
@@ -85,7 +85,7 @@ export const action = async (data) =>{
     if(userData.password === userData.confirmPassword){
       delete userData.confirmPassword;
     }
-    const response = await axios.patch(`http://localhost:3000/api/user/${id}`, userData, {
+    const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/user/${id}`, userData, {
       headers: {
         'Content-Type': `multipart/form-data`,
       },
@@ -97,7 +97,6 @@ export const action = async (data) =>{
     toast.success("User updated!");
     return (updatedUser);
   }catch(error){
-    console.log(error);
     return error
   }
 

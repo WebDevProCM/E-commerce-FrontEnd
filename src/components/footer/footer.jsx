@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './footer.css'
+import './Footer.css'
 import insta from '../assets/insta.png'
 import facebook from '../assets/facebook.png'
 import twitter from '../assets/twitter.png'
@@ -23,7 +23,7 @@ const Footer = () =>{
                     <div className="social-link">
                         <Link to="/"><img src={insta} alt="social link" style={{width:"12%"}}/></Link>
                         <Link to="/"><img src={facebook} alt="social link" style={{width:"11%"}}/></Link>
-                        <Link to="/"><img src={twitter} alt="social link" style={{width:"9%"}}/></Link>
+                        <Link to="/"><img src={twitter} alt="social link" style={{width:"9%", marginLeft:"5px"}}/></Link>
                     </div>
                 </div>
                 <div className="call-us">

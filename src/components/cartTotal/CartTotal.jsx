@@ -9,15 +9,15 @@ const CartTotal = (props) =>{
                 <div className={classes.total}>
                     <div className={classes.totalDetails}>
                         <p>The subtotal</p>
-                        <p>${props.total}</p>
+                        <p>${parseFloat(props.total).toFixed(2)}</p>
                     </div>
                     <div className={classes.totalDetails}>
                         <p>The Shipping Fee</p>
-                        <p>$0</p>
+                        <p>${parseFloat(0).toFixed(2)}</p>
                     </div>
                     <div className={classes.totalDetails}>
                         <p>The total amount:</p>
-                        <p>${props.total}</p>
+                        <p>${parseFloat(props.total).toFixed(2)}</p>
                     </div>
                     <button type="button" className="btn btn-primary">Go To Checkout</button>
                 </div>

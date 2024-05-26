@@ -35,7 +35,7 @@ export default Product
 export async function loader(data){
     try{
         const itemId = data.params.itemId;
-        const response = await axios.get(`http://localhost:3000/api/product/${itemId}`,{withCredentials: true});
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product/${itemId}`,{withCredentials: true});
         const item = response.data;
         if(item.error){
             throw new Error(item.error);

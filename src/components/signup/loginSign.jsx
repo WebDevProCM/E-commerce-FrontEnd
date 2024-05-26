@@ -26,7 +26,7 @@ const LoginSign = () =>{
     const formSubmitHandler = async (e) =>{
         try{
             e.preventDefault();
-            let url = signCheck? "http://localhost:3000/api/user":"http://localhost:3000/user/login"
+            let url = signCheck? `${process.env.REACT_APP_DOMAIN}/api/user`:`${process.env.REACT_APP_DOMAIN}/user/login`
             let data = signCheck?{name: name, email: email,password: password}:{email: email,password: password};
             const response = await axios.post(url, data, {
                 headers: {
@@ -48,7 +48,7 @@ const LoginSign = () =>{
             return navigate("/", window.scrollTo(0, 0))
             
         }catch(error){
-            console.log(error);
+            toast.error("Something went wrong!");
         }
     }
     return (
@@ -89,7 +89,7 @@ const LoginSign = () =>{
             </div>
 
             <div className="login-right">
-                <img src={`./images/login image.png`} alt="shopping-cart" />
+                <img src={`/images/login image.png`} alt="shopping-cart" />
             </div>
         </div>
     )

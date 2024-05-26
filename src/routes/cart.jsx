@@ -23,7 +23,7 @@ const Cart = () =>{
     
     const removeItem = async (id) =>{
         try{
-            const response = await axios.delete(`http://localhost:3000/api/cart/${id}`, {
+            const response = await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/cart/${id}`, {
                 headers: {
                   'Content-Type': 'application/json'
                 },
@@ -38,7 +38,6 @@ const Cart = () =>{
             setCartItems(newCartItems);
             
         }catch(error){ 
-            console.log(error);
             toast.error(`${error}`, {
                 position: "top-right",
                 autoClose: 5000,
@@ -80,7 +79,7 @@ export default Cart;
 
 export async function loader(){
     try{
-        const response = await axios.get("http://localhost:3000/api/cart", {withCredentials: true});
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/cart`, {withCredentials: true});
         const cartItems = response.data;
         if(response.data.error){
             throw new Error(response.data.error);
