@@ -1,14 +1,14 @@
 import './App.css';
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 import RootLayout from './routes/Layout';
-import Home from './routes/home'
+import Home from './routes/Home'
 import PerfumesCategory, {loader as perfumesLoader} from './routes/PerfumesCategory'
-import Cart, {loader as cartLoader} from './routes/cart'
-import Item, {loader as itemLoader} from './routes/item'
-import Login from './routes/login'
-import ErrorPage from './routes/errorPage';
-import Profile from './routes/profile';
-import {action as profileAction} from './components/userProfile/UserProfile';
+import Cart, {loader as cartLoader} from './routes/Cart'
+import Item, {loader as itemLoader} from './routes/Item'
+import Login from './routes/Login'
+import ErrorPage from './routes/ErrorPage';
+import Profile from './routes/Profile';
+import {action as profileAction} from './components/UserProfile/UserProfile';
 
 function App() {
   

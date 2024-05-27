@@ -2,9 +2,9 @@ import React from "react";
 import { useLoaderData} from "react-router-dom";
 import axios from "axios";
 import './css/items.css'
-import ProductSlides from "../components/productSlides/ProductSlides";
-import ProductDescription from "../components/productDescription/ProductDescription";
-import ProductReview from "../components/productReview/ProductReview";
+import ProductSlides from "../components/ProductSlides/ProductSlides";
+import ProductDescription from "../components/ProductDescription/ProductDescription";
+import ProductReview from "../components/ProductReview/ProductReview";
 
 
 const Product = () =>{

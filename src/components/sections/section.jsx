@@ -1,6 +1,6 @@
 import React from "react";
 import './Section.css'
-import Item from "../productItem/Item";
+import Item from "../ProductItem/Item";
 import { Link } from "react-router-dom";
 
 const MenSection = (props) =>{

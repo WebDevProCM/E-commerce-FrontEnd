@@ -1,8 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
+import Navbar from "../components/Navbar/Navbar"
+import Footer from "../components/Footer/Footer";
 import axios from "axios";
 
 export const CurrentUserContext = createContext(null);

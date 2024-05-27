@@ -5,8 +5,8 @@ import axios from "axios";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import classes from './css/cart.module.css'
-import CartItem from "../components/cartItem/CartItem";
-import CartTotal from "../components/cartTotal/CartTotal";
+import CartItem from "../components/CartItem/CartItem";
+import CartTotal from "../components/CartTotal/CartTotal";
 
 const Cart = () =>{
     const [cartItems, setCartItems] = useState(useLoaderData());

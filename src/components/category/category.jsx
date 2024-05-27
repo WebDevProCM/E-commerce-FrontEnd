@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import './Category.css';
-import Item from '../productItem/Item'
+import Item from '../ProductItem/Item'
 
 
 const Category = (props) =>{

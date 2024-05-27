@@ -1,5 +1,5 @@
 import React from "react";
-import LoginSign from "../components/signup/loginSign";
+import LoginSign from "../components/Signup/LoginSign";
 
 const Login = () =>{
     return (
