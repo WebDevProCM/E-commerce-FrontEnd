@@ -18,7 +18,11 @@ const CartItem = (props) =>{
         try{
             const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/cart/${props.perfume._id}`, data, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
                 },
                 withCredentials: true
             })

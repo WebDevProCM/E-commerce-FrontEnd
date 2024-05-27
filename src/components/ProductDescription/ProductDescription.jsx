@@ -21,7 +21,11 @@ const ProductDescription = (props) =>{
         }
         const response =  await axios.post(`${process.env.REACT_APP_DOMAIN}/api/cart`, data, {
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Origin": true,      
+                "Access-Control-Allow-Headers": true, 
+                "Access-Control-Allow-Methods": true 
             },
             withCredentials: true
         });

@@ -25,7 +25,11 @@ const Cart = () =>{
         try{
             const response = await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/cart/${id}`, {
                 headers: {
-                  'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
                 },
                 withCredentials: true
               })
@@ -79,7 +83,15 @@ export default Cart;
 
 export async function loader(){
     try{
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/cart`, {withCredentials: true});
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/cart`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Origin": true,      
+                "Access-Control-Allow-Headers": true, 
+                "Access-Control-Allow-Methods": true 
+            },
+            withCredentials: true});
         const cartItems = response.data;
         if(response.data.error){
             throw new Error(response.data.error);

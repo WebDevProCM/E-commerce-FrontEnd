@@ -17,7 +17,15 @@ const PerfumesCategory = (props) =>{
 export default PerfumesCategory
 export async function loader(){
     try{
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product`, {withCredentials: true});
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product`, {
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Origin": true,      
+                "Access-Control-Allow-Headers": true, 
+                "Access-Control-Allow-Methods": true 
+            }
+            ,withCredentials: true});
         const data = response.data
         if(data.error){
             throw new Error(data.error);

@@ -35,7 +35,15 @@ export default Product
 export async function loader(data){
     try{
         const itemId = data.params.itemId;
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product/${itemId}`,{withCredentials: true});
+        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product/${itemId}`,{
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true,
+                "Access-Control-Allow-Origin": true,      
+                "Access-Control-Allow-Headers": true, 
+                "Access-Control-Allow-Methods": true 
+            },
+            withCredentials: true});
         const item = response.data;
         if(item.error){
             throw new Error(item.error);

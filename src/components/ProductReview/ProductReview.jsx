@@ -28,7 +28,11 @@ const ProductReview = (props) =>{
             }
             const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/review`, data, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
                 },
                 withCredentials: true
             })
@@ -50,7 +54,15 @@ const ProductReview = (props) =>{
     useEffect(() =>{
         const fetchReviews =async () =>{
             try{
-                const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/review`, {withCredentials: true});
+                const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/review`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Credentials": true,
+                        "Access-Control-Allow-Origin": true,      
+                        "Access-Control-Allow-Headers": true, 
+                        "Access-Control-Allow-Methods": true 
+                    },
+                    withCredentials: true});
                 const allReviews = response.data;
                 if(allReviews.error){
                     return toast.error(allReviews.error);

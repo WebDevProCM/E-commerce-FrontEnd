@@ -30,7 +30,11 @@ const LoginSign = () =>{
             let data = signCheck?{name: name, email: email,password: password}:{email: email,password: password};
             const response = await axios.post(url, data, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
                 },
                 withCredentials: true
             })

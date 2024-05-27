@@ -85,10 +85,15 @@ export const action = async (data) =>{
     if(userData.password === userData.confirmPassword){
       delete userData.confirmPassword;
     }
+    console.log(userData.image)
     const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/user/${id}`, userData, {
       headers: {
-        'Content-Type': `multipart/form-data`,
-      },
+        "Content-Type": "multipart/form-data",
+        "Access-Control-Allow-Credentials": true,
+        "Access-Control-Allow-Origin": true,      
+        "Access-Control-Allow-Headers": true, 
+        "Access-Control-Allow-Methods": true 
+    },
      withCredentials: true});
     const updatedUser = response.data;
     if(updatedUser.error){

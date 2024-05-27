@@ -11,11 +11,15 @@ const Navbar = () =>{
 
     const logoutHandler = async () =>{
         try{
-            const url = "http://localhost:3000/user/logout";
+            const url = `${process.env.REACT_APP_DOMAIN}/user/logout`;
             const value = {name: "smack"};
             const response = await axios.post(url, value, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
                 },
                 withCredentials: true
             });
