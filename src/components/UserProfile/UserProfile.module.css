@@ -1,0 +1,20 @@
+.userProfile{
+    padding:50px 400px;
+}
+.button{
+    margin-right:10px;
+}
+.pictureContainer{
+    text-align: center;
+}
+.profileImg{
+    width:250px;
+    height:250px;
+    border-radius: 50%;
+}
+
+@media only screen and (max-width: 912px) {
+    .userProfile{
+        padding:50px 0px;
+    }
+}
