@@ -24,6 +24,7 @@ const CartItem = (props) =>{
                     "Access-Control-Allow-Headers": true, 
                     "Access-Control-Allow-Methods": true 
                 },
+                credentials: 'include',
                 withCredentials: true
             })
 

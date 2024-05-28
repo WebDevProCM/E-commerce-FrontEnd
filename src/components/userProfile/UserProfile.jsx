@@ -94,7 +94,8 @@ export const action = async (data) =>{
         "Access-Control-Allow-Headers": true, 
         "Access-Control-Allow-Methods": true 
     },
-     withCredentials: true});
+    credentials: 'include',
+    withCredentials: true});
     const updatedUser = response.data;
     if(updatedUser.error){
       return toast.error(updatedUser.error);

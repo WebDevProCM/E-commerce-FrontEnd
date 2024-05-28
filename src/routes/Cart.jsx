@@ -31,6 +31,7 @@ const Cart = () =>{
                     "Access-Control-Allow-Headers": true, 
                     "Access-Control-Allow-Methods": true 
                 },
+                credentials: 'include',
                 withCredentials: true
               })
             const deletedItem = response.data;
@@ -91,6 +92,7 @@ export async function loader(){
                 "Access-Control-Allow-Headers": true, 
                 "Access-Control-Allow-Methods": true 
             },
+            credentials: 'include',
             withCredentials: true});
         const cartItems = response.data;
         if(response.data.error){

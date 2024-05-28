@@ -24,8 +24,9 @@ export async function loader(){
                 "Access-Control-Allow-Origin": true,      
                 "Access-Control-Allow-Headers": true, 
                 "Access-Control-Allow-Methods": true 
-            }
-            ,withCredentials: true});
+            },
+            credentials: 'include',
+            withCredentials: true});
         const data = response.data
         if(data.error){
             throw new Error(data.error);

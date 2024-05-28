@@ -34,6 +34,7 @@ const ProductReview = (props) =>{
                     "Access-Control-Allow-Headers": true, 
                     "Access-Control-Allow-Methods": true 
                 },
+                credentials: 'include',
                 withCredentials: true
             })
 
@@ -62,6 +63,7 @@ const ProductReview = (props) =>{
                         "Access-Control-Allow-Headers": true, 
                         "Access-Control-Allow-Methods": true 
                     },
+                    credentials: 'include',
                     withCredentials: true});
                 const allReviews = response.data;
                 if(allReviews.error){
