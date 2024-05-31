@@ -1,7 +1,8 @@
 .card{
     width:18rem;
     transition:width 0.3s;
-    box-shadow: 1px 1px 15px #E6BE8A;
+    /* box-shadow: 1px 1px 15px #E6BE8A; */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.171);
     margin:1px 5px;
 }
 .card:hover{

@@ -1,5 +1,8 @@
 .navbar{
-    background-color: #E6BE8A;
+    /* background-color: #E6BE8A; */
+    /* background-color: #FFCF9D; */
+    background-color: #e8c99b;
+    background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
     margin-bottom: 0;
 }
 .container-fluid{
@@ -31,10 +34,6 @@
     margin-bottom:0;
     text-align: center;
 }
-.nav-actions button{
-    width: 100px;
-    text-align: left;
-}
 .nav-actions .cart-count{
     width:50px;
     padding-top:10px;
@@ -43,11 +42,13 @@
 .nav-actions .cart-count:hover{
     font-size:1.4rem;
 }
-.nav-actions button{
+.nav-actions button, .nav-actions a{
     margin-top:0;
     background-color: transparent;
     border: none;
     font-weight: bold;
+    width: 100px;
+    text-align: left;
 }
 .dropdown-toggle{
     font-weight: bold;
@@ -73,7 +74,7 @@ a{
     color: black;
 }
 .active{
-    color: #FAFAD2	;
+    color: white;
 }
 
 @media only screen and (min-width: 992px) {
@@ -100,8 +101,8 @@ a{
     .navbar-nav a{
         text-align: left;
     }
-    .dropdown-menu a{
-        padding-left:0;
+    .dropdown-menu a, .dropdown-menu button{
+        padding-left:20px;
     }
     .nav-item{
         text-align: left;

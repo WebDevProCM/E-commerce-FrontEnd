@@ -6,7 +6,10 @@
     flex-wrap: wrap;
 }
 .login-left{
-    background-color: #E6BE8A;
+    /* background-color: #E6BE8A; */
+    /* background-color: #ffe5ca; */
+    background-color: #e8c99b;
+    background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
     box-shadow: 2px 2px 15px black;
     padding:20px 80px;
 }

@@ -14,10 +14,10 @@
     border-radius: 15px;
 }
 .review .stars{
-    margin-left:30px;
+    margin-left:20px;
 }
 .review button{
-    margin-top: 0;
+    margin-top: 10px;
     margin-left:20px;
 }
 .noReviews{

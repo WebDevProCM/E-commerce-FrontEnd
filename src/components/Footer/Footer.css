@@ -1,5 +1,8 @@
 .footer{
-    background-color: #E6BE8A;
+    /* background-color: #E6BE8A; */
+    /* background-color: #ffe5ca; */
+    background-color: #e8c99b;
+    background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
 }
 .contact-us{
     display: flex;
@@ -42,9 +45,10 @@
     margin-right:5px;
     background-color: rgb(49, 49, 49);
     color: white;
+    margin-top:5px;
 }
 .marketing button{
-    margin-top:0;
+    margin-top:5px;
 }
 .follow-us{
     text-align: center;
