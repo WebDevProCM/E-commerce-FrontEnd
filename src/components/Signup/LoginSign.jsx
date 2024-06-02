@@ -67,25 +67,25 @@ const LoginSign = () =>{
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>
                             <input type="text" className="form-control" id="name" name="name" 
-                            placeholder="Fake" value={name} onChange={(e) =>{setName(e.target.value)}} required/>
+                            placeholder="example" value={name} onChange={(e) =>{setName(e.target.value)}} required/>
                         </div>
                     ): ""}
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email address</label>
                         <input type="email" className="form-control" id="email" name="email" 
-                            placeholder="Fake@gmail.com" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
+                            placeholder="example@gmail.com" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
                         <div id="share" className="form-text">We'll never share your email with anyone else.</div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
                         <input type="password" className="form-control" id="password" name="password" 
-                            placeholder="Fake123!" value={password} onChange={(e) =>{setPassword(e.target.value)}} required/>
+                            placeholder="example123" value={password} onChange={(e) =>{setPassword(e.target.value)}} required/>
                     </div>
                     {signCheck ? (
                     <div className="mb-3">
                         <label htmlFor="confirm" className="form-label">Confirm Password</label>
                         <input type="password" className="form-control" id="confirm" name="confirm" 
-                        placeholder="Fake123!" value={confirmPassword} onChange={(e) =>{setConfirmPassword(e.target.value)}} required/>
+                        placeholder="example123" value={confirmPassword} onChange={(e) =>{setConfirmPassword(e.target.value)}} required/>
                     </div>
                     ): ""}
                     <p className="create" onClick={() => handleClick(signCheck)}>{signCheck?"Have an account?" : "Create a account?"}</p>

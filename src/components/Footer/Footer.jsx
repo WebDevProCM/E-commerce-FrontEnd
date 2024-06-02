@@ -28,7 +28,7 @@ const Footer = () =>{
                 </div>
                 <div className="call-us">
                     <p style={{fontWeight: "bold"}}>Call Us</p>
-                    <p>+94 11 111 111</p>
+                    <p>+00 00 000 000</p>
                 </div>
             </div>
             <div className="copyright">

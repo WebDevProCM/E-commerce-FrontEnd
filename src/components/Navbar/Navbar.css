@@ -48,7 +48,7 @@
     border: none;
     font-weight: bold;
     width: 100px;
-    text-align: left;
+    text-align: right;
 }
 .dropdown-toggle{
     font-weight: bold;
@@ -56,6 +56,8 @@
 }
 .dropdown-menu button{
     margin-top: 0;
+    text-align: right;
+    margin-left:15px;
 }
 .navbar-nav li, .nav-actions span, .nav-actions p{
     transition: font-size 0.3s;
@@ -106,5 +108,11 @@ a{
     }
     .nav-item{
         text-align: left;
+    }
+    .nav-actions button, .nav-actions a{
+        text-align: left;
+    }
+    .dropdown-menu button{
+        margin-left:0;
     }
 }

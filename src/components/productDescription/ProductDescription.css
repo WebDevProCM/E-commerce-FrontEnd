@@ -1,6 +1,6 @@
 .description h2{
     font-weight: bold;
-    margin-bottom:20px;
+    margin-bottom:8px;
     font-family: "Poetsen One", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -9,7 +9,8 @@
 .price .newPrice{
     font-weight: bold;
     color: red;
-    font-size:1.2rem;
+    font-size:1.5rem;
+    margin-bottom:2px;
 }
 .price .oldPrice{
     text-decoration: line-through;
@@ -22,7 +23,7 @@
     font-size:1.1rem;
 }
 .details label{
-    margin-top:15px;
+    margin-top:8px;
     display: block;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bold;
@@ -32,14 +33,16 @@
     text-align: center;
 }
 .addCart{
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .addCart button{
-    margin-top:8px;
+    margin-top:10px;
 }
 .tags p{
     font-weight: bold;
     margin-bottom:5px;
+    padding-right:10px;
+    border-right:1px solid black;
 }
 .error{
     color: red;

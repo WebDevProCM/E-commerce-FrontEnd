@@ -6,7 +6,7 @@ const Banner = (props) =>{
         <div className="banner">
             <div className="banner-left">
                 <h2>{props.title}</h2>
-                <p>CheckOut the New Arrivals!</p>
+                <p>Checkout The New Arrivals!</p>
             </div>
             <div className="banner-right">
                 <img src={props.bannerImg} alt="banner" />

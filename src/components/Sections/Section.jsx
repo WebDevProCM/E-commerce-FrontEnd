@@ -13,7 +13,7 @@ const MenSection = (props) =>{
                     {props.perfumes.map((perfume) =>{
                         return <div key={perfume.id} className="col-lg-4">
                             <Link to={`/item/${perfume.id}`}> 
-                                <Item title={perfume.title} category={perfume.category} price={perfume.price} />
+                                <Item perfume={perfume} />
                             </Link>
                         </div>
                     })}

@@ -1,20 +1,29 @@
 [
     {
         "id": "PRODID-1003",
-        "title": "sunlit whisper",
+        "name": "sunlit whisper",
         "price": 54.95,
-        "category": "Women"
+        "category": "Women",
+        "ml":250,
+        "type": "parfume",
+        "status": 1
     },
     {
         "id": "PRODID-1007",
-        "title": "vanilla embrace",
+        "name": "vanilla embrace",
         "price": 72.80,
-        "category": "Women"
+        "category": "Women",
+        "ml":250,
+        "type": "parfume",
+        "status": 1
     },
     {
         "id": "PRODID-1008",
-        "title": "crimson sunset",
+        "name": "crimson sunset",
         "price": 99.00,
-        "category": "Women"
+        "category": "Women",
+        "ml":250,
+        "type": "eau de toilette",
+        "status": 1
     }
 ]

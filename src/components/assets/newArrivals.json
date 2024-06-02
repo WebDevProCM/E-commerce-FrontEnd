@@ -1,20 +1,29 @@
 [
     {
         "id": "PRODID-1016",
-        "title": "whispers of vanilla",
+        "name": "whispers of vanilla",
         "price": 58.75,
-        "category": "Unisex"
+        "category": "Unisex",
+        "ml":500,
+        "type": "eau de toilette",
+        "status": 1
     },
     {
         "id": "PRODID-1017",
-        "title": "fiery ruby",
+        "name": "fiery ruby",
         "price": 110.30,
-        "category": "Women"
+        "category": "Women",
+        "ml":250,
+        "type": "eau fraiche",
+        "status": 1
     },
     {
         "id": "PRODID-1013",
-        "title": "starry nightfall",
+        "name": "starry nightfall",
         "price": 82.10,
-        "category": "Unisex"
+        "category": "Unisex",
+        "ml":250,
+        "type": "eau fraiche",
+        "status": 1
     }
 ]

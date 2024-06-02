@@ -1,20 +1,29 @@
 [
     {
         "id": "PRODID-1005",
-        "title": "mystic forest",
+        "name": "mystic forest",
         "price": 112.30,
-        "category": "Men"
+        "category": "Men",
+        "ml":500,
+        "type": "eau fraiche",
+        "status": 1
     },
     {
         "id": "PRODID-1009",
-        "title": "nomad's leather",
+        "name": "nomad's leather",
         "price": 87.50,
-        "category": "Men"
+        "category": "Men",
+        "ml":100,
+        "type": "eau fraiche",
+        "status": 1
     },
     {
         "id": "PRODID-1015",
-        "title": "forest awakening",
+        "name": "forest awakening",
         "price": 91.40,
-        "category": "Men"
+        "category": "Men",
+        "ml":50,
+        "type": "parfume",
+        "status": 1
     }
 ]

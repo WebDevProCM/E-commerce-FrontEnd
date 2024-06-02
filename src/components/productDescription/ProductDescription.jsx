@@ -58,6 +58,8 @@ const ProductDescription = (props) =>{
             </div>
             <div className="tags">
                 <p>Category: {props.perfume.category}</p>
+                <p>Type: {props.perfume.type}</p>
+                <p>{props.perfume.ml}ML</p>
             </div>
         </div>
     )

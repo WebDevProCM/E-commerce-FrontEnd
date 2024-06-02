@@ -5,6 +5,9 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.171);
     margin:1px 5px;
 }
+.card-title{
+    font-weight: bold;
+}
 .card:hover{
     cursor: pointer;
     width:18.5rem;
@@ -15,4 +18,8 @@
 p{
     display: inline-block;
     margin-right:5px;
+}
+.card-text{
+    display: block;
+    margin-bottom: 0;
 }
