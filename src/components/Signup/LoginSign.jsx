@@ -26,7 +26,10 @@ const LoginSign = () =>{
     const formSubmitHandler = async (e) =>{
         try{
             e.preventDefault();
-            let url = signCheck? `${process.env.REACT_APP_DOMAIN}/api/user`:`${process.env.REACT_APP_DOMAIN}/user/login`
+            let url = signCheck? `${process.env.REACT_APP_DOMAIN}/api/user`:`${process.env.REACT_APP_DOMAIN}/user/login`;
+            if(password !== confirmPassword){
+                return toast.error("Password and Confirm password are different")
+            }
             let data = signCheck?{name: name, email: email,password: password}:{email: email,password: password};
             const response = await axios.post(url, data, {
                 headers: {
