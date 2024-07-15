@@ -11,7 +11,7 @@ const Product = () =>{
     const perfume = useLoaderData();
 
     return(
-        <div className="product">
+        <div className="product" style={{maxWidth:"1500px" , margin:"0 auto"}}>
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item">Home</li>

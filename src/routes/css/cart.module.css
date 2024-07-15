@@ -2,7 +2,11 @@
     padding:30px 50px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
+    gap:20px;
+    max-width:1400px;
+    margin: 0 auto;
 }
 .title{
     font-size:2rem;
@@ -17,13 +21,14 @@
 }
 .cartCheckout{
     text-align: center;
+    margin: 0 auto;
 }
 .showError{
     position: fixed;
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
     .cart{
-        justify-content: center;
+        padding:30px 10px;
     }
     .cartAllItems{
         margin-right:10px;

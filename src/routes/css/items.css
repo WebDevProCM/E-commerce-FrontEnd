@@ -27,4 +27,7 @@ nav{
     .details{
         width: 100%;
     }
+    .product{
+        padding:80px 20px;
+    }
 }

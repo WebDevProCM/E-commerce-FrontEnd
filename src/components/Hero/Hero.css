@@ -7,6 +7,10 @@
     background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
 
 }
+.row{
+    max-width:1500px;
+    margin: 0 auto;
+}
 .hero-left{
     margin:auto;
 }
@@ -29,6 +33,10 @@
     font-weight: bold;
     margin-top:20px;
 }
+.hero-right img{
+    max-width:100%;
+}
+
 @media only screen and (max-width: 912px) {
     .hero{
         padding:50px;
@@ -42,7 +50,7 @@
         margin-bottom:10px;
     }
     .hero-right img{
-        width:80%;
+        max-width:80%;
     }
 }
 @media only screen and (max-width: 500px) {

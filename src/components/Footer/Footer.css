@@ -1,28 +1,33 @@
+.footer-main{
+    background-color: #e8c99b;
+    background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
+}
 .footer{
     /* background-color: #E6BE8A; */
     /* background-color: #ffe5ca; */
     background-color: #e8c99b;
     background-image: linear-gradient(315deg, #e8c99b 0%, #e8bc85 74%);
+    max-width:1500px;
+    margin:0 auto;
 }
 .contact-us{
     display: flex;
     flex-direction: row;
+    gap:80px;
     flex-wrap: wrap;
     justify-content: center;
     padding:80px 50px;
 }
 
 .title, .marketing{
-    flex: 1;
-    flex-shrink: 0;
-    flex-grow: 1;
+    max-width:100%;
     text-align: center;
     margin-top:20px;
 }
 .follow-us, .call-us{
     text-align: center;
     margin-top:20px;
-    width:250px;
+    max-width:100%;
 }
 .title h3{
     font-weight: bold;
@@ -35,6 +40,7 @@
     display: block;
 }
 .marketing p{
+    display: block;
     font-weight: bold;
     font-size:1.2rem;
 }
@@ -74,3 +80,10 @@
     text-align: center;
     font-weight: bold;
 }
+
+@media only screen and (max-width: 550px) {
+    .contact-us{
+        gap:40px;
+    }
+}
+

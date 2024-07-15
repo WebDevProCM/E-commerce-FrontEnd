@@ -1,7 +1,9 @@
 .category{
     display: flex;
     flex-direction: row;
-    padding:1px 100px;
+    max-width:1300px;
+    margin: 0 auto;
+    padding:1px 30px;
 }
 .sort-section{
     width:200px;

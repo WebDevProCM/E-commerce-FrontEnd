@@ -27,7 +27,7 @@ const LoginSign = () =>{
         try{
             e.preventDefault();
             let url = signCheck? `${process.env.REACT_APP_DOMAIN}/api/user`:`${process.env.REACT_APP_DOMAIN}/user/login`;
-            if(password !== confirmPassword){
+            if(signCheck && (password !== confirmPassword)){
                 return toast.error("Password and Confirm password are different")
             }
             let data = signCheck?{name: name, email: email,password: password}:{email: email,password: password};

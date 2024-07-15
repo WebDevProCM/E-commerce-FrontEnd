@@ -7,7 +7,7 @@ import axios from "axios";
 const PerfumesCategory = (props) =>{
     const bannerImg = props.bannerImg === 'mensBanner'?mensBanner:womensBanner; 
     return(
-        <div className={props.category}>
+        <div className={props.category} style={{padding:"20px"}}>
             <Banner title={props.bannerTitle} bannerImg={bannerImg}/>
             <Category category={props.category}/>
         </div>
