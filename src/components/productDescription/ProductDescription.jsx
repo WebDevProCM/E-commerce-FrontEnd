@@ -1,14 +1,15 @@
-import React, {useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CurrentUserContext } from "../../routes/Layout";
 import './ProductDescription.css';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const ProductDescription = (props) =>{
     const [showError, setShowError] = useState(undefined);
     const navigate = useNavigate();
-    const {user} = useContext(CurrentUserContext);
+    const user = useSelector((state) => state.auth.user);
+    // const {user} = useContext(CurrentUserContext);
 
     const addToCartHandler = async (prodId) =>{
         if(!user){

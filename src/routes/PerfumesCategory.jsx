@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./css/perfumecategory.module.css"
 import Banner from "../components/Banner/Banner"
 import Category from '../components/Category/Category'
 import mensBanner from '../components/assets/mens-banner.jpg'
@@ -7,7 +8,7 @@ import axios from "axios";
 const PerfumesCategory = (props) =>{
     const bannerImg = props.bannerImg === 'mensBanner'?mensBanner:womensBanner; 
     return(
-        <div className={props.category} style={{padding:"20px"}}>
+        <div className={`${props.category} ${classes.perfumecategory}`}>
             <Banner title={props.bannerTitle} bannerImg={bannerImg}/>
             <Category category={props.category}/>
         </div>

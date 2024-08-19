@@ -1,29 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './UserProfile.module.css'
-import { CurrentUserContext } from '../../routes/Layout'
 import { Form, useActionData } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions } from '../../store/auth-slice'
 
 export const UserProfile = () => {
   const [changePassword, setChangePassword] = useState(false);
   const updatedProfile = useActionData();
-  const {user, setUser} = useContext(CurrentUserContext);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  // const {user, setUser} = useContext(CurrentUserContext);
 
   const clickHandler = () =>{
     setChangePassword((prev) => !prev)
   }
 
   useEffect(() =>{
-    if(updatedProfile && updatedProfile._id){
-      setUser(updatedProfile);
+    if(updatedProfile?._id){
+      // setUser(updatedProfile);
+      dispatch(authActions.userUpdate({data: updatedProfile}));
     }
-  }, [updatedProfile]);
+  }, [updatedProfile, dispatch]);
 
   return (
     <div className={classes.userProfile}>
       <div className={classes.pictureContainer}>
-        <img className={classes.profileImg} src={`${process.env.REACT_APP_DOMAIN}/images/users/${user.image}`} alt="profile-pic" />
+        <img className={classes.profileImg} src={user.image} alt="profile-pic" />
       </div>
       <Form method='post' encType='multipart/form-data'>
         <div className="mb-3">

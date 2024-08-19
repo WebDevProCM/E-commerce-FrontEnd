@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CurrentUserContext } from "../../routes/Layout";
+import React, { useEffect, useState } from "react";
 import {Rating} from 'react-simple-star-rating';
 import {toast } from 'react-toastify';
 import './ProductReview.css'
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ProductReview = (props) =>{
+    const user = useSelector((state) => state.auth.user);
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [description, setDescription] = useState('');
-    const {user, setUser} = useContext(CurrentUserContext);
+    // const {user, setUser} = useContext(CurrentUserContext);
 
     const handleRating = (rate) => {
         setRating(rate)
@@ -43,7 +44,7 @@ const ProductReview = (props) =>{
                 return toast.error(newReview.error);
             }
             toast.success("Review Submitted!");
-            setReviews([newReview, ...reviews]);
+            setReviews( (prev) => [newReview, ...prev]);
         }catch(error){
             toast.error("Something went wrong!");
         }finally{

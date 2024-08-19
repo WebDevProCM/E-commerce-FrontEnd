@@ -1,12 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './loginSign.css'
-import { CurrentUserContext } from "../../routes/Layout";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../store/authActions";
 
 const LoginSign = () =>{
-    const {setUser} = useContext(CurrentUserContext);
+    // const {setUser} = useContext(CurrentUserContext);
+    const dispatch = useDispatch();
     let [signCheck, setSignCheck] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,38 +25,44 @@ const LoginSign = () =>{
         }
         setSignCheck(false)
     }
+
     const formSubmitHandler = async (e) =>{
         try{
             e.preventDefault();
-            let url = signCheck? `${process.env.REACT_APP_DOMAIN}/api/user`:`${process.env.REACT_APP_DOMAIN}/user/login`;
-            if(signCheck && (password !== confirmPassword)){
-                return toast.error("Password and Confirm password are different")
-            }
-            let data = signCheck?{name: name, email: email,password: password}:{email: email,password: password};
-            const response = await axios.post(url, data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                    "Access-Control-Allow-Origin": true,      
-                    "Access-Control-Allow-Headers": true, 
-                    "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-            })
-
-            const responseData = response.data;
-            if(responseData.error){
-                return toast.error(responseData.error);
-            }
             if(signCheck){
+                const url = `${process.env.REACT_APP_DOMAIN}/api/user`;
+                if(signCheck && (password !== confirmPassword)){
+                    return toast.error("Password and Confirm password are different")
+                }
+
+                const data = {name: name, email: email,password: password};
+
+                const response = await axios.post(url, data, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Credentials": true,
+                        "Access-Control-Allow-Origin": true,      
+                        "Access-Control-Allow-Headers": true, 
+                        "Access-Control-Allow-Methods": true 
+                    },
+                    credentials: 'include',
+                    withCredentials: true
+                })
+
+                const responseData = response.data;
+                if(responseData.error){
+                    return toast.error(responseData.error);
+                }
+
                 setSignCheck(false);
                 return toast.success("Please Log In");
             }
-            setUser(responseData);
-            toast.success("Logged in");
-            return navigate("/", window.scrollTo(0, 0))
-            
+
+            const data = {email: email,password: password};
+            // setUser(responseData);
+            dispatch(loginUser(data));
+            navigate("/", window.scrollTo(0, 0))
+        
         }catch(error){
             toast.error("Something went wrong!");
         }

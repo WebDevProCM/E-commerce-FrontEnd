@@ -9,6 +9,7 @@ import Login from './routes/Login'
 import ErrorPage from './routes/ErrorPage';
 import Profile from './routes/Profile';
 import {action as profileAction} from './components/UserProfile/UserProfile';
+import { verifyAuth } from './routes/Profile';
 
 function App() {
   
@@ -26,7 +27,7 @@ function App() {
       {path: "/item/:itemId", loader: itemLoader ,element: <Item />, errorElement: <ErrorPage />},
       {path: "/cart", loader:cartLoader, element: <Cart/>, errorElement: <ErrorPage />},
       {path: "/login", element: <Login/>},
-      {path: "/profile", element: <Profile/>, action: profileAction, errorElement: <ErrorPage />}
+      {path: "/profile", element: <Profile/>, action: profileAction, loader: verifyAuth, errorElement: <ErrorPage />}
     ]}
   ])
 

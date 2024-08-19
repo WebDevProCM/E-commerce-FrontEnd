@@ -1,10 +1,17 @@
 import React from "react";
 import './Item.css'
+import {motion} from 'framer-motion'
 
 const item = (props) =>{
     return(
-    <div className="card" onClick={() =>{window.scrollTo(0,0)}}>
-        <img src={`/images/${props.perfume.name}.jpg`} className="card-img-top" alt="perfume"/>
+    <motion.div 
+    className="card" onClick={() =>{window.scrollTo(0,0)}}
+    whileHover={{scale: 1.1}}
+    transition={{type: "spring"}}
+    >   
+        <div className="img-container">
+            <img src={`/images/${props.perfume.name}.jpg`} className="card-img-top" alt="perfume"/>
+        </div>
         <div className="card-body">
             <h5 className="card-title">{props.perfume.name}</h5>
             <p className="card-text">Category: {props.perfume.category}</p>
@@ -21,7 +28,7 @@ const item = (props) =>{
                 {props.perfume.status !== 1 ?"Unavailable": "Available"}
             </div>
         </div>
-    </div>
+    </motion.div>
         
     )
 }

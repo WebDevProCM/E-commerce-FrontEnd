@@ -17,7 +17,6 @@
 .hero-left h3{
     text-align: center;
     padding-left:20px;
-    width:500px;
     text-align: left;
     font-size: 4rem;
     font-family: "Freeman", sans-serif;
@@ -25,8 +24,10 @@
     font-style: normal;
 }
 .hero-left p{
+    color: white;
+    font-weight: bold;
     width:100%;
-    margin-bottom:50px;
+    margin-bottom:30px;
 }
 .hero-left a{
     text-decoration: none;
@@ -37,12 +38,30 @@
     max-width:100%;
 }
 
-@media only screen and (max-width: 912px) {
+@media screen and (max-width: 1024px) {
     .hero{
         padding:50px;
     }
     .hero-left h3{
-        width:100%;
+        font-size: 3rem;
+        text-align: center;
+    }
+    .hero-left a{
+        margin-top:0px;
+        margin-bottom:10px;
+    }
+    .hero-right{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .hero-right img{
+        max-width:80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-left h3{
         text-align: center;
     }
     .hero-left a{
@@ -53,8 +72,16 @@
         max-width:80%;
     }
 }
-@media only screen and (max-width: 500px) {
+@media screen and (max-width: 568px) {
+    .hero{
+        padding:30px;
+    
+    }
     .hero-left h3{
-        font-size:2rem;
+        font-size:1.8rem;
+    }
+    .hero-left p{
+        font-size:13px;
+        margin-bottom:20px;
     }
 }

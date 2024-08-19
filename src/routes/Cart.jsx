@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData} from "react-router-dom";
-import { CurrentUserContext } from "./Layout";
 import axios from "axios";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import classes from './css/cart.module.css'
 import CartItem from "../components/CartItem/CartItem";
 import CartTotal from "../components/CartTotal/CartTotal";
+import { motion, AnimatePresence } from "framer-motion"
+import { useDispatch } from "react-redux";
+import { cartActions } from "../store/cart-slice";
 
 const Cart = () =>{
+    const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
-    const {setCartCount} = useContext(CurrentUserContext);
+    // const {setCartCount} = useContext(CurrentUserContext);
     let total = 0;
 
     cartItems.forEach((item) =>{
@@ -18,8 +21,9 @@ const Cart = () =>{
     });
 
     useEffect(() =>{
-        setCartCount(cartItems.length);
-    },[cartItems])
+        // setCartCount( (prev) => cartItems.length);
+        dispatch(cartActions.updateCart({quantity: cartItems.length}));
+    },[cartItems, dispatch])
     
     const removeItem = async (id) =>{
         try{
@@ -67,11 +71,21 @@ const Cart = () =>{
         <>
             <h5 className={classes.title}>My Shopping Cart</h5>
             <div className={classes.cart}>
-                <div className={classes.cartAllItems}>
-                    {cartItems.length < 1? "No Items" : cartItems.map((item) =>{
+                <AnimatePresence mode="wait">
+                <motion.div layout className={classes.cartAllItems}>
+                    {cartItems.length < 1? 
+                        <motion.p 
+                        style={{display: "block", fontWeight: "bold", fontSize: "35px", textAlign:"center"}}
+                        initial={{scaleX: 0}}
+                        animate={{scaleX: 1}}
+                        >
+                            No Items
+                        </motion.p> : 
+                    cartItems.map((item) =>{
                         return <CartItem key={item.product.prodId + Math.random()} perfume={item} onRemoveItem={removeItem} onTotalChange={totalChange} />
                     })}
-                </div>
+                </motion.div>
+                </AnimatePresence>
                 <div className={classes.cartCheckout}>
                     <CartTotal total={total}/>
                 </div>

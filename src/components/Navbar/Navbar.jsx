@@ -1,43 +1,27 @@
-import React, {useContext} from "react";
+import React from "react";
 import { toast } from "react-toastify";
-import { CurrentUserContext } from "../../routes/Layout";
 import './Navbar.css'
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { IoCartOutline } from "react-icons/io5";
+import {motion} from "framer-motion"
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../store/authActions";
 
 const Navbar = () =>{
-    const {user, setUser, cartCount, setCartCount} = useContext(CurrentUserContext);
+    // const {user, setUser, cartCount, setCartCount} = useContext(CurrentUserContext);
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.user);
+    const isAuth = useSelector((state) => state.auth.isAuthenicated);
+    const cart = useSelector((state) => state.cart.quantity);
+    // const {cartCount, setCartCount} = useContext(CurrentUserContext);
     const navigate = useNavigate();
 
     const logoutHandler = async () =>{
-        try{
-            const url = `${process.env.REACT_APP_DOMAIN}/user/logout`;
-            const value = {name: "smack"};
-            const response = await axios.post(url, value, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                    "Access-Control-Allow-Origin": true,      
-                    "Access-Control-Allow-Headers": true, 
-                    "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-            });
-            const data = response.data;
-            if(data.error){
-                return toast.error(data.error);
-            }
-            setUser(undefined);
-            setCartCount(0);
-            toast.success("Logged out successfully");
-            return navigate("/");
-        }catch(error){
-            toast.error("Something went wrong!");
-        }
+        dispatch(logoutUser());
+        return navigate("/", window.scrollTo(0, 0));
     }
     const checkAuth = async () =>{
-        if(!user){
+        if(!isAuth){
             return toast.error("Please Log In");
         }
         return navigate("/cart")
@@ -53,26 +37,34 @@ const Navbar = () =>{
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <NavLink to="/" >
-                    <li className="nav-item">Home</li>
+                    <motion.li whileHover={{scale: 1.1}} className="nav-item">Home</motion.li>
                 </NavLink>
                     {/* <Link to="/" className="nav-link" onClick={() =>{setClicked("home")}}>Home{clicked==="home"?<hr className="active-link"></hr>: ""} </Link> */}
                 <NavLink to="/mens" >
-                    <li className="nav-item">Mens</li>
+                    <motion.li whileHover={{scale: 1.1}} className="nav-item">Mens</motion.li>
                 </NavLink>
                 <NavLink to="/womens" >
-                    <li className="nav-item">Womens</li>
+                    <motion.li whileHover={{scale: 1.1}} className="nav-item">Womens</motion.li>
                 </NavLink>
             </ul>
             <div className="nav-actions">
-                <button onClick={() =>{checkAuth()}} className="cart-count">
-                    <span className="material-symbols-outlined">shopping_cart</span>
-                    <span>{cartCount}</span>
-                </button>
+                <motion.button whileHover={{scale: 1.1}} onClick={() =>{checkAuth()}} className="cart-count">
+                    {/* <span className="material-symbols-outlined">shopping_cart</span> */}
+                    <IoCartOutline size={30}/>
+                    <span>{cart}</span>
+                </motion.button>
                 
                 {user?
                 <div className="dropdown">
-                    <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <p>{user.name}</p>
+                    <button 
+                    className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+    
+                    >
+                        <motion.p
+                        whileHover={{scale: 1.1}}
+                        >
+                            {user.name}
+                        </motion.p>
                     </button>
                     <ul className="dropdown-menu">
                         <li><Link className="dropdown-item" to={"/profile"}>Profile</Link></li>
@@ -80,7 +72,7 @@ const Navbar = () =>{
                     </ul>
                 </div>
                     : 
-                <NavLink to='login'> <p>Sign in</p> </NavLink> 
+                <NavLink to='login'> <motion.p whileHover={{scale: 1.1}}>Sign in</motion.p> </NavLink> 
                 /* {clicked==="sign"?<hr className="active-link"></hr>: ""} */   
                 }
             </div>

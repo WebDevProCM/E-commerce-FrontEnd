@@ -1,16 +1,22 @@
 .card{
-    width:18rem;
+    width:17rem;
     transition:width 0.3s;
     /* box-shadow: 1px 1px 15px #E6BE8A; */
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.171);
     margin:1px 5px;
+    cursor: pointer;
+}
+.img-container{
+    max-width: 17rem;
+    height: 179px;
+    overflow: hidden;
+}
+.card img{
+    max-width: 100%;
 }
 .card-title{
     font-weight: bold;
-}
-.card:hover{
-    cursor: pointer;
-    width:18.5rem;
+    text-transform: uppercase;
 }
 .card-link+.card-link{
     margin-left:0;

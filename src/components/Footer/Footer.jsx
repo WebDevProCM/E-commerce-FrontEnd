@@ -1,14 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import './Footer.css'
-import insta from '../assets/insta.png'
-import facebook from '../assets/facebook.png'
-import twitter from '../assets/twitter.png'
-import { FaInstagram } from "react-icons/fa";
+import { CiInstagram } from "react-icons/ci";
 import { CiFacebook } from "react-icons/ci";
-import { TiSocialTwitterCircular } from "react-icons/ti";
+import { CiTwitter } from "react-icons/ci";
 
-const Footer = () =>{
+const Footer = memo(function Footer(){
     return(
         <div className="footer-main">
             <div className="footer">
@@ -25,9 +22,9 @@ const Footer = () =>{
                     <div className="follow-us">
                         <p>Follow Us</p>
                         <div className="social-link">
-                            <Link to="/"><FaInstagram size={25}/></Link>
+                            <Link to="/"><CiInstagram size={27}/></Link>
                             <Link to="/"><CiFacebook size={27}/></Link>
-                            <Link to="/"><TiSocialTwitterCircular size={30}/></Link>
+                            <Link to="/"><CiTwitter size={27}/></Link>
                         </div>
                     </div>
                     <div className="call-us">
@@ -41,6 +38,6 @@ const Footer = () =>{
             </div>
         </div>
     )
-}
+})
 
 export default Footer

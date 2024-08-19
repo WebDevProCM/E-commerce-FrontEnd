@@ -49,3 +49,9 @@
         font-size:0.6rem;
     }
 }    
+
+@media only screen and (max-width: 355px) {
+    .category{
+        padding:1px;
+    }
+}

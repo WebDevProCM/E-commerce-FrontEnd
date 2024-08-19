@@ -1,10 +1,38 @@
 .men-section{
+    overflow: hidden;
     padding-top:100px;
     padding-bottom:50px;
     text-align: center;
     background-color: #11235A;
     color: white;
     height:100%;
+}
+.h1-new{
+    margin: auto;
+    text-align: left;
+    font-size:8rem;
+    background: #000000;
+    background: linear-gradient(to bottom, #000000 41%, #FFFFFF 72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.h1-men{
+    margin: auto;
+    text-align: left;
+    font-size:8rem;
+    background: white;
+    background: linear-gradient(to bottom, white 41%, rgb(17, 35, 90) 72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.h1-women{
+    margin: auto;
+    text-align: left;
+    font-size:6rem;
+    background: white;
+    background: linear-gradient(to bottom, white 41%, rgb(157, 101, 201) 72%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .section{
     margin-top:50px;
@@ -27,5 +55,20 @@ button{
 @media only screen and (max-width: 991px) {
     .men-section{
         height:100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .h1-new, .h1-men, .h1-women{
+        font-size: 5rem;
+    }
+    .h1-women{
+        font-size: 4rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .h1-new, .h1-men, .h1-women{
+        font-size: 2.5rem;
     }
 }

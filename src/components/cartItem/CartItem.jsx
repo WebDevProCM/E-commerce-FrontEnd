@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import classes from './CartItem.module.css'
 import axios from "axios";
+import {motion} from "framer-motion"
 
 
 const CartItem = (props) =>{
@@ -13,7 +14,7 @@ const CartItem = (props) =>{
             quantity: event.target.value
         }
         if(event.target.value === ''){
-            return setQuantity(0)
+            return setQuantity((prev) => 0)
         }
         try{
             const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/cart/${props.perfume._id}`, data, {
@@ -31,10 +32,10 @@ const CartItem = (props) =>{
             const updateItem = response.data;
             if(updateItem.error){
                 setShowError(updateItem.error);
-                return setQuantity(event.target.value);
+                return setQuantity( (prev) => event.target.value);
             }
             props.onTotalChange(updateItem);
-            setQuantity(updateItem.quantity);
+            setQuantity( (prev) => updateItem.quantity);
             setShowError(undefined);
         }catch(error){
             toast.error("Something went wrong!");
@@ -42,7 +43,11 @@ const CartItem = (props) =>{
     }
     
     return(
-        <div className={classes.cartItem}>
+        <motion.div className={classes.cartItem}
+        initial={{x: -100, opacity: 0}}
+        animate={{x:0 , opacity: 1}}
+        exit={{x: -100, opacity: 0}}
+        >
 
            <div className={classes.itemDetails}>
                 <img className={classes.cartImage} src={`./images/${props.perfume.product.name}.jpg`} alt="cart-item" />
@@ -63,7 +68,7 @@ const CartItem = (props) =>{
             <p className={classes.priceTag}>${parseFloat(props.perfume.total).toFixed(2)}</p>
             
            </div>
-        </div>
+        </motion.div>
     )
 }
 

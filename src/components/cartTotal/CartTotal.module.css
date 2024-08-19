@@ -38,3 +38,9 @@
     margin-top:0;
     margin-left:5px;
 }
+
+@media only screen and (max-width: 355px) {
+    .promo button{
+        margin-top:10px;
+    }
+}

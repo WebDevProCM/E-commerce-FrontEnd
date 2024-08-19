@@ -9,7 +9,7 @@ import ProductReview from "../components/ProductReview/ProductReview";
 
 const Product = () =>{
     const perfume = useLoaderData();
-
+    console.log(perfume);
     return(
         <div className="product" style={{maxWidth:"1500px" , margin:"0 auto"}}>
             <nav aria-label="breadcrumb">
