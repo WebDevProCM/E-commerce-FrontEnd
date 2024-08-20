@@ -7,9 +7,9 @@ import {motion, AnimatePresence} from "framer-motion"
 const ProductCard = ({perfume}) =>{
     return (
         <motion.div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}
-        initial={{scaleX: 0}}
-        animate={{scaleX: 1}}
-        exit={{scaleX: 0}}
+        initial={{opacity: 0, scale: 0}}
+        animate={{opacity: 1, scale:1}}
+        exit={{opacity: 0, scale: 0}}
         >
             <Link to={`/item/${perfume.prodId}`}> <Item perfume={perfume}/> </Link>
         </motion.div>
@@ -89,7 +89,7 @@ const Category = (props) =>{
             <SortSection typeClickHandler={typeClickHandler} mlClickHandler={mlClickHandler}/>
             <div className="items">
                 <motion.div layout className="row">
-                    <AnimatePresence mode="sync">
+                    <AnimatePresence mode="wait">
                     {allPerfumes.map((perfume) =>{
                         if((typeSort.length < 1 && mlSort.length < 1) && (props.category===perfume.category || "Unisex"===perfume.category)){
                             return  <ProductCard key={perfume._id} perfume={perfume} />

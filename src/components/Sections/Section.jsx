@@ -26,8 +26,8 @@ const MenSection = (props) =>{
                 >
                     {props.perfumes.map((perfume) =>{
                         return <motion.div key={perfume.id} className="col-lg-4" 
-                        initial={{scaleY: 0}}
-                        whileInView={{scaleY: 1}}
+                        initial={{opacity: 0}}
+                        whileInView={{opacity: 1}}
                         transition= {{type:"spring"}}
                         viewport={{once: true}}
                         >
