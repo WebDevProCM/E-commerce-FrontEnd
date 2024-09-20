@@ -1,0 +1,33 @@
+p, button{
+    margin: 0;
+}
+
+.ordContainer{
+    display: flex;
+    gap:15px;
+    max-width: 800px;
+    flex-direction: column;
+    padding:10px;
+    border-bottom:1px solid rgba(0, 0, 0, 0.459);
+    margin:20px auto;
+}
+
+.ordHeadCont{
+    color:rgb(70, 70, 70);
+}
+
+.ordHead{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size:14px;
+    text-transform: uppercase;
+}
+
+.ordFooter{
+    display: flex;
+    padding:0 10px;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size:16px;
+}

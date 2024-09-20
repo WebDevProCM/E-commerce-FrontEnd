@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './loginSign.css'
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/authActions";
 
 const LoginSign = () =>{
     // const {setUser} = useContext(CurrentUserContext);
     const dispatch = useDispatch();
+    const isLogin = useSelector((state) => state.auth.isAuthenicated);
+    const navigate =  useNavigate();
+
     let [signCheck, setSignCheck] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
-    const navigate =  useNavigate();
+
+    useEffect(() =>{
+        if(isLogin){
+            return navigate("/");
+        }
+    }, [isLogin]);
 
     const handleClick = (sign) =>{
         setEmail('');
@@ -61,7 +69,6 @@ const LoginSign = () =>{
             const data = {email: email,password: password};
             // setUser(responseData);
             dispatch(loginUser(data));
-            navigate("/", window.scrollTo(0, 0))
         
         }catch(error){
             toast.error("Something went wrong!");

@@ -1,0 +1,24 @@
+main{
+    padding:50px 0;
+}
+
+.OrdersContainer{
+    padding:40px 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1{
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 1000px) {
+    main{
+        padding:50px 0;
+    }
+
+
+}

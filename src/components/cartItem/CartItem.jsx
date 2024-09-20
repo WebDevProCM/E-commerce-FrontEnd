@@ -50,7 +50,7 @@ const CartItem = (props) =>{
         >
 
            <div className={classes.itemDetails}>
-                <img className={classes.cartImage} src={`./images/${props.perfume.product.name}.jpg`} alt="cart-item" />
+                <img className={classes.cartImage} src={props.perfume.product.image.startsWith("https")?`${props.perfume.product.image}` : `/images/${props.perfume.product.image}.jpg`} alt="cart-item" />
                 <div className={classes.details}>
                     <h3>{props.perfume.product.name}</h3>
                     <p>Category: {props.perfume.product.category}</p>

@@ -68,6 +68,7 @@ const Navbar = () =>{
                     </button>
                     <ul className="dropdown-menu">
                         <li><Link className="dropdown-item" to={"/profile"}>Profile</Link></li>
+                        <li><Link className="dropdown-item" to={"/orders"}>My orders</Link></li>
                         <li><button className="dropdown-item" onClick={logoutHandler}>Log Out</button></li>
                     </ul>
                 </div>

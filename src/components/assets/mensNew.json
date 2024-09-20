@@ -4,6 +4,7 @@
         "name": "mystic forest",
         "price": 112.30,
         "category": "Men",
+        "image": "mystic forest",
         "ml":500,
         "type": "eau fraiche",
         "status": 1
@@ -13,6 +14,7 @@
         "name": "nomad's leather",
         "price": 87.50,
         "category": "Men",
+        "image": "nomad's leather",
         "ml":100,
         "type": "eau fraiche",
         "status": 1
@@ -22,6 +24,7 @@
         "name": "forest awakening",
         "price": 91.40,
         "category": "Men",
+        "image": "forest awakening",
         "ml":50,
         "type": "parfume",
         "status": 1

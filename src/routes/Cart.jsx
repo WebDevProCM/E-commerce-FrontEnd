@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData} from "react-router-dom";
+import { useLoaderData, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,6 +13,7 @@ import { cartActions } from "../store/cart-slice";
 const Cart = () =>{
     const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
+    const navigation = useNavigate();
     // const {setCartCount} = useContext(CurrentUserContext);
     let total = 0;
 
@@ -67,6 +68,33 @@ const Cart = () =>{
         toast.success("Cart Updated!");
     }
 
+    const clickHandler = async () =>{
+        let orderItems = []
+        cartItems.map((item) => orderItems.push({prodId: item.product.prodId, quantity: item.quantity}));
+        const requestData = {products: orderItems}
+        try{
+            const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/order`, requestData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                    "Access-Control-Allow-Origin": true,      
+                    "Access-Control-Allow-Headers": true, 
+                    "Access-Control-Allow-Methods": true 
+                },
+                credentials: 'include',
+                withCredentials: true});
+            const data = response.data
+            if(data.error){
+                return toast.error(data.error);
+            }
+
+            return navigation("/orders");
+            
+        }catch(error){
+            throw new Error(error);
+        }
+    }
+
     return (
         <>
             <h5 className={classes.title}>My Shopping Cart</h5>
@@ -87,7 +115,7 @@ const Cart = () =>{
                 </motion.div>
                 </AnimatePresence>
                 <div className={classes.cartCheckout}>
-                    <CartTotal total={total}/>
+                    <CartTotal total={total} clickHandler={clickHandler}/>
                 </div>
             </div>
         </>
@@ -116,4 +144,8 @@ export async function loader(){
     }catch(error){
         throw new Error(error);
     }
+}
+
+export async function action(){
+
 }

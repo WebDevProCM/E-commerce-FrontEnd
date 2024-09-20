@@ -79,6 +79,7 @@
     }
     .hero-left h3{
         font-size:1.8rem;
+        padding-left: 0;
     }
     .hero-left p{
         font-size:13px;

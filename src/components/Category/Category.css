@@ -7,10 +7,17 @@
 }
 .sort-section{
     width:200px;
+    height:550px;
+    border-radius: 20px;
+    padding:0 20px;
+    background-color: rgb(231, 231, 231);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }
 .sort-section h4{
     font-weight: bold;
-    margin-bottom:20px;
 }
 .items{
     flex: 1;
@@ -22,7 +29,7 @@
 .sort{
     display: block;
     font-weight: bold;
-    font-size:1.2rem;
+    font-size:1rem;
     margin-bottom:20px;
 }
 .sort label{
@@ -38,11 +45,27 @@
     .sort{
         font-size:0.5rem;
         display: inline-block;
-        margin-left:15px;
+        margin-left:5px;
+        margin-bottom: 5px;
         text-align: center;
     }
     .sort-section{
         width:100%;
+        height:100%;
+        padding:20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: start;
+        align-items: start;
+    }
+    .sort-type{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .sort-section h4{
+        font-weight: bold;
+        font-size:0.9rem;
     }
     .sort label{
         margin-right:2px;
@@ -50,8 +73,11 @@
     }
 }    
 
-@media only screen and (max-width: 355px) {
+@media only screen and (max-width: 450px) {
     .category{
         padding:1px;
+    }
+    .sort-section{
+        padding:10px 20px;
     }
 }

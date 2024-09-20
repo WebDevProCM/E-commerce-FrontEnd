@@ -1,0 +1,11 @@
+dialog{
+    border: none;
+    border-radius: 20px;
+    width:600px;
+    padding:20px;
+    margin: 10px auto;
+}
+
+.modal-footer{
+  gap:10px;
+}

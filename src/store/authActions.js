@@ -18,7 +18,6 @@ export const verifyUser = () =>{
             withCredentials: true });
             const data = response.data;
             if(data.error){
-            console.log(data.error)
             throw new Error("Verifying user failed!");
             }
 
@@ -62,6 +61,9 @@ export const loginUser = (data) =>{
         try{
             const responseData = await sendingRequest();
             if(responseData.error || !responseData){
+                if(responseData.error){
+                    throw Error(responseData.error)
+                }
                 throw Error("User login failed!")
             }
         
@@ -69,8 +71,9 @@ export const loginUser = (data) =>{
             toast.success("Logged in");
             
         }catch(error){
-            return toast.error("Something went wrong!");
+            return toast.error(error.message);
         }
+
     }
 }
 
@@ -93,7 +96,6 @@ export const logoutUser = () =>{
 
             const data = response.data;
             if(data.error){
-                console.log(data.error)
                 throw new Error("user logging out failed!");
             }
         }
@@ -104,7 +106,7 @@ export const logoutUser = () =>{
             dispatch(cartActions.updateCart({quantity: 0, item: []}));
             toast.success("Logged out successfully");
         }catch(error){
-            toast.error("Something went wrong!");
+            toast.error("something went wrong!");
         }
     }
 }

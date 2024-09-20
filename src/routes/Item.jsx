@@ -9,7 +9,7 @@ import ProductReview from "../components/ProductReview/ProductReview";
 
 const Product = () =>{
     const perfume = useLoaderData();
-    console.log(perfume);
+
     return(
         <div className="product" style={{maxWidth:"1500px" , margin:"0 auto"}}>
             <nav aria-label="breadcrumb">
@@ -20,7 +20,7 @@ const Product = () =>{
                 </ol>
             </nav>
             <div className="product-body">
-                <ProductSlides className="slides" title={perfume.name}/>
+                <ProductSlides className="slides" title={perfume.name} image={perfume.image}/>
                 
                 <ProductDescription classNamed="details" perfume={perfume}
                 />
@@ -32,9 +32,9 @@ const Product = () =>{
 
 export default Product
 
-export async function loader(data){
+export async function loader({request, params}){
     try{
-        const itemId = data.params.itemId;
+        const itemId = params.itemId;
         const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product/${itemId}`,{
             headers: {
                 "Content-Type": "application/json",

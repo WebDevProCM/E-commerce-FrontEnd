@@ -10,12 +10,21 @@ import ErrorPage from './routes/ErrorPage';
 import Profile from './routes/Profile';
 import {action as profileAction} from './components/UserProfile/UserProfile';
 import { verifyAuth } from './routes/Profile';
+import Orders from './routes/Orders.jsx';
+import { loader as loadOrders } from './routes/Orders.jsx';
+import Admin, { action as adminLogoutAction, loader as verifyAuthAdmin } from './routes/Admin.jsx';
+import AdminOrders, { loader as adminOrdLoader } from './components/Admin/Orders/AdminOrders.jsx';
+import { action as adminOrdAction } from './components/Admin/Orders/AdminOrders.jsx';
+import AdminCustomers, { action as adminCusAction, loader as adminCusLoader } from './components/Admin/Customers/AdminCustomers.jsx';
+import AdminReviews, { action as adminRevAction, loader as adminRevLoader } from './components/Admin/Reviews/AdminReviews.jsx';
+import AdminLogin, { action as adminLoginAction, loader as adminLoginLoader } from './components/Admin/Login/AdminLogin.jsx';
+import AdminProducts, { action as adminProductsAction, loader as adminProductsLoader } from './components/Admin/Products/AdminProducts.jsx';
 
 function App() {
   
   const router = createBrowserRouter([
     {path: "/", element: <RootLayout/>, children: [
-      {path: "/", element: <Home/>},
+      {index: true, element: <Home/>},
       {path: "/mens", loader:perfumesLoader, element: <PerfumesCategory 
         category='Men' bannerTitle='Trending Mens Perfume' bannerImg='mensBanner'/>, 
         errorElement: <ErrorPage />},
@@ -27,8 +36,16 @@ function App() {
       {path: "/item/:itemId", loader: itemLoader ,element: <Item />, errorElement: <ErrorPage />},
       {path: "/cart", loader:cartLoader, element: <Cart/>, errorElement: <ErrorPage />},
       {path: "/login", element: <Login/>},
-      {path: "/profile", element: <Profile/>, action: profileAction, loader: verifyAuth, errorElement: <ErrorPage />}
-    ]}
+      {path: "/profile", element: <Profile/>, action: profileAction, loader: verifyAuth, errorElement: <ErrorPage />},
+      {path: "/orders", element: <Orders />, errorElement: <ErrorPage />, loader: loadOrders}
+    ]},
+    {path: "/admin", element: <Admin />, loader: verifyAuthAdmin, action: adminLogoutAction, errorElement: <ErrorPage />, children: [
+      {path: "orders", element: <AdminOrders />, action: adminOrdAction, loader: adminOrdLoader, errorElement: <ErrorPage />},
+      {path: "customers", element: <AdminCustomers />, action: adminCusAction, loader: adminCusLoader, errorElement: <ErrorPage />},
+      {path: "reviews", element: <AdminReviews />, action: adminRevAction, loader: adminRevLoader, errorElement: <ErrorPage />},
+      {path: "products", element: <AdminProducts />, action: adminProductsAction, loader: adminProductsLoader, errorElement: <ErrorPage />},
+    ]},
+    {path: "/admin/login", element: <AdminLogin />, action: adminLoginAction, loader: adminLoginLoader ,errorElement: <ErrorPage />},
   ])
 
   return (

@@ -25,3 +25,9 @@
     text-align: center;
     margin: 30px;
 }
+
+.blockquote{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}

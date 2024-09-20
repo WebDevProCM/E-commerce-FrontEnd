@@ -4,6 +4,7 @@
         "name": "whispers of vanilla",
         "price": 58.75,
         "category": "Unisex",
+        "image": "whispers of vanilla",
         "ml":500,
         "type": "eau de toilette",
         "status": 1
@@ -13,6 +14,7 @@
         "name": "fiery ruby",
         "price": 110.30,
         "category": "Women",
+        "image": "fiery ruby",
         "ml":250,
         "type": "eau fraiche",
         "status": 1
@@ -22,6 +24,7 @@
         "name": "starry nightfall",
         "price": 82.10,
         "category": "Unisex",
+        "image": "starry nightfall",
         "ml":250,
         "type": "eau fraiche",
         "status": 1

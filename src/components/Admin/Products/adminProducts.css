@@ -1,0 +1,30 @@
+.sign{
+    width: 100%;
+}
+
+.detailsBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap:10px;
+    color: rgb(58, 58, 58);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+  
+.detailsBody p{
+font-size:15px;
+}
+  
+.detailsBodyText{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+    gap:20px;
+}
+  
+.detailsBody img{
+    max-width:100px;
+}

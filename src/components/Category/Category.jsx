@@ -19,39 +19,46 @@ const ProductCard = ({perfume}) =>{
 const SortSection = memo(function SortSection({mlClickHandler, typeClickHandler}){
     return(
     <div className="sort-section">
-        <h4>SORT-</h4>
-        <div className="sort">
-            <label htmlFor="500">500ML</label>
-            <input type="checkbox" name="500" id="500" value='500' onChange={mlClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="250">250ML</label>
-            <input type="checkbox" name="250" id="250" value='250' onChange={mlClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="100">100ML</label>
-            <input type="checkbox" name="100" id="100" value='100' onChange={mlClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="50">50ML</label>
-            <input type="checkbox" name="50" id="50" value='50' onChange={mlClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="cologne">Eau de Cologne</label>
-            <input type="checkbox" name="Cologne" id="cologne" value='eau de cologne' onClick={typeClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="parfume">Parfum</label>
-            <input type="checkbox" name="Parfum" id="parfume"  value='parfume' onClick={typeClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="toilette">Eau de Toilette</label>
-            <input type="checkbox" name="Toilette" id="toilette" value='eau de toilette'  onClick={typeClickHandler}/>
-        </div>
-        <div className="sort">
-            <label htmlFor="fraiche">Eau Fraiche</label>
-            <input type="checkbox" name="Fraiche" id="fraiche" value='eau fraiche'  onClick={typeClickHandler}/>
-        </div>
+        <section className="sort-type">
+            <h4>ML-</h4>
+            <div className="sort">
+                <label htmlFor="500">500ML</label>
+                <input type="checkbox" name="500" id="500" value='500' onChange={mlClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="250">250ML</label>
+                <input type="checkbox" name="250" id="250" value='250' onChange={mlClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="100">100ML</label>
+                <input type="checkbox" name="100" id="100" value='100' onChange={mlClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="50">50ML</label>
+                <input type="checkbox" name="50" id="50" value='50' onChange={mlClickHandler}/>
+            </div>
+        </section>
+
+        <section className="sort-type">
+            <h4>TYPE-</h4>
+            <div className="sort">
+                <label htmlFor="cologne">Eau de Cologne</label>
+                <input type="checkbox" name="Cologne" id="cologne" value='eau de cologne' onClick={typeClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="parfume">Parfum</label>
+                <input type="checkbox" name="Parfum" id="parfume"  value='parfume' onClick={typeClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="toilette">Eau de Toilette</label>
+                <input type="checkbox" name="Toilette" id="toilette" value='eau de toilette'  onClick={typeClickHandler}/>
+            </div>
+            <div className="sort">
+                <label htmlFor="fraiche">Eau Fraiche</label>
+                <input type="checkbox" name="Fraiche" id="fraiche" value='eau fraiche'  onClick={typeClickHandler}/>
+            </div>
+
+        </section>
 
     </div>
     )

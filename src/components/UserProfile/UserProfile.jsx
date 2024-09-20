@@ -27,7 +27,7 @@ export const UserProfile = () => {
   return (
     <div className={classes.userProfile}>
       <div className={classes.pictureContainer}>
-        <img className={classes.profileImg} src={user.image} alt="profile-pic" />
+        <img className={classes.profileImg} src={user.image.startsWith("https")?`${user.image}` : `/images/${user.image}.png`} alt="profile-pic" />
       </div>
       <Form method='post' encType='multipart/form-data'>
         <div className="mb-3">
@@ -71,9 +71,8 @@ export const UserProfile = () => {
 
 export default UserProfile;
 
-export const action = async (data) =>{
+export const action = async ({request}) =>{
   try{
-    const request = await data.request;
     const formData = await request.formData();
     const userData = Object.fromEntries(formData);
     const id = userData.id;
@@ -89,7 +88,7 @@ export const action = async (data) =>{
     if(userData.password === userData.confirmPassword){
       delete userData.confirmPassword;
     }
-    console.log(userData.image)
+
     const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/user/${id}`, userData, {
       headers: {
         "Content-Type": "multipart/form-data",

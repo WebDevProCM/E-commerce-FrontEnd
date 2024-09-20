@@ -1,0 +1,28 @@
+.titleContainer{
+    display: flex;
+    justify-content: space-between;
+    padding:10px;
+}
+
+.titleContainer h1{
+    margin: 0;
+}
+.adminLogoutForm{
+    display: inline-block;
+    max-width:80px;
+}
+
+
+@media only screen and (max-width: 450px) {
+    .createBtnContainer h1{
+        font-size: 1.3rem;
+    }
+
+    .titleContainer h1{
+        font-size:1.4rem;
+    }
+
+    .admin-nav{
+        font-size:0.7rem;
+    }
+}

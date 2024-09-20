@@ -19,7 +19,10 @@ const CartTotal = (props) =>{
                         <p>The total amount:</p>
                         <p>${parseFloat(props.total).toFixed(2)}</p>
                     </div>
-                    <button type="button" className="btn btn-primary">Go To Checkout</button>
+
+                    <div>
+                        <button type="button" onClick={props.clickHandler} className="btn btn-primary">Go To Checkout</button>
+                    </div>
                 </div>
 
             </div>

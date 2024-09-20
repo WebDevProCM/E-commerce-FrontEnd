@@ -10,7 +10,7 @@ const item = (props) =>{
     transition={{type: "spring"}}
     >   
         <div className="img-container">
-            <img src={`/images/${props.perfume.name}.jpg`} className="card-img-top" alt="perfume"/>
+            <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.jpg`} className="card-img-top" alt="perfume"/>
         </div>
         <div className="card-body">
             <h5 className="card-title">{props.perfume.name}</h5>

@@ -4,6 +4,7 @@
         "name": "sunlit whisper",
         "price": 54.95,
         "category": "Women",
+        "image": "sunlit whisper",
         "ml":250,
         "type": "parfume",
         "status": 1
@@ -13,6 +14,7 @@
         "name": "vanilla embrace",
         "price": 72.80,
         "category": "Women",
+        "image": "vanilla embrace",
         "ml":250,
         "type": "parfume",
         "status": 1
@@ -22,6 +24,7 @@
         "name": "crimson sunset",
         "price": 99.00,
         "category": "Women",
+        "image": "crimson sunset",
         "ml":250,
         "type": "eau de toilette",
         "status": 1
