@@ -1,40 +1,54 @@
-import React from "react";
-import classes from './CartTotal.module.css'
+import React from 'react';
+import classes from './CartTotal.module.css';
 
-const CartTotal = (props) =>{
+const CartTotal = ({ total, clickHandler }) => {
+    const subtotal = parseFloat(total).toFixed(2);
+    const shippingFee = parseFloat(0).toFixed(2);
+
     return (
         <div className={classes.cartTotal}>
-            <div className={classes.checkout}>
+            {/* Checkout Section */}
+            <section className={classes.checkout}>
                 <h3 className={classes.title}>The total amount of</h3>
                 <div className={classes.total}>
-                    <div className={classes.totalDetails}>
-                        <p>The subtotal</p>
-                        <p>${parseFloat(props.total).toFixed(2)}</p>
-                    </div>
-                    <div className={classes.totalDetails}>
-                        <p>The Shipping Fee</p>
-                        <p>${parseFloat(0).toFixed(2)}</p>
-                    </div>
-                    <div className={classes.totalDetails}>
-                        <p>The total amount:</p>
-                        <p>${parseFloat(props.total).toFixed(2)}</p>
-                    </div>
-
-                    <div>
-                        <button type="button" onClick={props.clickHandler} className="btn btn-primary">Go To Checkout</button>
-                    </div>
+                    <TotalDetail label="The subtotal" value={`$${subtotal}`} />
+                    <TotalDetail label="The Shipping Fee" value={`$${shippingFee}`} />
+                    <TotalDetail label="The total amount:" value={`$${subtotal}`} />
+                    <button
+                        type="button"
+                        onClick={clickHandler}
+                        className="btn btn-primary"
+                    >
+                        Go To Checkout
+                    </button>
                 </div>
+            </section>
 
-            </div>
-            <div className={classes.promo}>
-                <form action="">
-                    <label htmlFor="promoInput">Apply Promo Code</label>
-                    <input type="text" name="promo" id="promoInput" />
-                    <button type="button" className="btn btn-dark">Apply</button>
-                </form>
-            </div>
-        </div>  
-    )
-}
+            {/* Promo Code Section */}
+            <section className={classes.promo}>
+                <PromoForm />
+            </section>
+        </div>
+    );
+};
 
-export default CartTotal
+//TotalDetail Component
+const TotalDetail = ({ label, value }) => (
+    <div className={classes.totalDetails}>
+        <p>{label}</p>
+        <p>{value}</p>
+    </div>
+);
+
+//PromoForm Component
+const PromoForm = () => (
+    <form>
+        <label htmlFor="promoInput">Apply Promo Code</label>
+        <input type="text" name="promo" id="promoInput" />
+        <button type="button" className="btn btn-dark">
+            Apply
+        </button>
+    </form>
+);
+
+export default CartTotal;

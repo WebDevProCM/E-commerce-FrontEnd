@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate} from "react-router-dom";
-import axios from "axios";
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import classes from './css/cart.module.css'
@@ -9,12 +8,12 @@ import CartTotal from "../components/CartTotal/CartTotal";
 import { motion, AnimatePresence } from "framer-motion"
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart-slice";
+import apiClient from "../utilis/apiClient";
 
 const Cart = () =>{
     const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
     const navigation = useNavigate();
-    // const {setCartCount} = useContext(CurrentUserContext);
     let total = 0;
 
     cartItems.forEach((item) =>{
@@ -22,23 +21,12 @@ const Cart = () =>{
     });
 
     useEffect(() =>{
-        // setCartCount( (prev) => cartItems.length);
         dispatch(cartActions.updateCart({quantity: cartItems.length}));
     },[cartItems, dispatch])
     
     const removeItem = async (id) =>{
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/cart/${id}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                    "Access-Control-Allow-Origin": true,      
-                    "Access-Control-Allow-Headers": true, 
-                    "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-              })
+            const response = await apiClient.delete(`/api/cart/${id}`);
             const deletedItem = response.data;
             if(deletedItem.error){
                 return toast.error(`${deletedItem.error}`);
@@ -73,16 +61,7 @@ const Cart = () =>{
         cartItems.map((item) => orderItems.push({prodId: item.product.prodId, quantity: item.quantity}));
         const requestData = {products: orderItems}
         try{
-            const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/order`, requestData, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                    "Access-Control-Allow-Origin": true,      
-                    "Access-Control-Allow-Headers": true, 
-                    "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true});
+            const response = await apiClient.post("/api/order", requestData);
             const data = response.data
             if(data.error){
                 return toast.error(data.error);
@@ -126,16 +105,7 @@ export default Cart;
 
 export async function loader(){
     try{
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/cart`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Credentials": true,
-                "Access-Control-Allow-Origin": true,      
-                "Access-Control-Allow-Headers": true, 
-                "Access-Control-Allow-Methods": true 
-            },
-            credentials: 'include',
-            withCredentials: true});
+        const response = await apiClient.get("/api/cart");
         const cartItems = response.data;
         if(response.data.error){
             throw new Error(response.data.error);
@@ -144,8 +114,4 @@ export async function loader(){
     }catch(error){
         throw new Error(error);
     }
-}
-
-export async function action(){
-
 }

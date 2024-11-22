@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import classes from './CartItem.module.css'
-import axios from "axios";
 import {motion} from "framer-motion"
+import apiClient from "../../utilis/apiClient";
 
 
 const CartItem = (props) =>{
@@ -14,34 +14,24 @@ const CartItem = (props) =>{
             quantity: event.target.value
         }
         if(event.target.value === ''){
-            return setQuantity((prev) => 0)
+            return setQuantity(() => 0)
         }
         try{
-            const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/cart/${props.perfume._id}`, data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Credentials": true,
-                    "Access-Control-Allow-Origin": true,      
-                    "Access-Control-Allow-Headers": true, 
-                    "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-            })
+            const response = await apiClient.patch(`/api/cart/${props.perfume._id}`, data);
 
             const updateItem = response.data;
-            if(updateItem.error){
+            if(updateItem?.error){
                 setShowError(updateItem.error);
-                return setQuantity( (prev) => event.target.value);
+                return setQuantity(() => event.target.value);
             }
             props.onTotalChange(updateItem);
-            setQuantity( (prev) => updateItem.quantity);
-            setShowError(undefined);
+            setQuantity( () => updateItem.quantity);
         }catch(error){
             toast.error("Something went wrong!");
         }
     }
     
+    const product = props.perfume.product;
     return(
         <motion.div className={classes.cartItem}
         initial={{x: -100, opacity: 0}}
@@ -50,11 +40,11 @@ const CartItem = (props) =>{
         >
 
            <div className={classes.itemDetails}>
-                <img className={classes.cartImage} src={props.perfume.product.image.startsWith("https")?`${props.perfume.product.image}` : `/images/${props.perfume.product.image}.jpg`} alt="cart-item" />
+                <img className={classes.cartImage} src={product.image.startsWith("https")?`${product.image}` : `/images/${product.image}.jpg`} alt="cart-item" />
                 <div className={classes.details}>
-                    <h3>{props.perfume.product.name}</h3>
-                    <p>Category: {props.perfume.product.category}</p>
-                    <p>Type: {props.perfume.product.type}</p>
+                    <h3>{product.name}</h3>
+                    <p>Category: {product.category}</p>
+                    <p>Type: {product.type}</p>
                     <button onClick={() => {props.onRemoveItem(props.perfume._id)}}>Remove</button>
                 </div>
            </div>
@@ -73,4 +63,3 @@ const CartItem = (props) =>{
 }
 
 export default CartItem
-// {require(`../assets/${props.perfume.product.name}.jpg`)}
