@@ -1,4 +1,4 @@
-.men-section{
+.All-section{
     overflow: hidden;
     padding-top:100px;
     padding-bottom:50px;
@@ -56,7 +56,7 @@ button{
 }
 
 @media only screen and (max-width: 991px) {
-    .men-section{
+    .All-section{
         height:100%;
     }
     

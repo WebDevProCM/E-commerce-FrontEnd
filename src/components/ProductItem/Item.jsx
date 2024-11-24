@@ -1,29 +1,29 @@
 import React from "react";
-import './Item.css'
+import classes from './Item.module.css'
 import {motion} from 'framer-motion'
 
 const item = (props) =>{
     return(
     <motion.div 
-    className="card" onClick={() =>{window.scrollTo(0,0)}}
+    className={`${classes.card} card`} onClick={() =>{window.scrollTo(0,0)}}
     whileHover={{scale: 1.1}}
     transition={{type: "spring"}}
     >   
-        <div className="img-container">
+        <div className={classes['img-container']}>
             <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.jpg`} className="card-img-top" alt="perfume"/>
         </div>
-        <div className="card-body">
-            <h5 className="card-title">{props.perfume.name}</h5>
-            <p className="card-text">Category: {props.perfume.category}</p>
-            <p className="card-text">Type: {props.perfume.type}</p>
-            <p className="card-text">{props.perfume.ml}ML</p>
+        <div className={`card-body`}>
+            <h5 className={classes['card-title']}>{props.perfume.name}</h5>
+            <p className={classes["card-text"]}>Category: {props.perfume.category}</p>
+            <p className={classes["card-text"]}>Type: {props.perfume.type}</p>
+            <p className={classes["card-text"]}>{props.perfume.ml}ML</p>
         </div>
-        <div className="card-body">
-            <div className="card-link">
-                <p className="new-price">${props.perfume.price}</p>
-                {props.perfume.oldPrice > 0 && <p className="old-price">${props.perfume.oldPrice}</p>} 
+        <div className={`card-body`}>
+            <div className={classes["card-link"]}>
+                <p className={classes["new-price"]}>${props.perfume.price}</p>
+                {props.perfume.oldPrice > 0 && <p className={classes["old-price"]}>${props.perfume.oldPrice}</p>} 
             </div>
-            <div className="card-link">
+            <div className={classes["card-link"]}>
                 {props.perfume.quantity < 1 && "Out of stock"}
                 {props.perfume.status !== 1 ?"Unavailable": "Available"}
             </div>
