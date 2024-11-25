@@ -1,5 +1,17 @@
+.slides{
+    display: block;
+    min-width:500px;
+    margin-right:15px;
+}
 .carousel-item img{
     max-width: 500px;
     max-height:450px;
     object-fit:contain;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .slides{
+        min-width: 0;
+    }
 }

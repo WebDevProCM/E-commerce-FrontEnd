@@ -3,7 +3,7 @@ import classes from './ProductSlides.module.css'
 
 const ProductSlides = (props) =>{
     return(
-        <div className={classes.slides}>
+        <div className={`${classes.slides} slides`}>
             <div id="carouselCaptions" className={`carousel slide`}>
                 <div className={`carousel-indicators`}>
                     <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" className={`active`} aria-current="true" aria-label="Slide 1"></button>

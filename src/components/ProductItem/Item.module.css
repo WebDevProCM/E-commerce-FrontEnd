@@ -6,6 +6,9 @@
     margin:1px 5px;
     cursor: pointer;
 }
+.card-body{
+    padding:1px 5px;
+}
 .img-container{
     max-width: 17rem;
     height: 179px;

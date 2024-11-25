@@ -20,12 +20,11 @@ const Product = () =>{
                 </ol>
             </nav>
             <section className={classes['product-body']}>
-                <ProductSlides className={`${classes.slides} slides`} title={perfume.name} image={perfume.image}/>
+                <ProductSlides title={perfume.name} image={perfume.image}/>
                 
-                <ProductDescription className={classes.details} perfume={perfume}
-                />
-             </section>
-             <ProductReview id={perfume._id}/>
+                <ProductDescription perfume={perfume}/>
+            </section>
+            <ProductReview id={perfume._id}/>
         </div>
     )
 }
