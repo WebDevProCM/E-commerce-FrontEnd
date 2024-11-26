@@ -2,7 +2,7 @@ import classes from "./OrderItem.module.css";
 
 function OrderItem({item}) {
   return (
-    <div className={classes.ordItem}>
+    <section className={classes.ordItem}>
         <div className={classes.ordItemBody}>
         <img src={item.image.startsWith("https")?`${item.image}` : `/images/${item.image}.jpg`} alt="perfume img" />
         <div>
@@ -14,7 +14,7 @@ function OrderItem({item}) {
         <p>Unit price: ${item.price}</p>
         <p>Quantity: {item.quantity}</p>
         </div>
-  </div>
+  </section>
   )
 }
 

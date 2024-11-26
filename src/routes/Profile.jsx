@@ -1,7 +1,7 @@
 import UserProfile from '../components/UserProfile/UserProfile'
 import { redirect } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import apiClient from '../utilis/apiClient';
 
 const Profile = () => {
 
@@ -15,18 +15,10 @@ const Profile = () => {
 
 export default Profile
 
+//checking user authenticated status
 export const verifyAuth = async () =>{
   try {
-    const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/user/logged`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": true,      
-        "Access-Control-Allow-Headers": true, 
-        "Access-Control-Allow-Methods": true 
-    }, 
-    credentials: 'include',
-    withCredentials: true });
+    const response = await apiClient.get("/user/logged");
 
     const data = response.data;
 

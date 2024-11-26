@@ -1,17 +1,16 @@
 import React from "react";
-import './Banner.css'
+import classes from './Banner.module.css'
 
 const Banner = (props) =>{
     return (
-        <div className="banner">
-            <div className="banner-left">
+        <section className={classes.banner}>
+            <div className={classes["banner-left"]}>
                 <h2>{props.title}</h2>
-                {/* <p>Checkout The New Arrivals!</p> */}
             </div>
-            <div className="banner-right">
+            <div className={classes["banner-right"]}>
                 <img src={props.bannerImg} alt="banner" />
             </div>
-        </div>
+        </section>
     )
 }
 

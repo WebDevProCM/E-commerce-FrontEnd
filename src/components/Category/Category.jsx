@@ -1,12 +1,13 @@
 import React, { memo, useCallback, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import './Category.css';
+import classes from './Category.module.css';
 import Item from '../ProductItem/Item'
 import {motion, AnimatePresence} from "framer-motion"
 
+//product item displaying card
 const ProductCard = ({perfume}) =>{
     return (
-        <motion.div className="col-lg-4 col-md-6 col-sm-12" key={perfume.prodId}
+        <motion.div className={`${classes["col-lg-4"]} col-lg-4 col-md-6 col-sm-12`} key={perfume.prodId}
         initial={{opacity: 0, scale: 0}}
         animate={{opacity: 1, scale:1}}
         exit={{opacity: 0, scale: 0}}
@@ -18,42 +19,42 @@ const ProductCard = ({perfume}) =>{
 
 const SortSection = memo(function SortSection({mlClickHandler, typeClickHandler}){
     return(
-    <div className="sort-section">
-        <section className="sort-type">
+    <div className={classes["sort-section"]}>
+        <section className={classes["sort-type"]}>
             <h4>ML-</h4>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="500">500ML</label>
                 <input type="checkbox" name="500" id="500" value='500' onChange={mlClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="250">250ML</label>
                 <input type="checkbox" name="250" id="250" value='250' onChange={mlClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="100">100ML</label>
                 <input type="checkbox" name="100" id="100" value='100' onChange={mlClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="50">50ML</label>
                 <input type="checkbox" name="50" id="50" value='50' onChange={mlClickHandler}/>
             </div>
         </section>
 
-        <section className="sort-type">
+        <section className={classes["sort-type"]}>
             <h4>TYPE-</h4>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="cologne">Eau de Cologne</label>
                 <input type="checkbox" name="Cologne" id="cologne" value='eau de cologne' onClick={typeClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="parfume">Parfum</label>
                 <input type="checkbox" name="Parfum" id="parfume"  value='parfume' onClick={typeClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="toilette">Eau de Toilette</label>
                 <input type="checkbox" name="Toilette" id="toilette" value='eau de toilette'  onClick={typeClickHandler}/>
             </div>
-            <div className="sort">
+            <div className={classes.sort}>
                 <label htmlFor="fraiche">Eau Fraiche</label>
                 <input type="checkbox" name="Fraiche" id="fraiche" value='eau fraiche'  onClick={typeClickHandler}/>
             </div>
@@ -70,6 +71,7 @@ const Category = (props) =>{
     const [typeSort, setTypeSort] = useState([]);
     const [mlSort, setMlSort] = useState([]);
 
+    //changing state to display the product when user applying filters (product type filter)
     const typeClickHandler = useCallback(function typeClickHandler(e) {
         if(e.target.checked){
             return setTypeSort((exstingSort) => [e.target.value, ...exstingSort])
@@ -80,6 +82,7 @@ const Category = (props) =>{
         }
     }, []);
 
+    //changing state to display the product when user applying filters (product ML filter)
     const mlClickHandler = useCallback(function mlClickHandler(e) {
         if(e.target.checked){
             return setMlSort((exstingSort) => [e.target.value, ...exstingSort])
@@ -92,11 +95,12 @@ const Category = (props) =>{
 
     return ( 
         <motion.div 
-        className="category">
+        className={classes.category}>
             <SortSection typeClickHandler={typeClickHandler} mlClickHandler={mlClickHandler}/>
-            <div className="items">
-                <motion.div layout className="row">
+            <motion.div layout className={classes.items}>
                     <AnimatePresence mode="wait">
+
+                    {/* displaying products based on the users filters */}
                     {allPerfumes.map((perfume) =>{
                         if((typeSort.length < 1 && mlSort.length < 1) && (props.category===perfume.category || "Unisex"===perfume.category)){
                             return  <ProductCard key={perfume._id} perfume={perfume} />
@@ -111,8 +115,7 @@ const Category = (props) =>{
                         }
                     })}
                     </AnimatePresence>
-                </motion.div>
-            </div>
+            </motion.div>
         </motion.div>
     )
 }

@@ -3,9 +3,9 @@ import LoginSign from "../components/Signup/LoginSign";
 
 const Login = () =>{
     return (
-        <div className="login">
+        <main className="login">
             <LoginSign/>
-        </div>
+        </main>
     )
 }
 

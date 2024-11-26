@@ -6,21 +6,25 @@
     padding:1px 30px;
 }
 .sort-section{
-    width:200px;
-    height:550px;
-    border-radius: 20px;
-    padding:0 20px;
-    background-color: rgb(231, 231, 231);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    width:600px;
+    height:550px;
+    border-radius: 20px;
+    padding:0 20px;
+    background-color: rgb(231, 231, 231);
 }
 .sort-section h4{
     font-weight: bold;
 }
 .items{
-    flex: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   max-width: 1500px;
 }
 .col-lg-4{
     height:400px;

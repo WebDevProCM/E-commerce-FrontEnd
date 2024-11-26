@@ -7,8 +7,8 @@ import { CiTwitter } from "react-icons/ci";
 
 const Footer = memo(function Footer(){
     return(
-        <div className={classes["footer-main"]}>
-            <div className={`${classes.footer} footer`}>
+        <footer className={classes["footer-main"]}>
+            <section className={`${classes.footer} footer`}>
                 <div className={classes["contact-us"]}>
                     <div className={classes.title}>
                         <h3>TrueElegance</h3>
@@ -35,8 +35,8 @@ const Footer = memo(function Footer(){
                 <div className={classes.copyright}>
                     <span className={`material-symbols-outlined`}>copyright</span><p>All Rights Reserved.</p>
                 </div>
-            </div>
-        </div>
+            </section>
+        </footer>
     )
 })
 

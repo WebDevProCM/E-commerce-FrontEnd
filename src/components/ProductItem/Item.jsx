@@ -34,4 +34,3 @@ const item = (props) =>{
 }
 
 export default item
-// {require(`../assets/${props.title}.jpg`)}

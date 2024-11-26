@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './loginSign.css'
+import classes from './loginSign.module.css'
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/authActions";
+import apiClient from "../../utilis/apiClient";
 
 const LoginSign = () =>{
-    // const {setUser} = useContext(CurrentUserContext);
     const dispatch = useDispatch();
     const isLogin = useSelector((state) => state.auth.isAuthenicated);
     const navigate =  useNavigate();
 
     let [signCheck, setSignCheck] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [name, setName] = useState('');
 
     useEffect(() =>{
         if(isLogin){
@@ -24,94 +19,85 @@ const LoginSign = () =>{
         }
     }, [isLogin]);
 
+    //toggle between login and signup form
     const handleClick = (sign) =>{
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
         if(!sign){
             return setSignCheck(true);
         }
         setSignCheck(false)
     }
 
+    //handling form submission
     const formSubmitHandler = async (e) =>{
         try{
             e.preventDefault();
+            //getting form inputs elements values
+            const fs = new FormData(e.target);
+            const fsArray = fs.entries();
+            const formFields = Object.fromEntries(fsArray);
+
             if(signCheck){
-                const url = `${process.env.REACT_APP_DOMAIN}/api/user`;
-                if(signCheck && (password !== confirmPassword)){
+                const url = "/api/user";
+                if(signCheck && (formFields.password !== formFields.confirm)){
                     return toast.error("Password and Confirm password are different")
                 }
 
-                const data = {name: name, email: email,password: password};
+                const data = {name: formFields.name, email: formFields.email, password: formFields.password};
 
-                const response = await axios.post(url, data, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Credentials": true,
-                        "Access-Control-Allow-Origin": true,      
-                        "Access-Control-Allow-Headers": true, 
-                        "Access-Control-Allow-Methods": true 
-                    },
-                    credentials: 'include',
-                    withCredentials: true
-                })
+                const response = await apiClient.post(url, data);
 
                 const responseData = response.data;
                 if(responseData.error){
                     return toast.error(responseData.error);
                 }
 
+                e.target.reset();
                 setSignCheck(false);
                 return toast.success("Please Log In");
             }
 
-            const data = {email: email,password: password};
-            // setUser(responseData);
+            const data = {email: formFields.email, password: formFields.password};
             dispatch(loginUser(data));
         
         }catch(error){
             toast.error("Something went wrong!");
         }
     }
+
     return (
-        <div className="login-body">
-            <div className="login-left">
+        <div className={classes["login-body"]}>
+            <div className={classes["login-left"]}>
                 <h5>True Elegance</h5>
                 <p>Welcome!</p>
                 <h4>{signCheck? "Sign Up" : "Login In"}</h4>
                 <form onSubmit={formSubmitHandler}>
                     {signCheck ? (
-                        <div className="mb-3">
-                            <label htmlFor="name" className="form-label">Name</label>
-                            <input type="text" className="form-control" id="name" name="name" 
-                            placeholder="example" value={name} onChange={(e) =>{setName(e.target.value)}} required/>
+                        <div className={`mb-3`}>
+                            <label htmlFor="name" className={`form-label`}>Name</label>
+                            <input type="text" className={`form-control`} id="name" name="name" placeholder="example" required/>
                         </div>
                     ): ""}
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="email" name="email" 
-                            placeholder="example@gmail.com" value={email} onChange={(e) => {setEmail(e.target.value)}} required/>
-                        <div id="share" className="form-text">We'll never share your email with anyone else.</div>
+                    <div className={`mb-3`}>
+                        <label htmlFor="email" className={`form-label`}>Email address</label>
+                        <input type="email" className={`form-control`} id="email" name="email" placeholder="example@gmail.com" required/>
+                        <div id="share" className={`form-text`}>We'll never share your email with anyone else.</div>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="password" name="password" 
-                            placeholder="example123" value={password} onChange={(e) =>{setPassword(e.target.value)}} required/>
+                    <div className={`mb-3`}>
+                        <label htmlFor="password" className={`form-label`}>Password</label>
+                        <input type="password" className={`form-control`} id="password" name="password" placeholder="example123" required/>
                     </div>
                     {signCheck ? (
-                    <div className="mb-3">
-                        <label htmlFor="confirm" className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" id="confirm" name="confirm" 
-                        placeholder="example123" value={confirmPassword} onChange={(e) =>{setConfirmPassword(e.target.value)}} required/>
+                    <div className={`mb-3`}>
+                        <label htmlFor="confirm" className={`form-label`}>Confirm Password</label>
+                        <input type="password" className={`form-control`} id="confirm" name="confirm" placeholder="example123" required/>
                     </div>
                     ): ""}
-                    <p className="create" onClick={() => handleClick(signCheck)}>{signCheck?"Have an account?" : "Create a account?"}</p>
-                    <button type="submit" className="btn btn-light">{signCheck? "Sign Up " : "Log In"}</button>
+                    <p className={classes.create} onClick={() => handleClick(signCheck)}>{signCheck?"Have an account?" : "Create a account?"}</p>
+                    <button type="submit" className={`btn btn-light`}>{signCheck? "Sign Up " : "Log In"}</button>
                 </form>
             </div>
 
-            <div className="login-right">
+            <div className={classes["login-right"]}>
                 <img src={`/images/login image.png`} alt="shopping-cart" />
             </div>
         </div>

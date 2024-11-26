@@ -2,24 +2,26 @@ import React, { useEffect, useState } from 'react'
 import classes from './UserProfile.module.css'
 import { Form, useActionData } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/auth-slice'
+import apiClient from '../../utilis/apiClient'
 
 export const UserProfile = () => {
+  //state that change visible of passwowrd change field
   const [changePassword, setChangePassword] = useState(false);
+
   const updatedProfile = useActionData();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  // const {user, setUser} = useContext(CurrentUserContext);
 
+  //toggle visible of change password field
   const clickHandler = () =>{
     setChangePassword((prev) => !prev)
   }
 
+  //after user changing details updating users data in the redux store
   useEffect(() =>{
     if(updatedProfile?._id){
-      // setUser(updatedProfile);
       dispatch(authActions.userUpdate({data: updatedProfile}));
     }
   }, [updatedProfile, dispatch]);
@@ -49,7 +51,8 @@ export const UserProfile = () => {
         </div>
         <input type="hidden" name='id' defaultValue={user._id || ''} required/>
         
-        {changePassword ? <>
+        {changePassword ? 
+        <>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">New Password</label>
             <input type="text" className="form-control" name='password' id="password" required/>
@@ -58,7 +61,7 @@ export const UserProfile = () => {
             <label htmlFor="password" className="form-label">Confirm New Password</label>
             <input type="text" className="form-control" name='confirmPassword' id="password" required/>
           </div>
-          </>
+        </>
           : ''
         }
 
@@ -89,16 +92,7 @@ export const action = async ({request}) =>{
       delete userData.confirmPassword;
     }
 
-    const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/user/${id}`, userData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Origin": true,      
-        "Access-Control-Allow-Headers": true, 
-        "Access-Control-Allow-Methods": true 
-    },
-    credentials: 'include',
-    withCredentials: true});
+    const response = await apiClient.patch("/api/user/${id}", userData);
     const updatedUser = response.data;
     if(updatedUser.error){
       return toast.error(updatedUser.error);
