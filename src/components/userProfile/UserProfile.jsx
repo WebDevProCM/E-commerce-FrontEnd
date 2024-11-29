@@ -100,7 +100,10 @@ export const action = async ({request}) =>{
     toast.success("User updated!");
     return (updatedUser);
   }catch(error){
-    return error
+    if(error?.response?.data){
+      return toast.error(error.response.data.error);
+    }
+    return toast.error("something went wrong");
   }
 
 }

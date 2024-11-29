@@ -1,8 +1,8 @@
 import { Form, redirect, useActionData } from "react-router-dom";
-import "./adminLogin.css"
+import classes from "./adminLogin.module.css"
 import { toast, ToastContainer } from "react-toastify";
-import axios from "axios";
 import { useEffect } from "react";
+import apiClient from "../../../utilis/apiClient";
 
 function AdminLogin() {
     const data = useActionData();
@@ -14,9 +14,9 @@ function AdminLogin() {
     }, [data]);
 
   return (
-    <div className='adminLogin'>
+    <div className={classes.adminLogin}>
         <ToastContainer autoClose={2000}/>
-        <div className='adminLoginBox'>
+        <div className={classes.adminLoginBox}>
             <h1>Admin Loginpage</h1>
             <Form method="post" encType='multipart/form-data'>
                 <div className="mb-3">
@@ -38,10 +38,7 @@ export async function action({request}){
     try{
         const formData = await request.formData();
         const dataObject = Object.fromEntries(formData);
-    
-        const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/admin/login`, dataObject, {
-            withCredentials: true
-        })
+        const response = await apiClient.post("/api/admin/login", dataObject);
     
         const data = response.data;
         if(data.error){
@@ -51,6 +48,9 @@ export async function action({request}){
         return redirect("/admin/orders");
 
     }catch(error){
+        if(error?.response?.data){
+            return error?.response?.data
+        }
         return error;
     }
 
@@ -58,9 +58,7 @@ export async function action({request}){
 
 export async function loader(){
     try{
-        const response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/admin/logged`, {status: "admin verify"}, {
-            withCredentials: true
-        })
+        const response = await apiClient.post("/api/admin/logged", {status: "admin verify"});
         const data = response.data;
         if(data){
             return redirect("/admin/orders");
@@ -68,7 +66,10 @@ export async function loader(){
     
         return data;
     }catch(error){
-        return {error: error}
+        if(error?.response?.data){
+            return error.response.data
+        }
+        return error
     }
 }
 

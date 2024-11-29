@@ -39,6 +39,9 @@ const ProductReview = (props) =>{
             //after successfully submitting the reviews, upadte the page with new reviews
             setReviews( (prev) => [newReview, ...prev]);
         }catch(error){
+            if(error?.response?.data){
+                return toast.error(error.response.data.error);
+            }
             toast.error("Something went wrong!");
         }finally{
             setRating(0)
@@ -57,6 +60,9 @@ const ProductReview = (props) =>{
                 }
                 setReviews(allReviews);
             }catch(error){
+                if(error?.response?.data){
+                    return toast.error(error.response.data.error);
+                }
                 toast.error("Something went wrong!");
             }
         }

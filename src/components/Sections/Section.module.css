@@ -2,7 +2,12 @@
     overflow: hidden;
     padding-top:100px;
     padding-bottom:50px;
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:25px;
     background-color: #11235A;
     color: white;
     height:100%;
@@ -37,11 +42,9 @@
     -webkit-text-fill-color: transparent;
     white-space: nowrap;
 }
-.section{
-    margin-top:50px;
-}
 .row{
     justify-content: center;
+    align-items: center;
     width:100%;
 }
 hr{

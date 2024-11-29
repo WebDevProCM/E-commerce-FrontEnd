@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    width:600px;
+    min-width:180px;
     height:550px;
     border-radius: 20px;
     padding:0 20px;

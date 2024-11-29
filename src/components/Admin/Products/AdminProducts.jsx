@@ -7,8 +7,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
 import { RiErrorWarningLine } from "react-icons/ri";
-import axios from 'axios'
-import "./adminProducts.css";
+import classes from "./adminProducts.module.css";
+import apiClient from '../../../utilis/apiClient'
 
 const CreateModal = forwardRef((props, ref) =>{
     return(
@@ -88,7 +88,7 @@ const CreateModal = forwardRef((props, ref) =>{
                     </div>
   
                 </div>
-                <div className="modal-footer">
+                <div className={`${classes["modal-footer"]} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={() => ref.createModalRef.current.close()}>Close</button>
                     <button type="submit" className="btn btn-primary" name='intent' value="create">Save changes</button>
                 </div>
@@ -178,7 +178,7 @@ const UpdateModal = forwardRef(({updateModalData}, ref) =>{
                     </div>
   
                 </div>
-                <div className="modal-footer">
+                <div className={`${classes["modal-footer"]} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>Close</button>
                     <button type="submit" className="btn btn-primary" name='intent' value="update">Save changes</button>
                 </div>
@@ -197,48 +197,48 @@ const DetailsModal = forwardRef(({modalData}, ref) =>{
                 <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
             </div>
 
-            <section className='detailsBody'>
-                <div className='detailsBodyText'>
+            <section className={classes.detailsBody}>
+                <div className={classes.detailsBodyText}>
                     <p>PRODUCT ID: </p>
                     <p>{modalData[0]?.prodId}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>NAME: </p>
                     <p>{modalData[0]?.name}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>QUANTITY: </p>
                     <p>{modalData[0]?.quantity}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>PRICE: </p>
                     <p>${modalData[0]?.price}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>OLD PRICE: </p>
                     <p>${modalData[0]?.oldPrice}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>STATUS: </p>
                     <p>{modalData[0]?.status}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>CATEGORY: </p>
                     <p>{modalData[0]?.category}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>TYPE: </p>
                     <p>{modalData[0]?.type}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>ML: </p>
                     <p>{modalData[0]?.ml}ml</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>DESCRIPTION: </p>
                     <p>{modalData[0]?.description}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>IMAGE: </p>
                     {modalData[0]?.image.startsWith("https") ?
                         <img src={modalData[0]?.image} alt='product'/> :
@@ -264,7 +264,7 @@ const DeleteModal = forwardRef(({deleteModalData ,deleteHandler}, ref) =>{
                 <RiErrorWarningLine size={90} className='sign'/>
             </div>
             <form onSubmit={(event) => {deleteHandler(event, deleteModalData)}}>
-                <div className="modal-footer">
+                <div className={`${classes["modal-footer"]} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>No</button>
                     <button type="submit" className="btn btn-primary">Yes</button>
                 </div>
@@ -278,20 +278,23 @@ function AdminProducts() {
     const data = useLoaderData();
     const changedData = useActionData();
     const [tableData, setTableData] = useState(data);
+    //managing state for each modal
     const [updateModalData, setUpdateModalData] = useState({});
     const [deleteeModalData, setDeleteModalData] = useState([]);
     const [productData, setProductData] = useState([]);
+
     const modalRef = useRef();
     const DetailsmodalRef = useRef();
     const deleteModalRef = useRef();
     const createModalRef = useRef();
     const createModalForm = useRef();
-  
+    
+    //updating state after admin updating product details
     useEffect(() =>{
       if(changedData?.prodId){
           toast.success("Product details updated!");
           modalRef.current.close();
-          setTableData((prev) => {return [...prev.filter((data) => data.prodId !== changedData.prodId), changedData] })
+          setTableData((prev) => [...prev.filter((data) => data.prodId !== changedData.prodId), changedData])
       }
   
       if(changedData?.error){
@@ -307,7 +310,7 @@ function AdminProducts() {
         {
         name: 'Actions',
         cell: (row) => (
-            <div className="actionBtn">
+            <div className={classes.actionBtn}>
             <button className="btn btn-primary btn-sm" onClick={() => handleViewDetails(row.prodId)}><GrView /></button>
             <button className="btn btn-secondary btn-sm" onClick={() => handleUpdate(row)}><FaRegEdit /></button>
             <button className="btn btn-danger btn-sm" onClick={() => initiateDeleteHandler(row.prodId)}><MdDelete /></button>
@@ -316,6 +319,7 @@ function AdminProducts() {
         },
     ];
 
+    //updating relevant modal state with relevant product details
     const handleViewDetails = (id) =>{
         const details = tableData.filter((data) => data.prodId === id);
         setProductData(() => details);
@@ -336,10 +340,7 @@ function AdminProducts() {
         event.preventDefault();
 
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/product/${id}`, {
-                headers: {"Content-Type": "apllication/json"},
-                withCredentials: true
-            })
+            const response = await apiClient.delete("/api/product/${id}")
             const data = response.data;
             if(data.error){
                 if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
@@ -354,7 +355,10 @@ function AdminProducts() {
             deleteModalRef.current.close();
 
         }catch(error){
-            return {error: "something went wrong"} 
+            if(error?.response?.data){
+                return error.response.data
+              }
+            return error;
         }
     }
 
@@ -365,7 +369,7 @@ function AdminProducts() {
 
   return (
     <div>
-        <section className='titleContainer'>
+        <section className={classes.titleContainer}>
             <h1>PRODUCTs DETAILS</h1>
             <button className="btn btn-success" onClick={initiateCreateHandler}>Create</button>
         </section>
@@ -405,20 +409,10 @@ export async function action({request}){
 
   
         if(intent === "update"){
-            response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/product/${id}`, dataObject,{
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
-                withCredentials: true
-            })
+            response = await apiClient.patch("/api/product/${id}", dataObject);
 
         }else{
-            response = await axios.post(`${process.env.REACT_APP_DOMAIN}/api/product`, dataObject,{
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
-                withCredentials: true
-            })
+            response = await apiClient.post("/api/product", dataObject);
         }
 
         const data = response.data;
@@ -426,17 +420,16 @@ export async function action({request}){
         return data;
   
     }catch(error){
-        console.log(error);
+        if(error?.response?.data){
+            return error.response.data
+        }
         return {error: "something went wrong"}
     }
   }
   
 export async function loader(){
     try{
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/product`, {
-            headers: {"Content-Type": "apllication/json"},
-            withCredentials: true
-        })
+        const response = await apiClient.get("/api/product")
         const data = response.data;
         if(data.error){
             if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
@@ -446,6 +439,12 @@ export async function loader(){
 
         return data;
     }catch(error){
+        if(error?.response?.data){
+            if(error?.response?.data.error === "Not a authorized Admin" || error?.response?.data.error === "You are not a authorized user!"){
+                return redirect("/admin/login");
+            }
+            return error.response.data
+        }
         return {error: "something went wrong"}
 }
 }

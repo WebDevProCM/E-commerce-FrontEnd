@@ -2,20 +2,12 @@ import axios from "axios";
 import { authActions } from "./auth-slice";
 import { toast } from "react-toastify";
 import { cartActions } from "./cart-slice";
+import apiClient from "../utilis/apiClient";
 
 export const verifyUser = () =>{
     return async (dispatch) =>{
         const sendingRequest = async () =>{
-            const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/user/logged`, {
-            headers: {
-                "Content-Type": "application/json",
-                // "Access-Control-Allow-Credentials": true,
-                // "Access-Control-Allow-Origin": true,      
-                // "Access-Control-Allow-Headers": true, 
-                // "Access-Control-Allow-Methods": true 
-            }, 
-            credentials: 'include',
-            withCredentials: true });
+            const response = await apiClient.get("/user/logged");
             const data = response.data;
             if(data.error){
             throw new Error("Verifying user failed!");
@@ -32,6 +24,9 @@ export const verifyUser = () =>{
             dispatch(authActions.login({data}));
         }catch(error) {
             dispatch(authActions.logout());
+            if(error?.response?.data){
+                return toast.error(error?.response?.data?.error);
+            }
             return toast.error("Something went wrong!");
         };
     }
@@ -39,20 +34,10 @@ export const verifyUser = () =>{
 
 export const loginUser = (data) =>{
     return async (dispatch) =>{
-        let url = `${process.env.REACT_APP_DOMAIN}/user/login`;
+        let url = "/user/login";
 
         const sendingRequest = async () =>{
-            const response = await axios.post(url, data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Access-Control-Allow-Credentials": true,
-                    // "Access-Control-Allow-Origin": true,      
-                    // "Access-Control-Allow-Headers": true, 
-                    // "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-            })
+            const response = await apiClient.post(url, data);
             const responseData = response.data;
 
             return responseData
@@ -71,6 +56,9 @@ export const loginUser = (data) =>{
             toast.success("Logged in");
             
         }catch(error){
+            if(error?.response?.data){
+                return toast.error(error?.response?.data?.error);
+            }
             return toast.error(error.message);
         }
 
@@ -80,19 +68,9 @@ export const loginUser = (data) =>{
 export const logoutUser = () =>{
     return async (dispatch) =>{
         const sendingRequest = async () =>{
-            const url = `${process.env.REACT_APP_DOMAIN}/user/logout`;
+            const url = "/user/logout";
             const value = {name: "cookie"};
-            const response = await axios.post(url,value, {
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Access-Control-Allow-Credentials": true,
-                    // "Access-Control-Allow-Origin": true,      
-                    // "Access-Control-Allow-Headers": true, 
-                    // "Access-Control-Allow-Methods": true 
-                },
-                credentials: 'include',
-                withCredentials: true
-            });
+            const response = await apiClient.post(url,value);
 
             const data = response.data;
             if(data.error){
@@ -106,6 +84,9 @@ export const logoutUser = () =>{
             dispatch(cartActions.updateCart({quantity: 0, item: []}));
             toast.success("Logged out successfully");
         }catch(error){
+            if(error?.response?.data){
+                return toast.error(error?.response?.data?.error);
+            }
             toast.error("something went wrong!");
         }
     }

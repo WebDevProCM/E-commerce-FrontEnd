@@ -7,7 +7,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { RiErrorWarningLine } from "react-icons/ri";
 import axios from 'axios'
-import "./adminReviews.css"
+import classes from "./adminReviews.module.css"
+import apiClient from '../../../utilis/apiClient'
 
 const UpdateModal = forwardRef(({updateModalData}, ref) =>{
 
@@ -37,7 +38,7 @@ const UpdateModal = forwardRef(({updateModalData}, ref) =>{
                     </div>
   
                 </div>
-                <div className="modal-footer">
+                <div className={`${classes["modal-footer"]} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>Close</button>
                     <button type="submit" className="btn btn-primary">Save changes</button>
                 </div>
@@ -60,7 +61,7 @@ const DeleteModal = forwardRef(({deleteModalData ,deleteHandler}, ref) =>{
                 <RiErrorWarningLine size={90} className='sign'/>
             </div>
             <form onSubmit={(event) => {deleteHandler(event, deleteModalData)}}>
-                <div className="modal-footer">
+                <div className={`${classes["modal-footer"]} modal-footer`}>
                     <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>No</button>
                     <button type="submit" className="btn btn-primary">Yes</button>
                 </div>
@@ -74,8 +75,10 @@ function AdminReviews() {
     const data = useLoaderData();
     const changedData = useActionData();
     const [tableData, setTableData] = useState(data);
+
     const [updateModalData, setUpdateModalData] = useState({});
     const [deleteeModalData, setDeleteModalData] = useState([]);
+
     const modalRef = useRef();
     const deleteModalRef = useRef();
   
@@ -83,7 +86,7 @@ function AdminReviews() {
       if(changedData?._id){
           toast.success("Review details updated!");
           modalRef.current.close();
-          setTableData((prev) => {return [...prev.filter((data) => data._id !== changedData._id), changedData] })
+          setTableData((prev) =>[...prev.filter((data) => data._id !== changedData._id), changedData])
       }
   
       if(changedData?.error){
@@ -99,7 +102,7 @@ function AdminReviews() {
         {
         name: 'ACTIONS',
         cell: (row) => (
-            <div className="actionBtn">
+            <div className={classes.actionBtn}>
             <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(row._id, row.stars, row.description)}><FaRegEdit /></button>
             <button className="btn btn-danger btn-sm" onClick={() => initiateDeleteHandler(row._id)}><MdDelete /></button>
             </div>
@@ -116,10 +119,7 @@ function AdminReviews() {
         event.preventDefault();
 
         try{
-            const response = await axios.delete(`${process.env.REACT_APP_DOMAIN}/api/review/${id}`, {
-                headers: {"Content-Type": "apllication/json"},
-                withCredentials: true
-            })
+            const response = await apiClient.delete("/api/review/${id}")
             const data = response.data;
             if(data.error){
                 if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
@@ -134,6 +134,12 @@ function AdminReviews() {
             deleteModalRef.current.close();
 
         }catch(error){
+            if(error?.response?.data){
+                if(error?.response?.data.error === "Not a authorized Admin" || error?.response?.data.error === "You are not a authorized user!"){
+                    return redirect("/admin");
+                }
+                return error.response.data
+            }
             return {error: "something went wrong"} 
         }
     }
@@ -145,7 +151,7 @@ function AdminReviews() {
 
   return (
     <div>
-        <section className='titleContainer'>
+        <section className={classes.titleContainer}>
             <h1>REVIEWS</h1>
         </section>
         <DataTable
@@ -169,36 +175,39 @@ export async function action({request}){
         delete dataObject.id;
 
   
-        const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/review/${id}`, dataObject,{
-            withCredentials: true
-        })
+        const response = await apiClient.patch("/api/review/${id}", dataObject);
         const data = response.data;
     
         return data;
   
     }catch(error){
-        console.log(error);
+        if(error?.response?.data){
+            return error.response.data
+        }
         return {error: "something went wrong"}
     }
   }
   
 export async function loader(){
-try{
-    const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/review`, {
-        headers: {"Content-Type": "apllication/json"},
-        withCredentials: true
-    })
-    const data = response.data;
-    if(data.error){
-        if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
-            return redirect("/admin/login");
+    try{
+        const response = await apiClient.get("/api/review")
+        const data = response.data;
+        if(data.error){
+            if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
+                return redirect("/admin/login");
+            }
         }
-    }
 
-    return data;
-}catch(error){
-    return {error: "something went wrong"}
-}
+        return data;
+    }catch(error){
+        if(error?.response?.data){
+            if(error?.response?.data.error === "Not a authorized Admin" || error?.response?.data.error === "You are not a authorized user!"){
+                return redirect("/admin/login");
+            }
+            return error.response.data
+        }
+        return {error: "something went wrong"}
+    }
 }
 
 export default AdminReviews

@@ -28,6 +28,9 @@ export const verifyAuth = async () =>{
 
     return null;
   }catch(error) {
+    if(error?.response?.data?.error){
+      return redirect("/");
+    }
     toast.error("Something went wrong!");
   };
 }

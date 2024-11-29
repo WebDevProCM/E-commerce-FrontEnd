@@ -36,12 +36,21 @@ const Cart = () =>{
             setCartItems(newCartItems);
             
         }catch(error){ 
+            if(error?.response?.data){
+                return toast.error(`${error.response.data.error}`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true
+                });
+            }
+
             toast.error(`${error}`, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true
-            });;
+            });
         }
     }
     const totalChange = (cartItem) =>{
@@ -69,7 +78,10 @@ const Cart = () =>{
 
             return navigation("/orders");
             
-        }catch(error){
+        }catch(error){            
+            if(error?.response?.data){
+                return toast.error(error.response.data.error);
+            }
             throw new Error(error);
         }
     }
@@ -107,11 +119,14 @@ export async function loader(){
     try{
         const response = await apiClient.get("/api/cart");
         const cartItems = response.data;
-        if(response.data.error){
-            throw new Error(response.data.error);
+        if(cartItems?.error){
+            throw new Error(cartItems.error);
         }
         return cartItems;
     }catch(error){
+        if(error?.response?.data){
+            throw new Error(error.response.data.error);
+        }
         throw new Error(error);
     }
 }

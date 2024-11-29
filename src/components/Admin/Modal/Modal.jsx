@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import "./Modal.css";
+import classes from "./Modal.module.css";
 
 const Modal = forwardRef(({children}, ref)=> {
   return (

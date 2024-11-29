@@ -12,21 +12,28 @@ const ProductDescription = (props) =>{
     // const {user} = useContext(CurrentUserContext);
 
     const addToCartHandler = async (prodId) =>{
-        if(!user){
-            return toast.error("Please Log In!");
+        try{
+            if(!user){
+                return toast.error("Please Log In!");
+            }
+            const quantity = document.querySelector("#quantity").value;
+            const data = {
+                product: prodId,
+                quantity: quantity
+            }
+            const response =  await apiClient.post(`/api/cart`, data);
+    
+            const cartItem = response.data;
+            if(cartItem.error){
+                return setShowError(cartItem.error);
+            }
+            return navigate("/cart");
+        }catch(error){
+            if(error?.response?.data){
+                return setShowError(error.response.data.error);
+            }
+            return setShowError("Something went wrong");
         }
-        const quantity = document.querySelector("#quantity").value;
-        const data = {
-            product: prodId,
-            quantity: quantity
-        }
-        const response =  await apiClient.post(`/api/cart`, data);
-
-        const cartItem = response.data;
-        if(cartItem.error){
-            return setShowError(cartItem.error);
-        }
-        return navigate("/cart");
     }
 
     return (

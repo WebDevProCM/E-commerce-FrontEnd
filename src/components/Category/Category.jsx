@@ -17,48 +17,34 @@ const ProductCard = ({perfume}) =>{
     )
 }
 
-const SortSection = memo(function SortSection({mlClickHandler, typeClickHandler}){
+//one input element of filter section
+const FilterValue = ({value, unit, handler}) =>{
+    return(
+        <div className={classes.sort}>
+            <label htmlFor={value}>{value}{unit}</label>
+            <input type="checkbox" name={value} id={value} value={value} onChange={handler}/>
+        </div>
+    )
+}
+
+//filter section
+const SortSection = memo(function SortSection({sortHandler}){
     return(
     <div className={classes["sort-section"]}>
         <section className={classes["sort-type"]}>
             <h4>ML-</h4>
-            <div className={classes.sort}>
-                <label htmlFor="500">500ML</label>
-                <input type="checkbox" name="500" id="500" value='500' onChange={mlClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="250">250ML</label>
-                <input type="checkbox" name="250" id="250" value='250' onChange={mlClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="100">100ML</label>
-                <input type="checkbox" name="100" id="100" value='100' onChange={mlClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="50">50ML</label>
-                <input type="checkbox" name="50" id="50" value='50' onChange={mlClickHandler}/>
-            </div>
+            <FilterValue value="500" handler={sortHandler} unit="ML"/>
+            <FilterValue value="250" handler={sortHandler} unit="ML"/>
+            <FilterValue value="100" handler={sortHandler} unit="ML"/>
+            <FilterValue value="50" handler={sortHandler} unit="ML"/>
         </section>
 
         <section className={classes["sort-type"]}>
             <h4>TYPE-</h4>
-            <div className={classes.sort}>
-                <label htmlFor="cologne">Eau de Cologne</label>
-                <input type="checkbox" name="Cologne" id="cologne" value='eau de cologne' onClick={typeClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="parfume">Parfum</label>
-                <input type="checkbox" name="Parfum" id="parfume"  value='parfume' onClick={typeClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="toilette">Eau de Toilette</label>
-                <input type="checkbox" name="Toilette" id="toilette" value='eau de toilette'  onClick={typeClickHandler}/>
-            </div>
-            <div className={classes.sort}>
-                <label htmlFor="fraiche">Eau Fraiche</label>
-                <input type="checkbox" name="Fraiche" id="fraiche" value='eau fraiche'  onClick={typeClickHandler}/>
-            </div>
-
+            <FilterValue value="eau de cologne" handler={sortHandler}/>
+            <FilterValue value="parfume" handler={sortHandler}/>
+            <FilterValue value="eau de toilette" handler={sortHandler}/>
+            <FilterValue value="eau fraiche" handler={sortHandler}/>
         </section>
 
     </div>
@@ -66,54 +52,39 @@ const SortSection = memo(function SortSection({mlClickHandler, typeClickHandler}
 })
 
 const Category = (props) =>{
-    const allPerfumes = useLoaderData();
+    let allPerfumes = useLoaderData();
+    const categories = [props.category, "Unisex"];
+    //return perfumes with relevant category(men or women)
+    const perfumes = allPerfumes.filter((perfume) => categories.includes(perfume.category));
 
-    const [typeSort, setTypeSort] = useState([]);
-    const [mlSort, setMlSort] = useState([]);
+    const [sort, setSort] = useState(["50", "100", "250", "500", "eau de cologne", "parfume", "eau de toilette", "eau fraiche"]);
 
-    //changing state to display the product when user applying filters (product type filter)
-    const typeClickHandler = useCallback(function typeClickHandler(e) {
+    //changing sort state when user applying filters
+    const sortHandler = useCallback(function sortHandler(e) {
         if(e.target.checked){
-            return setTypeSort((exstingSort) => [e.target.value, ...exstingSort])
+            return setSort( (prev) => prev.filter((value) => value !== e.target.value));
         }
         if(!e.target.checked){
-            let newSort = typeSort.filter((value) => value !== e.target.value);
-            return setTypeSort( (prev) => newSort);
+            return setSort((exstingSort) => [e.target.value, ...exstingSort])
         }
     }, []);
 
-    //changing state to display the product when user applying filters (product ML filter)
-    const mlClickHandler = useCallback(function mlClickHandler(e) {
-        if(e.target.checked){
-            return setMlSort((exstingSort) => [e.target.value, ...exstingSort])
-        }
-        if(!e.target.checked){
-            let newSort = mlSort.filter((value) => value !== e.target.value);
-            return setMlSort( (prev) => newSort);
-        }
-    }, [])
+    //filtering perfumes based on user selected filters
+    const filteredPerfumes = sort.length > 7 ? perfumes : perfumes.filter(perfume => !sort.includes(perfume.type) || !sort.includes(perfume.ml.toString()));
 
     return ( 
         <motion.div 
         className={classes.category}>
-            <SortSection typeClickHandler={typeClickHandler} mlClickHandler={mlClickHandler}/>
+            <SortSection sortHandler={sortHandler} />
             <motion.div layout className={classes.items}>
                     <AnimatePresence mode="wait">
 
-                    {/* displaying products based on the users filters */}
-                    {allPerfumes.map((perfume) =>{
-                        if((typeSort.length < 1 && mlSort.length < 1) && (props.category===perfume.category || "Unisex"===perfume.category)){
-                            return  <ProductCard key={perfume._id} perfume={perfume} />
-                        }else if((props.category===perfume.category || "Unisex"===perfume.category) && (typeSort.length > 0 && mlSort.length < 1) && typeSort.includes(perfume.type.toString()) ){
-                            return  <ProductCard key={perfume._id} perfume={perfume} />
-                        }else if((props.category===perfume.category || "Unisex"===perfume.category) && (mlSort.length > 0 && typeSort.length < 1) && mlSort.includes(perfume.ml.toString()) ){
-                            return  <ProductCard key={perfume._id} perfume={perfume} />
-                        }else if((props.category===perfume.category || "Unisex"===perfume.category) && (typeSort.length > 0 && mlSort.length > 0) && (typeSort.includes(perfume.type.toString()) && mlSort.includes(perfume.ml.toString())) ){
-                            return  <ProductCard key={perfume._id} perfume={perfume} />
-                        }else{
-                            return null
-                        }
+                    {filteredPerfumes.map((perfume) =>{
+                        return(
+                            <ProductCard key={perfume._id} perfume={perfume} />
+                        )
                     })}
+
                     </AnimatePresence>
             </motion.div>
         </motion.div>

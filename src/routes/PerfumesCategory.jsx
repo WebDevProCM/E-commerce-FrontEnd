@@ -27,6 +27,9 @@ export async function loader(){
         }
         return data;
     }catch(error){
+        if(error?.response?.data){
+            throw new Error(error.response.data.error);
+        }
         throw new Error(error);
     }
 }

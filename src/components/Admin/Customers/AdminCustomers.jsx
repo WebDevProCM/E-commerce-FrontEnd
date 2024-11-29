@@ -1,11 +1,11 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { toast } from 'react-toastify'
-import "./adminCustomers.css"
+import classes from "./adminCustomers.module.css"
 import { Form, redirect, useActionData, useLoaderData } from 'react-router-dom'
 import { FaRegEdit } from "react-icons/fa";
-import axios from 'axios'
 import Modal from '../Modal/Modal'
+import apiClient from '../../../utilis/apiClient'
 
 const UpdateModal = forwardRef(({updateModalData}, ref) =>{
 
@@ -72,10 +72,12 @@ function AdminCustomers() {
   const modalRef = useRef();
 
   useEffect(() =>{
+    //after admin updating any product, changing data in the state
     if(changedData?._id){
         toast.success("Customer details updated!");
         modalRef.current.close();
-        setTableData((prev) => {return [...prev.filter((data) => data._id !== changedData._id), changedData] })
+        //only changing the product updated by the admin
+        setTableData((prev) => [...prev.filter((data) => data._id !== changedData._id), changedData]);
     }
 
     if(changedData?.error){
@@ -88,7 +90,7 @@ function AdminCustomers() {
         { name: 'Name', selector: row => row.name, sortable: true },
         { name: 'Email', selector:  row => row.name, sortable: true },
         { name: 'Address', selector: row => row.name, sortable: true },
-        { name: 'Image', selector: row => <img className='userImage' src={row.image.startsWith("https")?`${row.image}` : `/images/${row.image}.png`} alt='user Profile'/>, sortable: true },
+        { name: 'Image', selector: row => <img className={classes.userImage} src={row.image.startsWith("https")?`${row.image}` : `/images/${row.image}.png`} alt='user Profile'/>, sortable: true },
         {
           name: 'Actions',
           cell: (row) => (
@@ -100,6 +102,7 @@ function AdminCustomers() {
         },
     ];
 
+    //update the modal with user selected row
     const handleUpdate = (id, name, email, address) => {
       setUpdateModalData({id, name, email, address});
       modalRef.current.showModal();
@@ -128,35 +131,33 @@ export async function action({request}){
       const dataObject = Object.fromEntries(formData);
       const id = dataObject.id
       delete dataObject.id;
-
+    
       if(!dataObject.password){
         delete dataObject.password;
       }
+
       if(!dataObject.image.name){
         delete dataObject.image;
       }
 
-      const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/user/${id}`, dataObject,{
-          withCredentials: true
-      })
+      const response = await apiClient.patch("/api/user/${id}", dataObject);
       const data = response.data;
   
       return data;
 
   }catch(error){
-      console.log(error);
-      return {error: "something went wrong"}
+    if(error?.response?.data){
+      return error.response.data
+    }
+    return error;
   }
 }
 
 export async function loader(){
   try{
-      const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/users`, {
-          headers: {"Content-Type": "apllication/json"},
-          withCredentials: true
-      })
+      const response = await apiClient.get("/api/users")
       const data = response.data;
-      if(data.error){
+      if(data?.error){
           if(data.error === "Not a authorized Admin"){
               return redirect("/admin/login");
           }
@@ -165,7 +166,13 @@ export async function loader(){
 
       return data;
   }catch(error){
-      return {error: "something went wrong"}
+    if(error?.response?.data){
+      if(error?.response?.data?.error === "Not a authorized Admin"){
+        return redirect("/admin/login");
+      }
+      throw new Error(error.response.data.error);
+    }
+    throw new Error(error);
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useState, useEffect, memo } from 'react'
 import { Form, redirect, useActionData, useLoaderData } from 'react-router-dom';
-import './adminOrders.css'
+import classes from './adminOrders.module.css'
 import DataTable from 'react-data-table-component';
 import { FaRegEdit } from "react-icons/fa";
 import { BiDetail } from "react-icons/bi";
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrderDetails from './OrderDetails';
 import Modal from '../Modal/Modal';
+import apiClient from '../../../utilis/apiClient';
 
 const UpdateModal = memo(forwardRef(({updateModalData}, ref) =>{
     const status = updateModalData.status;
@@ -68,28 +69,28 @@ const DetailsModal = memo(forwardRef(({modalData}, ref) =>{
                 <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
             </div>
 
-            <section className='detailsBody'>
-                <div className='detailsBodyText'>
+            <section className={classes.detailsBody}>
+                <div className={classes.detailsBodyText}>
                     <p>ORDER ID: </p>
                     <p>{modalData[0]?.ordId}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>CUSTOMER: </p>
                     <p>{modalData[0]?.customer.name}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>DELIVERY DATE: </p>
                     <p>{modalData[0]?.deliveryDate?.slice(0, 10)}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>PAID: </p>
                     <p>{modalData[0]?.paid}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>STATUS: </p>
                     <p>{modalData[0]?.status}</p>
                 </div>
-                <div className='detailsBodyText'>
+                <div className={classes.detailsBodyText}>
                     <p>TOTAL AMOUNT: </p>
                     <p>${modalData[0]?.totalAmount}</p>
                 </div>
@@ -114,11 +115,12 @@ function AdminOrders() {
     const modalRef = useRef();
     const DetailsmodalRef = useRef();
 
+    //updating state data after admin changing details
     useEffect(() =>{
         if(changedData?.ordId){
             toast.success("Order details updated!");
             modalRef.current.close();
-            setTableData((prev) => {return [...prev.filter((data) => data.ordId !== changedData.ordId), changedData] })
+            setTableData((prev) => [...prev.filter((data) => data.ordId !== changedData.ordId), changedData]);
         }
 
         if(changedData?.error){
@@ -135,7 +137,7 @@ function AdminOrders() {
         {
           name: 'ACTIONS',
           cell: (row) => (
-            <div className="actionBtn">
+            <div className={classes.actionBtn}>
               <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(row.ordId, row.deliveryDate, row.status, row.paid)}><FaRegEdit /></button>
               <button className="btn btn-secondary btn-sm" onClick={() => showDetailHandler(row.ordId)}><BiDetail /></button>
             </div>
@@ -143,11 +145,13 @@ function AdminOrders() {
         },
     ];
 
+    //updating data in the modal
     const handleUpdate = (id, deliveryDate, status, paid) => {
         setUpdateModalData({id, deliveryDate, status, paid});
         modalRef.current.showModal();
     };
 
+    //updating data in the modal
     const showDetailHandler = (id) =>{
         const details = tableData.filter((data) => data.ordId === id);
         setOrderData(() => details);
@@ -156,7 +160,7 @@ function AdminOrders() {
 
   return (
     <div>
-        <section className='titleContainer'>
+        <section className={classes.titleContainer}>
             <h1>ORDERS</h1>
         </section>
         <DataTable
@@ -179,27 +183,22 @@ export async function action({request}){
         const dataObject = Object.fromEntries(formData);
 
         const requestData = {deliveryDate: dataObject.date, status:dataObject.status, paid:dataObject.paid}
-        const response = await axios.patch(`${process.env.REACT_APP_DOMAIN}/api/order/admin/${dataObject.ordId}`, requestData,{
-            withCredentials: true
-        })
+        const response = await apiClient.patch("/api/order/admin/${dataObject.ordId}", requestData);
         const data = response.data;
-        if(data.error){
-           return data;
-        }
     
         return data;
 
     }catch(error){
-        return {error: "something went wrong"}
+        if(error?.response?.data){
+            return error.response.data
+          }
+        return error;
     }
 }
 
 export async function loader(){
     try{
-        const response = await axios.get(`${process.env.REACT_APP_DOMAIN}/api/orders/admin`, {
-            headers: {"Content-Type": "apllication/json"},
-            withCredentials: true
-        })
+        const response = await apiClient.get("/api/orders/admin");
         const data = response.data;
         if(data.error){
             if(data.error === "Not a authorized Admin"){
@@ -210,7 +209,13 @@ export async function loader(){
 
         return data;
     }catch(error){
-        return {error: "something went wrong"}
+        if(error?.response?.data){
+            if(error?.response?.data.error === "Not a authorized Admin"){
+                return redirect("/admin/login");
+            }
+            throw new Error(error.response.data);
+          }
+          throw new Error(error);
     }
 }
 

@@ -41,6 +41,9 @@ export async function loader({request, params}){
         }
         return item;
     }catch(error){
+        if(error?.response?.data){
+            throw new Error(error.response.data.error);
+        }
         throw new Error(error);
     }
 }
