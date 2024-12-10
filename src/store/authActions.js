@@ -57,7 +57,7 @@ export const loginUser = (data) =>{
             
         }catch(error){
             if(error?.response?.data){
-                return toast.error(error?.response?.data?.error);
+                return toast.error(error.response.data.error);
             }
             return toast.error(error.message);
         }
