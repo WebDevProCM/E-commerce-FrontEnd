@@ -29,7 +29,7 @@ export const UserProfile = () => {
   return (
     <div className={classes.userProfile}>
       <div className={classes.pictureContainer}>
-        <img className={classes.profileImg} src={user.image.startsWith("https")?`${user.image}` : `/images/${user.image}.png`} alt="profile-pic" />
+        <img className={classes.profileImg} src={user.image.startsWith("https")?`${user.image}` : `/images/${user.image}.webp`} alt="profile-pic" />
       </div>
       <Form method='post' encType='multipart/form-data'>
         <div className="mb-3">

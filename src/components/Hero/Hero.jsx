@@ -30,7 +30,7 @@ const Hero = () =>{
                 animate={{opacity: 1, scaleY: 1}}
                 transition={{duration: 0.8, delay: 0.1, type: "spring"}}
                 >
-                    <img src="./images/banner2.png" alt="fragrance bottle" />
+                    <img src="./images/banner2.webp" alt="fragrance bottle" />
                 </motion.div>
             </div>
         </div>

@@ -13,33 +13,25 @@
     height:100%;
 }
 .h1-new{
+    width: 100vw;
     margin: auto;
-    text-align: left;
+    text-align: center;
     font-size:8rem;
-    background: #000000;
-    background: linear-gradient(to bottom, #000000 41%, #FFFFFF 72%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     white-space: nowrap;
+    font-weight:800;
 }
 .h1-men{
+    width: 100vw;
     margin: auto;
-    text-align: left;
+    text-align: center;
     font-size:8rem;
-    background: white;
-    background: linear-gradient(to bottom, white 41%, rgb(17, 35, 90) 72%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     white-space: nowrap;
 }
 .h1-women{
+    width: 100vw;
     margin: auto;
-    text-align: left;
+    text-align: center;
     font-size:6rem;
-    background: white;
-    background: linear-gradient(to bottom, white 41%, rgb(157, 101, 201) 72%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     white-space: nowrap;
 }
 .row{
@@ -69,20 +61,13 @@ button{
 }
 
 @media only screen and (max-width: 768px) {
-    .h1-new, .h1-men{
-        font-size: 5rem;
-    }
-    .h1-women{
-        font-size: 4rem;
+    .h1-new, .h1-men, .h1-women{
+        font-size: 5.5rem;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .h1-new, .h1-men{
-        font-size: 2.5rem;
-    }
-
-    .h1-women{
-        font-size:2.3rem;
+    .h1-new, .h1-men, .h1-women{
+        font-size: 4.5rem;
     }
 }

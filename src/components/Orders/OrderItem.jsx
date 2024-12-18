@@ -4,7 +4,7 @@ function OrderItem({item}) {
   return (
     <section className={classes.ordItem}>
         <div className={classes.ordItemBody}>
-        <img src={item.image.startsWith("https")?`${item.image}` : `/images/${item.image}.jpg`} alt="perfume img" />
+        <img src={item.image.startsWith("https")?`${item.image}` : `/images/${item.image}.webp`} alt="perfume img" />
         <div>
             <p>Name: {item.name}</p>
         </div>

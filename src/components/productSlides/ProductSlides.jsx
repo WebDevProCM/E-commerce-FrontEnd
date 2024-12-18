@@ -12,19 +12,19 @@ const ProductSlides = (props) =>{
                 </div>
                 <div className={`carousel-inner`}>
                     <div className={`${classes["carousel-item"]} carousel-item active`}>
-                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.jpg`} className={`d-block w-100`} alt="..."/>
+                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.webp`} className={`d-block w-100`} alt="..."/>
                     <div className={`carousel-caption d-none d-md-block`}>
                         <h5>{props.title}</h5>
                     </div>
                     </div>
                     <div className={`${classes["carousel-item"]} carousel-item`}>
-                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.jpg`} className={`d-block w-100`} alt="..."/>
+                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.webp`} className={`d-block w-100`} alt="..."/>
                     <div className="carousel-caption d-none d-md-block">
                         <h5>{props.title}</h5>
                     </div>
                     </div>
                     <div className={`${classes["carousel-item"]} carousel-item`}>
-                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.jpg`} className={`d-block w-100`} alt="..."/>
+                    <img src={props.image.startsWith("https")?`${props.image}` : `/images/${props.image}.webp`} className={`d-block w-100`} alt="..."/>
                     <div className="carousel-caption d-none d-md-block">
                         <h5>{props.title}</h5>
                     </div>

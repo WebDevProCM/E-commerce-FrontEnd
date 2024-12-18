@@ -2,8 +2,8 @@ import React from "react";
 import classes from "./css/perfumecategory.module.css"
 import Banner from "../components/Banner/Banner"
 import Category from '../components/Category/Category'
-import mensBanner from '../components/assets/mens-banner.jpg'
-import womensBanner from '../components/assets/women-banner.png'
+import mensBanner from '../components/assets/mens-banner.webp'
+import womensBanner from '../components/assets/women-banner.webp'
 import apiClient from "../utilis/apiClient";
 const PerfumesCategory = (props) =>{
     //changing banner based on the page

@@ -101,7 +101,7 @@ const LoginSign = () =>{
             </div>
 
             <div className={classes["login-right"]}>
-                <img src={`/images/login image.png`} alt="shopping-cart" />
+                <img src={`/images/login image.webp`} alt="shopping-cart" />
             </div>
         </div>
     )

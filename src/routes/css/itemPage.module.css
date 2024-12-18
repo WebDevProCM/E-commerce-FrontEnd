@@ -4,7 +4,7 @@
 .product-body{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
     margin-bottom:150px;
     padding:5px 10px;
