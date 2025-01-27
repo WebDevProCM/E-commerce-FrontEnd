@@ -340,7 +340,7 @@ function AdminProducts() {
         event.preventDefault();
 
         try{
-            const response = await apiClient.delete("/api/product/${id}")
+            const response = await apiClient.delete(`/api/product/${id}`)
             const data = response.data;
             if(data.error){
                 if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
@@ -409,7 +409,7 @@ export async function action({request}){
 
   
         if(intent === "update"){
-            response = await apiClient.patch("/api/product/${id}", dataObject);
+            response = await apiClient.patch(`/api/product/${id}`, dataObject);
 
         }else{
             response = await apiClient.post("/api/product", dataObject);

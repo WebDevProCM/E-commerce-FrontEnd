@@ -119,7 +119,7 @@ function AdminReviews() {
         event.preventDefault();
 
         try{
-            const response = await apiClient.delete("/api/review/${id}")
+            const response = await apiClient.delete(`/api/review/${id}`)
             const data = response.data;
             if(data.error){
                 if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
@@ -175,7 +175,7 @@ export async function action({request}){
         delete dataObject.id;
 
   
-        const response = await apiClient.patch("/api/review/${id}", dataObject);
+        const response = await apiClient.patch(`/api/review/${id}`, dataObject);
         const data = response.data;
     
         return data;

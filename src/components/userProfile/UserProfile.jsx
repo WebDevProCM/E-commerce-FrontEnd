@@ -92,7 +92,7 @@ export const action = async ({request}) =>{
       delete userData.confirmPassword;
     }
 
-    const response = await apiClient.patch("/api/user/${id}", userData);
+    const response = await apiClient.patch(`/api/user/${id}`, userData);
     const updatedUser = response.data;
     if(updatedUser.error){
       return toast.error(updatedUser.error);

@@ -183,7 +183,7 @@ export async function action({request}){
         const dataObject = Object.fromEntries(formData);
 
         const requestData = {deliveryDate: dataObject.date, status:dataObject.status, paid:dataObject.paid}
-        const response = await apiClient.patch("/api/order/admin/${dataObject.ordId}", requestData);
+        const response = await apiClient.patch(`/api/order/admin/${dataObject.ordId}`, requestData);
         const data = response.data;
     
         return data;

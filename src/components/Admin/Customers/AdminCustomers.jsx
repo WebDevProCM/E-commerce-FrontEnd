@@ -140,7 +140,7 @@ export async function action({request}){
         delete dataObject.image;
       }
 
-      const response = await apiClient.patch("/api/user/${id}", dataObject);
+      const response = await apiClient.patch(`/api/user/${id}`, dataObject);
       const data = response.data;
   
       return data;
