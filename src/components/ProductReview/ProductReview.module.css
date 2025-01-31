@@ -4,7 +4,11 @@
 .card-header, .card-body{
     padding:2px 5px;
 }
-.review form label{
+.reviewDescription{
+    font-size:1rem;
+    margin: 0;
+}
+.review form label, .card-header{
     font-weight: bold;   
 }
 .review form input{

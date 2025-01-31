@@ -3,7 +3,9 @@
     flex-direction: row;
     max-width:1300px;
     margin: 0 auto;
-    padding:1px 30px;
+    padding:60px 30px;
+    background-color: #faf2e3;
+    background-image: linear-gradient(315deg, #faf2e3 0%, #f3e7d3 74%);
 }
 .sort-section{
     display: flex;
@@ -11,12 +13,18 @@
     justify-content: center;
     align-items: start;
     min-width:180px;
-    height:550px;
+    height:500px;
+    border:1px solid #230600;
     border-radius: 20px;
     padding:0 20px;
-    background-color: rgb(231, 231, 231);
+    background-image: linear-gradient(315deg, #faf2e3 0%, #f5e4c7 74%);
+    color: #230600;
+}
+.sort-section h2{
+    font-size:1.3rem;
 }
 .sort-section h4{
+    font-size:1rem;
     font-weight: bold;
 }
 .items{
@@ -32,12 +40,26 @@
 }
 .sort{
     display: block;
-    font-weight: bold;
-    font-size:1rem;
-    margin-bottom:20px;
+    font-size:0.9rem;
+    margin-bottom:15px;
 }
 .sort label{
     margin-right:10px;
+}
+
+.pagination{
+    text-align: center;
+    margin: 0 auto;
+    width: 180px;
+}
+.pagination ul, .pagination ul li span{
+    margin: 0;
+    color: #230600;
+}
+.pagination ul li span:hover{
+    cursor: pointer;
+    background-color:tan;
+    color: black;
 }
 
 
@@ -50,25 +72,26 @@
         font-size:0.5rem;
         display: inline-block;
         margin-left:5px;
-        margin-bottom: 5px;
+        margin-bottom: 0px;
         text-align: center;
     }
     .sort-section{
-        width:100%;
+        max-width:450px;
         height:100%;
-        padding:20px;
-        flex-direction: row;
+        padding:5px 10px;
         flex-wrap: wrap;
-        gap: 15px;
-        justify-content: start;
+        justify-content: center;
         align-items: start;
+        margin: 10px auto;
     }
     .sort-type{
         display: flex;
         flex-wrap: wrap;
     }
     .sort-section h4{
-        font-weight: bold;
+        font-size:0.7rem;
+    }
+    .sort-section h2{
         font-size:0.9rem;
     }
     .sort label{

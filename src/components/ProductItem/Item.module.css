@@ -6,6 +6,9 @@
     text-align: center;
     margin:1px auto;
     cursor: pointer;
+    background-color: transparent;
+    color: #230600;
+    border:0.5px solid #23060036;
 }
 .card-body{
     padding:1px 5px;
@@ -22,14 +25,23 @@
     font-weight: bold;
     text-transform: uppercase;
 }
-.card-link+.card-link{
-    margin-left:0;
-}
 p{
     display: inline-block;
     margin-right:5px;
 }
+.new-price, .old-price{
+    font-size: 1.5rem;
+}
 .card-text{
     display: block;
+    font-size:0.9rem;
     margin-bottom: 0;
+    color: #5e5250;
+}
+.new-price{
+    margin-bottom: 0;
+}
+.reviews p{
+    font-size:0.8rem;
+    margin: 0;
 }

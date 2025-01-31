@@ -1,0 +1,124 @@
+.womensbanner p, .womensbanner button{
+    margin: 0;
+}
+.womensbanner{
+    padding:50px 20px;
+}
+.womensbanner, .leftSection, .rightSection, .midSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    color: #230600;
+    font-family: "Playfair Display", serif;
+}
+.womensbanner img{
+    max-width:200px;
+    border-radius:100px;
+    box-shadow:1px 1px 20px #230600a1;
+}
+.leftSection{
+    align-items: end;
+}
+.rightSection{
+    align-items: start;
+}
+.midSection{
+    flex-direction: column;
+    align-items: center;
+    gap:30px;
+}
+.midSection h2{
+    font-size:4rem;
+}
+.midSection p{
+    font-size:0.9rem;
+}
+.midSection button{
+    border-style: none;
+    border-radius:20px;
+    padding:15px;
+    color: white;
+    background-color: black;
+}
+.midSection h3{
+    font-size:2.5rem;
+    color: #442019;
+    font-family: "Playwrite IN", serif;
+}
+.midSection h5{
+    font-size:0.7rem;
+    max-width:150px;
+}
+
+@media screen and (max-width: 1024px) {
+    .womensbanner img{
+        max-width:180px;
+        border-radius:80px;
+    }
+    .midSection h2{
+        font-size:3.5rem;
+    }
+    .midSection p{
+        font-size:0.8rem;
+    }
+    .midSection h3{
+        font-size:2.3rem;
+    }
+    .midSection h5{
+        font-size:0.6rem;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .womensbanner img{
+        max-width:140px;
+        border-radius:40px;
+    }
+    .midSection{
+        gap:20px;
+    }
+    .midSection h2{
+        font-size:3rem;
+    }
+    .midSection p{
+        font-size:0.6rem;
+    }
+    .midSection h3{
+        font-size:1.8rem;
+    }
+    .midSection h5{
+        font-size:0.5rem;
+    }
+
+}
+@media screen and (max-width: 568px) {
+    .womensbanner{
+        padding:50px 5px;
+    }
+    .womensbanner img{
+        max-width:80px;
+        border-radius:30px;
+    }
+    .midSection{
+        gap:10px;
+    }
+    .midSection h2{
+        font-size:1.5rem;
+    }
+    .midSection p{
+        font-size:0.5rem;
+    }
+    .midSection h3{
+        font-size:1rem;
+    }
+    .midSection h5{
+        font-size:0.4rem;
+        max-width:80px;
+    }
+    .midSection button{
+        padding:10px;
+        font-size:0.8rem;
+    }
+}

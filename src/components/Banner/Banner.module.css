@@ -8,7 +8,8 @@
     padding-top:20px;
     max-width:1200px;
     /* box-shadow:2px 2px 10px #E6BE8A; */
-    box-shadow:2px 2px 10px #e8c99b;
+    /* box-shadow:2px 2px 10px #e8c99b; */
+    box-shadow:2px 2px 10px #faf2e3;
     border-radius:15px;
     margin:50px auto;
 }

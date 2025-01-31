@@ -429,7 +429,7 @@ export async function action({request}){
   
 export async function loader(){
     try{
-        const response = await apiClient.get("/api/product")
+        const response = await apiClient.get("/api/products")
         const data = response.data;
         if(data.error){
             if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import apiClient from "../../utilis/apiClient";
 
 const ProductReview = (props) =>{
+    console.log(props)
     const user = useSelector((state) => state.auth.user);
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
@@ -53,7 +54,7 @@ const ProductReview = (props) =>{
     useEffect(() =>{
         const fetchReviews =async () =>{
             try{
-                const response = await apiClient.get(`/api/review`);
+                const response = await apiClient.get(`/api/review/${props.id}`);
                 const allReviews = response.data;
                 if(allReviews.error){
                     return toast.error(allReviews.error);
@@ -71,7 +72,7 @@ const ProductReview = (props) =>{
 
     return (
         <div className={classes.review}>
-            <h3>Reviews</h3>
+            <h3>Reviews &#40;{reviews.length}&#41;</h3>
             <form onSubmit={submitHandler}>
                 <div className={`mb-3 form-check`}>
                     <label htmlFor="review">Type your review</label>
@@ -91,9 +92,9 @@ const ProductReview = (props) =>{
                         </div>
                         <div className={`${classes["card-body"]} card-body`}>
                             <blockquote className={`${classes.blockquote} blockquote mb-0`}>
-                            <p>{review.description}</p>
+                            <p className={classes.reviewDescription}>{review.description}</p>
                             <footer className={`blockquote-footer`}>
-                                <Rating initialValue={review.stars} readonly={true}/>
+                                <Rating initialValue={review.stars} readonly={true} size={22}/>
                             </footer>
                             </blockquote>
                         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import {Rating} from 'react-simple-star-rating';
 import classes from './Item.module.css'
 import {motion} from 'framer-motion'
 
@@ -10,6 +11,10 @@ const item = (props) =>{
     transition={{type: "spring"}}
     >   
         <div className={classes['img-container']}>
+            <div className={classes["card-link"]}>
+                {props.perfume.quantity < 1 && "Out of stock"}
+                {props.perfume.status !== 1 ?"Unavailable": "Available"}
+            </div>
             <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.jpg`} className="card-img-top" alt="perfume"/>
         </div>
         <div className={`${classes["card-body"]} card-body`}>
@@ -23,9 +28,13 @@ const item = (props) =>{
                 <p className={classes["new-price"]}>${props.perfume.price}</p>
                 {props.perfume.oldPrice > 0 && <p className={classes["old-price"]}>${props.perfume.oldPrice}</p>} 
             </div>
-            <div className={classes["card-link"]}>
+            {/* <div className={classes["card-link"]}>
                 {props.perfume.quantity < 1 && "Out of stock"}
                 {props.perfume.status !== 1 ?"Unavailable": "Available"}
+            </div> */}
+            <div className={classes.reviews}>
+                <Rating initialValue={props.perfume.averageRating} readonly={true} size={18}/>
+                <p>&#40;{props.perfume.totalReviews}&#41;</p>
             </div>
         </div>
     </motion.div>

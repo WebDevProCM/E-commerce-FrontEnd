@@ -1,85 +1,97 @@
 .All-section{
     overflow: hidden;
-    padding-top:100px;
-    padding-bottom:50px;
+    padding:50px 30px;
     /* text-align: center; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap:25px;
-    background-color: #11235A;
-    color: white;
+    /* background-color: #11235A; */
+    /* color: white; */
+    width: 100%;
     height:100%;
+    /* background-color: #e8c99b; */
+    background-color: #faf2e3;
+    background-image: linear-gradient(315deg, #faf2e3 0%, #faf2e3 74%);
 }
-.h1-new{
-    margin: auto;
+.All-section h1{
+    margin-right: auto;
     text-align: left;
-    font-size:8rem;
+    font-family: "Playfair Display", serif;
+    font-weight:100;
+    font-size:3rem;
+    color: #230600;
+    /* background: white; */
+    /* -webkit-text-fill-color: transparent; */
+    white-space: nowrap;
+}
+/* .h1-new{
     background: #000000;
     background: linear-gradient(to bottom, #000000 41%, #FFFFFF 72%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    white-space: nowrap;
 }
 .h1-men{
-    margin: auto;
-    text-align: left;
-    font-size:8rem;
-    background: white;
     background: linear-gradient(to bottom, white 41%, rgb(17, 35, 90) 72%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    white-space: nowrap;
 }
 .h1-women{
-    margin: auto;
-    text-align: left;
-    font-size:6rem;
-    background: white;
     background: linear-gradient(to bottom, white 41%, rgb(157, 101, 201) 72%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    white-space: nowrap;
-}
+} */
 .row{
     justify-content: center;
     align-items: center;
     width:100%;
 }
-hr{
+/* hr{
     margin: auto;
     width:60px;
     height:10px;
     border: none;
     background-color: black;
-}
-button{
+} */
+.All-section button{
     margin-top:50px;
+}
+.All-section hr{
+    width:calc(100vw/2);
+    height:3px;
+    background-color: #230600;
+    color: #230600;
+    margin: 0 auto;
+    margin-top:40px;
 }
 
 @media only screen and (max-width: 991px) {
     .All-section{
         height:100%;
     }
+    .row{
+        gap: 10px;
+    }
     
 }
 
 @media only screen and (max-width: 768px) {
-    .h1-new, .h1-men{
-        font-size: 5rem;
-    }
-    .h1-women{
-        font-size: 4rem;
+    .All-section h1{
+        font-size:2rem;
     }
 }
 
 @media only screen and (max-width: 500px) {
-    .h1-new, .h1-men{
+    .All-section{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .All-section h1{
+        font-size:1.5rem;
+    }
+    /* .h1-new, .h1-men{
         font-size: 2.5rem;
     }
 
     .h1-women{
         font-size:2.3rem;
-    }
+    } */
 }

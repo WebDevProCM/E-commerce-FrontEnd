@@ -6,6 +6,7 @@ import ErrorPage from './routes/ErrorPage';
 import './App.css';
 import ShowingLoading from './components/ShowingLoading/ShowingLoading.jsx';
 
+//added react lazy loading to optimize the performance
 const PerfumesCategory = lazy(() => import("./routes/PerfumesCategory"));
 const Cart = lazy(() => import("./routes/Cart"));
 const Item = lazy(() => import("./routes/Item"));
@@ -25,14 +26,14 @@ function App() {
   const router = createBrowserRouter([
     {path: "/", element: <RootLayout/>, children: [
       {index: true, element: <Home/>},
-      {path: "/mens", loader:() => import("./routes/PerfumesCategory").then(module => module.loader()), 
+      {path: "/mens", loader:({request}) => import("./routes/PerfumesCategory").then(module => module.loader({request})), 
         element:
          <Suspense fallback={<ShowingLoading/>}>
           <PerfumesCategory category='Men' bannerTitle='Trending Mens Perfume' bannerImg='mensBanner'/>
           </Suspense>, 
         errorElement: <ErrorPage />},
 
-      {path: "/womens", loader:() => import("./routes/PerfumesCategory").then(module => module.loader()),
+      {path: "/womens", loader:({request}) => import("./routes/PerfumesCategory").then(module => module.loader({request})),
         element: 
         <Suspense fallback={<ShowingLoading/>}>
         <PerfumesCategory category='Women' bannerTitle='Trending Womens Perfume' bannerImg='womensBanner'/>
@@ -62,6 +63,7 @@ function App() {
       loader: () => import("./routes/Admin.jsx").then(module => module.loader()), 
       action: () => import("./routes/Admin.jsx").then(module => module.action()), 
       errorElement: <ErrorPage />, children: [
+        
         {path: "orders", element: <Suspense fallback={<ShowingLoading/>}><AdminOrders /></Suspense>, 
           action: ({request}) => import("./components/Admin/Orders/AdminOrders.jsx").then(module => module.action({request})), 
           loader: () => import("./components/Admin/Orders/AdminOrders.jsx").then(module => module.loader()), 

@@ -31,7 +31,7 @@ const Product = () =>{
 
 export default Product
 
-export async function loader({request, params}){
+export async function loader({params}){
     try{
         const itemId = params.itemId;
         const response = await apiClient.get(`/api/product/${itemId}`);

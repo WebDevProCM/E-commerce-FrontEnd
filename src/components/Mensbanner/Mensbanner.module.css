@@ -1,0 +1,97 @@
+.mensbanner p{
+    margin: 0;
+    width:100%;
+}
+.mensbanner, .imageSection{
+    display: flex;
+    flex-direction: column;
+}
+.mensbanner{
+    padding:60px 20px;
+    background-color: #faf2e3;
+    color: #230600;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+    gap:50px;
+}
+.titleSection{
+    font-family: "Playfair Display", serif;
+    font-size:3.5rem;
+    line-height:3.5rem;
+    max-width:800px;
+}
+.lightText{
+    font-size:1.8rem;
+    color: #442019;
+    font-family: "Playwrite IN", serif;
+    line-height:2.5rem;
+}
+.imageSection{
+    flex-direction: row;
+    gap:15px;
+}
+.imageSection img{
+    max-width:300px;
+    border-radius:200px;
+    box-shadow:1px 1px 20px #23060096;
+}
+.textSection{
+    text-align: center;
+    font-size:0.8rem;
+    max-width:500px;
+    margin:0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .imageSection img{
+        max-width:200px;
+    }
+    .titleSection{
+        font-size:3rem;
+        max-width:600px;
+    }
+    .lightText{
+        font-size:1.5rem;
+
+    }
+    .textSection{
+        font-size:0.8rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .imageSection img{
+        max-width:150px;
+    }
+    .titleSection{
+        font-size:2.7rem;
+        line-height:3rem;
+        max-width:500px;
+    }
+    .lightText{
+        font-size:1.3rem;
+        line-height:1.8;
+    }
+    .textSection{
+        font-size:0.8rem;
+    }
+
+}
+@media screen and (max-width: 568px) {
+    .imageSection img{
+        max-width:100px;
+    }
+    .titleSection{
+        font-size:2rem;
+        line-height:2.5rem;
+        max-width:400px;
+    }
+    .lightText{
+        font-size:1rem;
+        line-height:1.6rem;
+    }
+    .textSection{
+        font-size:0.5rem;
+    }
+}

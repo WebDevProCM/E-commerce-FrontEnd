@@ -1,5 +1,7 @@
 .perfumecategory{
-    padding: 20px;
+    /* padding: 20px; */
+    background-color: #faf2e3;
+    background-image: linear-gradient(315deg, #faf2e3 0%, #f3e7d3 74%);
 }
 
 @media only screen and (max-width: 355px) {

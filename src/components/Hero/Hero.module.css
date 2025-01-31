@@ -1,0 +1,93 @@
+.hero p{
+    margin: 0;
+}
+.hero{
+    padding:100px;
+    /* background-color: #E6BE8A; */
+    /* background-color: #ffe5ca; */
+    /* background-color: #e8c99b; */
+    background-color: #faf2e3;
+    background-image: linear-gradient(315deg, #faf2e3 0%, #faf2e3 74%);
+}
+.row{
+    max-width:1500px;
+    margin: 0 auto;
+}
+.hero img{
+    max-width:200px;
+}
+.hero h3{
+    font-size:6rem;
+    font-family: "Playfair Display", serif;
+    white-space: nowrap;
+    color: #230600;
+}
+.topSection, .midSection, .botSection, .arrSection{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.arrBtn, .shopMore button{
+    border-radius:50%;
+    border:1px solid #230600;
+    background-color: transparent;
+    font-size:2rem;
+    width:80px;
+    height:80px;
+}
+.shopMore{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.shopMore button{
+    font-size:1rem;
+    width:40px;
+    height:40px;
+    margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+    .hero{
+        padding:50px;
+    }
+    .hero h3{
+        font-size:4.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero h3{
+        font-size:3.3rem;
+    }
+    .hero img{
+        max-width:130px;
+    }
+
+}
+@media screen and (max-width: 568px) {
+    .hero{
+        padding:30px;
+    
+    }
+    .hero h3{
+        font-size:2.1rem;
+    }
+    .hero img{
+        max-width:80px;
+    }
+    .arrBtn, .shopMore button{
+        font-size:1.5rem;
+        width:60px;
+        height:60px;
+    }
+    .shopMore button{
+        font-size:0.6rem;
+        width:30px;
+        height:30px;
+    }
+    .shopMore p{
+        font-size:0.6rem;
+    }
+}
