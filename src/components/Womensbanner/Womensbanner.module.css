@@ -3,6 +3,7 @@
 }
 .womensbanner{
     padding:50px 20px;
+    background-color: #faf2e3;
 }
 .womensbanner, .leftSection, .rightSection, .midSection{
     display: flex;
@@ -14,7 +15,7 @@
 }
 .womensbanner img{
     max-width:200px;
-    border-radius:100px;
+    border-radius:50%;
     box-shadow:1px 1px 20px #230600a1;
 }
 .leftSection{
@@ -54,7 +55,6 @@
 @media screen and (max-width: 1024px) {
     .womensbanner img{
         max-width:180px;
-        border-radius:80px;
     }
     .midSection h2{
         font-size:3.5rem;
@@ -74,7 +74,6 @@
 @media screen and (max-width: 768px) {
     .womensbanner img{
         max-width:140px;
-        border-radius:40px;
     }
     .midSection{
         gap:20px;
@@ -99,7 +98,6 @@
     }
     .womensbanner img{
         max-width:80px;
-        border-radius:30px;
     }
     .midSection{
         gap:10px;
@@ -118,7 +116,7 @@
         max-width:80px;
     }
     .midSection button{
-        padding:10px;
-        font-size:0.8rem;
+        padding:8px;
+        font-size:0.6rem;
     }
 }

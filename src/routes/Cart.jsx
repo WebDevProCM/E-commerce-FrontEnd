@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useNavigate} from "react-router-dom";
 import {toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import classes from './css/cart.module.css'
 import CartItem from "../components/CartItem/CartItem";
 import CartTotal from "../components/CartTotal/CartTotal";
@@ -9,12 +8,14 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart-slice";
 import apiClient from "../utilis/apiClient";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Cart = () =>{
     const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
     const navigation = useNavigate();
     let total = 0;
+    const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
     cartItems.forEach((item) =>{
         total = total + item.total;
@@ -68,15 +69,34 @@ const Cart = () =>{
     const clickHandler = async () =>{
         let orderItems = []
         cartItems.map((item) => orderItems.push({prodId: item.product.prodId, quantity: item.quantity}));
-        const requestData = {products: orderItems}
+        const requestData = {cartItems: orderItems}
+
+        // try{
+        //     const response = await apiClient.post("/api/order", requestData);
+        //     const data = response.data
+        //     if(data.error){
+        //         return toast.error(data.error);
+        //     }
+
+        //     return navigation("/orders");
+            
+        // }catch(error){            
+        //     if(error?.response?.data){
+        //         return toast.error(error.response.data.error);
+        //     }
+        //     throw new Error(error);
+        // }
+
         try{
-            const response = await apiClient.post("/api/order", requestData);
+            const response = await apiClient.post("api/payment/create-checkout-session", requestData);
             const data = response.data
+            console.log(data);
             if(data.error){
                 return toast.error(data.error);
             }
 
-            return navigation("/orders");
+            const stripe = await stripePromise;
+            stripe.redirectToCheckout({ sessionId: data.id });
             
         }catch(error){            
             if(error?.response?.data){

@@ -1,17 +1,11 @@
 import React from "react";
 import classes from "./css/perfumecategory.module.css"
-import Banner from "../components/Banner/Banner"
 import Category from '../components/Category/Category'
-import mensBanner from '../components/assets/mens-banner.jpg'
-import womensBanner from '../components/assets/women-banner.png'
 import apiClient from "../utilis/apiClient";
 import Mensbanner from "../components/Mensbanner/Mensbanner";
 import Womensbanner from "../components/Womensbanner/Womensbanner";
 
 const PerfumesCategory = (props) =>{
-
-    //changing banner based on the page
-    const bannerImg = props.bannerImg === 'mensBanner'? mensBanner: womensBanner;
     
     return(
         <div className={`${props.category} ${classes.perfumecategory}`}>

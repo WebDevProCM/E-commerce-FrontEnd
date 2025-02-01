@@ -5,6 +5,8 @@ import Home from './routes/Home'
 import ErrorPage from './routes/ErrorPage';
 import './App.css';
 import ShowingLoading from './components/ShowingLoading/ShowingLoading.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //added react lazy loading to optimize the performance
 const PerfumesCategory = lazy(() => import("./routes/PerfumesCategory"));
@@ -13,6 +15,8 @@ const Item = lazy(() => import("./routes/Item"));
 const Login = lazy(() => import("./routes/Login"));
 const Profile = lazy(() => import("./routes/Profile"));
 const Orders = lazy(() => import("./routes/Orders"));
+const Success = lazy(() => import("./routes/Success"))
+const Cancel = lazy(() => import("./routes/Cancel"))
 
 const Admin = lazy(() => import("./routes/Admin.jsx"));
 const AdminOrders = lazy(() => import("./components/Admin/Orders/AdminOrders.jsx"));
@@ -47,6 +51,10 @@ function App() {
       {path: "/cart", loader:() => import("./routes/Cart").then(module => module.loader()), 
         element:<Suspense fallback={<ShowingLoading/>}><Cart/></Suspense>, 
         errorElement: <ErrorPage />},
+
+      {path: "/success", element:<Suspense fallback={<ShowingLoading/>}><Success/></Suspense>, errorElement: <ErrorPage />},
+
+      {path: "/cancel", element:<Suspense fallback={<ShowingLoading/>}><Cancel/></Suspense>, errorElement: <ErrorPage />},
 
       {path: "/login", element: <Suspense fallback={<ShowingLoading/>}><Login/></Suspense>},
 
@@ -94,6 +102,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router}/>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }

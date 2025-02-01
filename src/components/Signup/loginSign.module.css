@@ -4,6 +4,7 @@
     align-items: start;
     padding:50px 20px;
     flex-wrap: wrap;
+    color: #230600;
 }
 .login-left{
     /* background-color: #E6BE8A; */

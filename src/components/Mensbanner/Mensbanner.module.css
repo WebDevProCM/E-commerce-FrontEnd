@@ -33,7 +33,7 @@
 }
 .imageSection img{
     max-width:300px;
-    border-radius:200px;
+    border-radius:50%;
     box-shadow:1px 1px 20px #23060096;
 }
 .textSection{
