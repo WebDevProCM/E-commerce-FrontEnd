@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './CartTotal.module.css';
 
-const CartTotal = ({ total, clickHandler }) => {
+const CartTotal = ({ total, clickHandler, btnDisabled }) => {
     const subtotal = parseFloat(total).toFixed(2);
     const shippingFee = parseFloat(0).toFixed(2);
 
@@ -18,8 +18,12 @@ const CartTotal = ({ total, clickHandler }) => {
                         type="button"
                         onClick={clickHandler}
                         className="btn btn-primary"
+                        disabled={btnDisabled}
                     >
                         Go To Checkout
+                        {btnDisabled && 
+                        <div class="spinner-border spinner-border-sm" role="status" />
+                        }
                     </button>
                 </div>
             </section>

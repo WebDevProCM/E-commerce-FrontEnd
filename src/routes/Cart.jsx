@@ -13,6 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 const Cart = () =>{
     const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
+    const [checkoutBtnDisable, setCheckoutBtnDisable] = useState(false);
     const navigation = useNavigate();
     let total = 0;
     const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
@@ -70,7 +71,7 @@ const Cart = () =>{
         let orderItems = []
         cartItems.map((item) => orderItems.push({prodId: item.product.prodId, quantity: item.quantity}));
         const requestData = {cartItems: orderItems}
-
+        setCheckoutBtnDisable(true);
         // try{
         //     const response = await apiClient.post("/api/order", requestData);
         //     const data = response.data
@@ -96,9 +97,11 @@ const Cart = () =>{
             }
 
             const stripe = await stripePromise;
+            setCheckoutBtnDisable(false)
             stripe.redirectToCheckout({ sessionId: data.id });
             
-        }catch(error){            
+        }catch(error){    
+            setCheckoutBtnDisable(false)        
             if(error?.response?.data){
                 return toast.error(error.response.data.error);
             }
@@ -126,7 +129,7 @@ const Cart = () =>{
                 </motion.div>
                 </AnimatePresence>
                 <div className={classes.cartCheckout}>
-                    <CartTotal total={total} clickHandler={clickHandler}/>
+                    <CartTotal total={total} clickHandler={clickHandler} btnDisabled={checkoutBtnDisable}/>
                 </div>
             </div>
         </>
