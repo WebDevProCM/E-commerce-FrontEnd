@@ -10,9 +10,9 @@ function Mensbanner() {
             <p style={{textAlign:"right"}}>Scents for Every Mood</p>
         </section>
         <section className={classes.imageSection}>
-            <img src='/images/mystic forest.jpg' alt='men perfume' />
-            <img src='/images/oceanic escape.jpg' alt='men perfume' />
-            <img src='/images/sunlit whisper.jpg' alt='men perfume' />
+            <img src='/images/mystic forest.webp' alt='men perfume' />
+            <img src='/images/oceanic escape.webp' alt='men perfume' />
+            <img src='/images/sunlit whisper.webp' alt='men perfume' />
         </section>
         <section className={classes.textSection}>
             <p>Discover the perfect scent that defines your style and personality. Our collection of men's 

@@ -90,7 +90,7 @@ function AdminCustomers() {
         { name: 'Name', selector: row => row.name, sortable: true },
         { name: 'Email', selector:  row => row.name, sortable: true },
         { name: 'Address', selector: row => row.name, sortable: true },
-        { name: 'Image', selector: row => <img className={classes.userImage} src={row.image.startsWith("https")?`${row.image}` : `/images/${row.image}.png`} alt='user Profile'/>, sortable: true },
+        { name: 'Image', selector: row => <img className={classes.userImage} src={row.image.startsWith("https")?`${row.image}` : `/images/${row.image}.webp`} alt='user Profile'/>, sortable: true },
         {
           name: 'Actions',
           cell: (row) => (

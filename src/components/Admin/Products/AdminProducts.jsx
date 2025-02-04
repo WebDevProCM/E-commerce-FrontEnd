@@ -242,7 +242,7 @@ const DetailsModal = forwardRef(({modalData}, ref) =>{
                     <p>IMAGE: </p>
                     {modalData[0]?.image.startsWith("https") ?
                         <img src={modalData[0]?.image} alt='product'/> :
-                        <img src={`/images/${modalData[0]?.image}.jpg`} alt='product'/>
+                        <img src={`/images/${modalData[0]?.image}.webp`} alt='product'/>
                     }
                 </div>
             </section>

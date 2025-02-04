@@ -24,7 +24,7 @@ function OrderDetails({product}) {
             <p>IMAGE: </p>
             {product.image.startsWith("https") ?
                 <img src={product.image} alt='product'/> :
-                <img src={`/images/${product.image}.jpg`} alt='product'/>
+                <img src={`/images/${product.image}.webp`} alt='product'/>
             }
             
         </div>

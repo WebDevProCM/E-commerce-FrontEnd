@@ -40,7 +40,7 @@ const CartItem = (props) =>{
         >
 
            <div className={classes.itemDetails}>
-                <img className={classes.cartImage} src={product.image.startsWith("https")?`${product.image}` : `/images/${product.image}.jpg`} alt="cart-item" />
+                <img className={classes.cartImage} src={product.image.startsWith("https")?`${product.image}` : `/images/${product.image}.webp`} alt="cart-item" />
                 <div className={classes.details}>
                     <h3>{product.name}</h3>
                     <p>Category: {product.category}</p>

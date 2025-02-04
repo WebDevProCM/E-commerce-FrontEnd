@@ -24,7 +24,7 @@ const FilterValue = ({value, unit, handler}) =>{
     return(
         <div className={`${classes.sort} form-check`}>
         <input className="form-check-input" type="checkbox" name={value} value={value} onChange={handler}/>
-        <label className="form-check-label" for="flexCheckDefault">
+        <label className="form-check-label" htmlFor="flexCheckDefault">
             {value}{unit}
         </label>
       </div>
@@ -85,7 +85,6 @@ const Category = (props) =>{
     const nextPageHandler = async () =>{
         let newPage = currentPage + 1
         if (remainingDocuments < 1){
-            console.log("Return")
             return;
         }
 
@@ -108,7 +107,6 @@ const Category = (props) =>{
     const prevPageHandler = async () =>{
         let newPage = currentPage - 1
         if (newPage < 1){
-            console.log("return -")
             return;
         }
 

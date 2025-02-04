@@ -6,7 +6,7 @@ function Womensbanner() {
   return (
     <main className={classes.womensbanner}>
         <section className={classes.leftSection}>
-            <img src='/images/secret garden.jpg' alt='women perfume' />
+            <img src='/images/secret garden.webp' alt='women perfume' />
         </section>
         <section className={classes.midSection}>
             <h2>Best Perfume <br/>Collection For You</h2>
@@ -16,7 +16,7 @@ function Womensbanner() {
             <h5>Unleashed elegance, timeless scents—discover your signature fragrance today.</h5>
         </section>
         <section className={classes.rightSection}>
-        <img src='/images/sparkling citrus.jpg' alt='women perfume' />
+        <img src='/images/sparkling citrus.webp' alt='women perfume' />
         </section>
 
     </main>

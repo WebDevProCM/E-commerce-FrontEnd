@@ -11,11 +11,7 @@ const item = (props) =>{
     transition={{type: "spring"}}
     >   
         <div className={classes['img-container']}>
-            <div className={classes["card-link"]}>
-                {props.perfume.quantity < 1 && "Out of stock"}
-                {props.perfume.status !== 1 ?"Unavailable": "Available"}
-            </div>
-            <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.jpg`} className="card-img-top" alt="perfume"/>
+            <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.webp`} className="card-img-top" alt="perfume"/>
         </div>
         <div className={`${classes["card-body"]} card-body`}>
             <h5 className={classes['card-title']}>{props.perfume.name}</h5>

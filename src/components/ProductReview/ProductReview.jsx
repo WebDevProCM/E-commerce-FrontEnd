@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import apiClient from "../../utilis/apiClient";
 
 const ProductReview = (props) =>{
-    console.log(props)
     const user = useSelector((state) => state.auth.user);
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);

@@ -67,6 +67,7 @@
     .category{
         padding:1px 10px;
         flex-direction: column;
+        /* gap:3rem */
     }
     .sort{
         font-size:0.5rem;

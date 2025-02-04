@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import {motion} from 'framer-motion'
 
 const MenSection = (props) =>{
+
     return(
         <motion.div 
         id="section"

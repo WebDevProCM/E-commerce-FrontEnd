@@ -91,7 +91,6 @@ const Cart = () =>{
         try{
             const response = await apiClient.post("api/payment/create-checkout-session", requestData);
             const data = response.data
-            console.log(data);
             if(data.error){
                 return toast.error(data.error);
             }
