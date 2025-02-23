@@ -2,7 +2,7 @@
     {
         "id": "PRODID-1005",
         "name": "mystic forest",
-        "price": 112.30,
+        "price": 81.30,
         "category": "Men",
         "image": "mystic forest",
         "ml":500,
@@ -22,7 +22,7 @@
     {
         "id": "PRODID-1015",
         "name": "forest awakening",
-        "price": 91.40,
+        "price": 70.40,
         "category": "Men",
         "image": "forest awakening",
         "ml":50,

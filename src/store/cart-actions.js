@@ -1,4 +1,3 @@
-import axios from "axios";
 import { cartActions } from "./cart-slice";
 import apiClient from "../utilis/apiClient";
 

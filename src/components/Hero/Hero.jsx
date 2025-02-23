@@ -9,24 +9,52 @@ const Hero = () =>{
     return(
         <div className={classes.hero}>
             <section className={classes.topSection}>
-                <h3>DISCOVER THE</h3>
-                <img src="/images/heroImg1.webp" alt="perfume"/>
+                <motion.h3
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 1}}
+                >DISCOVER THE</motion.h3>
+                <motion.img
+                    initial={{translateX: -200, opacity:0}} 
+                    animate={{translateX: 0, opacity: 1}} 
+                    transition={{duration: 1, ease: "easeInOut"}} 
+                    src="/images/heroImg1.webp" alt="perfume"/>
             </section>
 
             <section className={classes.midSection}>
-                <h3>FRAGANCE OF</h3>
+                <motion.h3
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 1, delay: 0.3}}
+                >FRAGANCE OF</motion.h3>
             </section>
             <section className={classes.botSection}>
-                <img src="/images/heroImg2.webp" alt="perfume"/>
-                <div className={classes.shopMore}>
+                <motion.img
+                    initial={{translateX: 200, opacity: 0}} 
+                    animate={{translateX: 0, opacity: 1}}
+                    transition={{duration: 1, ease: "easeInOut"}} 
+                    src="/images/heroImg2.webp" alt="perfume"/>
+                
+                <motion.div className={classes.shopMore}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                >
                     <p>New Perfumes</p>
                     <button><Link to="/mens"><FaArrowRightLong /></Link></button>
-                </div>
-                <h3>ELEGANCE</h3>
+                </motion.div>
+                <motion.h3
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{duration: 1, delay: 0.6}}
+                >ELEGANCE</motion.h3>
             </section>
-            <section className={classes.arrSection}>
+            <motion.section 
+                className={classes.arrSection}
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+            >
                 <button className={classes.arrBtn}><Link to="#section"><FaArrowDown /></Link></button>
-            </section>
+            </motion.section>
         </div>
     )
 }

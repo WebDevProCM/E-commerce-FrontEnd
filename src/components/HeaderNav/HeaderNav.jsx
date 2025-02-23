@@ -5,19 +5,20 @@ import { toast } from "react-toastify";
 import { IoCartOutline } from "react-icons/io5";
 import {motion} from "framer-motion"
 import { logoutUser } from "../../store/authActions";
-import classes from './Navbar.module.css'
+import classes from './HeaderNav.module.css'
+import { Dropdown } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Navbar = () =>{
+const HeaderNav = () =>{
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
     const isAuth = useSelector((state) => state.auth.isAuthenicated);
     const cart = useSelector((state) => state.cart.quantity);
     const navigate = useNavigate();
 
-    const logoutHandler = async () =>{
-        dispatch(logoutUser());
-        return navigate("/", window.scrollTo(0, 0));
-    }
     const checkAuth = async () =>{
         if(!isAuth){
             return toast.error("Please Log In");
@@ -25,15 +26,23 @@ const Navbar = () =>{
         return navigate("/cart")
     }
 
+    const logoutHandler = async () =>{
+        dispatch(logoutUser());
+        return navigate("/", window.scrollTo(0, 0));
+    }
  return(
-    <nav className={`${classes.navbar} navbar navbar-expand-lg`}>
-        <div className={`${classes["container-fluid"]} container-fluid`}>
-            <div className={`${classes["navbar-brand"]} navbar-brand`}>TrueElegance</div>
-            <button className={`${classes["navbar-toggler"]} navbar-toggler`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <Navbar collapseOnSelect expand="lg" className={`${classes.navbar}`}>
+        <Container className={`${classes["container-fluid"]}`}>
+            <Navbar.Brand className={`${classes["navbar-brand"]}`}>TrueElegance</Navbar.Brand>
+            <Navbar.Toggle 
+            as="div" 
+            className={`${classes["navbar-toggler"]}`} 
+            aria-controls="responsive-navbar-nav"
+            >
             <span className={`navbar-toggler-icon`}></span>
-            </button>
-            <div className={`collapse navbar-collapse`} id="navbarTogglerDemo02">
-            <ul className={`${classes["navbar-nav"]} navbar-nav me-auto mb-2 mb-lg-0`}>
+            </Navbar.Toggle>
+            <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className={`${classes["navbar-nav"]} navbar-nav me-auto mb-2 mb-lg-0`}>
                 <NavLink to="/" className={({ isActive  }) => (isActive  ? classes.active : "")}>
                     <motion.li whileHover={{scale: 1.1}} className={`${classes["nav-item"]} nav-item}`}>
                         Home
@@ -46,7 +55,7 @@ const Navbar = () =>{
                 <NavLink to="/womens" className={({ isActive  }) => (isActive  ? classes.active : "")}>
                     <motion.li whileHover={{scale: 1.1}} className={`${classes["nav-item"]} nav-item`}>Womens</motion.li>
                 </NavLink>
-            </ul>
+            </Nav>
             <div className={`${classes["nav-actions"]} nav-actions`}>
                 <motion.button whileHover={{scale: 1.1}} onClick={() =>{checkAuth()}} className={classes["cart-count"]}>
                     {/* <span className="material-symbols-outlined">shopping_cart</span> */}
@@ -55,33 +64,34 @@ const Navbar = () =>{
                 </motion.button>
                 
                 {user?
-                <div className={`${classes["dropdown"]} dropdown`}>
-                    <button 
-                    className={`${classes["dropdown-toggle"]} btn dropdown-toggle`} type="button" data-bs-toggle="dropdown" aria-expanded="false"
-    
+                <Dropdown className={`${classes["dropdown"]}`}>
+                    <Dropdown.Toggle 
+                    as="div"
+                    className={`${classes["dropdown-toggle"]}`} 
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-autoclose-true dropdown-custom-components"
                     >
                         <motion.p
                         whileHover={{scale: 1.1}}
                         >
                             {user.name}
                         </motion.p>
-                    </button>
-                    <ul className={`${classes["dropdown-menu"]} dropdown-menu`}>
-                        <li><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/profile"}>Profile</Link></li>
-                        <li><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/orders"}>My orders</Link></li>
-                        <li><button className={`${classes["dropdown-item"]} dropdown-item`} onClick={logoutHandler}>Log Out</button></li>
-                    </ul>
-                </div>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu as="div" className={`${classes["dropdown-menu"]}`}>
+                        <Dropdown.Item><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/profile"}>Profile</Link></Dropdown.Item>
+                        <Dropdown.Item><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/orders"}>My orders</Link></Dropdown.Item>
+                        <Dropdown.Item><button className={`${classes["dropdown-item"]} dropdown-item`} onClick={logoutHandler}>Log Out</button></Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
                     : 
                 <NavLink to='login' className={({ isActive  }) => (isActive  ? classes.active : "")}> 
                     <motion.p whileHover={{scale: 1.1}}>Sign in</motion.p> 
                 </NavLink>  
                 }
             </div>
-            </div>
-        </div>
-    </nav>
+            </Navbar.Collapse>
+        </Container>
+    </Navbar>
  )
 }
 
-export default Navbar
+export default HeaderNav

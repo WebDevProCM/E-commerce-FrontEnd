@@ -16,7 +16,7 @@ const Success = () => {
   };
 
   useEffect(() => {
-    
+    sessionStorage.removeItem("paymentInProgress");
     setTimeout(() => {
       navigate("/");
     }, 5000);

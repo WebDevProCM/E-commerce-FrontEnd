@@ -2,7 +2,6 @@ import React from 'react'
 import classes from "./css/Orders.module.css"
 import AllOrders from '../components/Orders/AllOrders'
 import { useLoaderData, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useSelector } from 'react-redux'
 import apiClient from '../utilis/apiClient'
 

@@ -25,7 +25,9 @@ export async function loader({request}){
 
     const category = path === "mens" ? "Men" : "Women"
     try{
-        const response = await apiClient.get(`/api/products/${category}/1`);
+        const response = await apiClient.get("/api/products",{
+            params: {category: ["Unisex", category], page: 1}
+        });
         const data = response.data
         if(data.error){
             throw new Error(data.error);

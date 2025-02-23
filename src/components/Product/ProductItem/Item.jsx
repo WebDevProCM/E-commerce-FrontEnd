@@ -2,6 +2,8 @@ import React from "react";
 import {Rating} from 'react-simple-star-rating';
 import classes from './Item.module.css'
 import {motion} from 'framer-motion'
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 
 const item = (props) =>{
     return(
@@ -11,7 +13,15 @@ const item = (props) =>{
     transition={{type: "spring"}}
     >   
         <div className={classes['img-container']}>
-            <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.webp`} className="card-img-top" alt="perfume"/>
+            {/* <img src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.webp`} className="card-img-top" alt="perfume"/> */}
+            <LazyLoadImage
+                className="card-img-top"
+                src={props.perfume.image.startsWith("https")?`${props.perfume.image}` : `/images/${props.perfume.image}.webp`}
+                alt="perfume"
+                effect="opacity"
+                width="100%"
+                height="auto"
+            />
         </div>
         <div className={`${classes["card-body"]} card-body`}>
             <h5 className={classes['card-title']}>{props.perfume.name}</h5>

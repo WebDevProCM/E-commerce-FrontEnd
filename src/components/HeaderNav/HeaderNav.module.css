@@ -50,6 +50,8 @@
 .dropdown-toggle{
     font-weight: bold;
     text-transform: uppercase;
+    color: #230600;
+    background-color: transparent;
 }
 .nav-link, .nav-actions p, a{
     font-family: "Playfair Display", serif;

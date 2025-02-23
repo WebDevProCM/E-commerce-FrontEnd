@@ -5,17 +5,20 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/authActions";
 import apiClient from "../../utilis/apiClient";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 
 const LoginSign = () =>{
     const dispatch = useDispatch();
     const isLogin = useSelector((state) => state.auth.isAuthenicated);
+    const [loading, setLoading] = useState(false);
     const navigate =  useNavigate();
 
     let [signCheck, setSignCheck] = useState(false);
 
     useEffect(() =>{
         if(isLogin){
-            return navigate("/");
+            return navigate("/", window.scrollTo(0, 0));
         }
     }, [isLogin]);
 
@@ -29,6 +32,7 @@ const LoginSign = () =>{
 
     //handling form submission
     const formSubmitHandler = async (e) =>{
+        setLoading(true);
         try{
             e.preventDefault();
             //getting form inputs elements values
@@ -52,14 +56,17 @@ const LoginSign = () =>{
                 }
 
                 e.target.reset();
+                setLoading(false)
                 setSignCheck(false);
                 return toast.success("Please Log In");
             }
 
             const data = {email: formFields.email, password: formFields.password};
+            setLoading(false)
             dispatch(loginUser(data));
         
         }catch(error){
+            setLoading(false);
             if(error?.response?.data){
                 return toast.error(error.response.data.error);
             }
@@ -96,12 +103,22 @@ const LoginSign = () =>{
                     </div>
                     ): ""}
                     <p className={classes.create} onClick={() => handleClick(signCheck)}>{signCheck?"Have an account?" : "Create a account?"}</p>
-                    <button type="submit" className={`btn btn-light`}>{signCheck? "Sign Up " : "Log In"}</button>
+                    <button type="submit" className={`btn btn-light`} disabled={loading}>
+                        {signCheck? "Sign Up " : "Log In"}
+                        {loading && <div className="spinner-border spinner-border-sm text-secondary ms-1" role="status" />}
+                    </button>
                 </form>
             </div>
 
             <div className={classes["login-right"]}>
-                <img src={`/images/login image.webp`} alt="shopping-cart" />
+                {/* <img src={`/images/login image.webp`} alt="shopping-cart" /> */}
+                <LazyLoadImage
+                    src={`/images/login image.webp`}
+                    alt="shopping-cart"
+                    effect="opacity"
+                    width="100%"
+                    height="auto"
+                />
             </div>
         </div>
     )

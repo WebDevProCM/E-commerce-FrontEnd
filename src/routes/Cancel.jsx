@@ -16,6 +16,7 @@ const Cancel = () => {
   };
 
   useEffect(() => {
+    sessionStorage.removeItem("paymentInProgress");
     setTimeout(() => {
       navigate("/cart");
     }, 5000);

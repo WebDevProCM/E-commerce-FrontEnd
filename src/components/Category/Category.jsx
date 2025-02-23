@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import classes from './Category.module.css';
-import Item from '../ProductItem/Item'
+import Item from '../Product/ProductItem/Item'
 import {motion, AnimatePresence} from "framer-motion"
 import { toast } from "react-toastify";
 import apiClient from "../../utilis/apiClient";
@@ -58,12 +58,15 @@ const SortSection = memo(function SortSection({sortHandler}){
 
 const Category = (props) =>{
     //storing the object with products and total documents count during initial page load
-    let PerfumesWithCount = useLoaderData(); 
+    let perfumesWithCount = useLoaderData(); 
     // product cards per page
     const limit = 9; 
+    const [allPerfumes, setAllPerfumes] = useState(perfumesWithCount.products);
+    const [remainingDocuments, setRemainingDocuments] = useState(perfumesWithCount.total - limit);
 
-    const [allPerfumes, setAllPerfumes] = useState(PerfumesWithCount.products);
-    const [remainingDocuments, setRemainingDocuments] = useState(PerfumesWithCount.total - limit);
+    useEffect(() =>{
+        setAllPerfumes(perfumesWithCount.products);
+    }, [perfumesWithCount])
     
     const [currentPage, setCurrentPage] = useState(1);
     
@@ -92,13 +95,16 @@ const Category = (props) =>{
         setRemainingDocuments((prev) => prev - limit);
 
         try {
-            const response = await apiClient.get(`/api/products/${props.category}/${newPage}`);
+            const response = await apiClient.get("/api/products",
+                {params: {category: ["Unisex", props.category], page: newPage}}
+            );
             const data = response.data;
             setAllPerfumes(data.products);
     
             if (data.error) {
                 return toast.error(data.error);
             }
+            window.scrollTo(0, 500);
         } catch (error) {
             toast.error(error?.response?.data?.error || "Something went wrong!");
         }
@@ -114,13 +120,16 @@ const Category = (props) =>{
         setRemainingDocuments((prev) => prev + limit);
 
         try {
-            const response = await apiClient.get(`/api/products/${props.category}/${newPage}`);
+            const response = await apiClient.get("/api/products",{
+                params: {category: ["Unisex", props.category], page: newPage}
+            });
             const data = response.data;
             setAllPerfumes(data.products);
     
             if (data.error) {
                 return toast.error(data.error);
             }
+            window.scrollTo(0, 500);
         } catch (error) {
             toast.error(error?.response?.data?.error || "Something went wrong!");
         }

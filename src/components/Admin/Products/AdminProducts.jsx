@@ -1,24 +1,33 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { Form, redirect, useActionData, useLoaderData } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import Modal from '../Modal/Modal'
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GrView } from "react-icons/gr";
-import { RiErrorWarningLine } from "react-icons/ri";
 import classes from "./adminProducts.module.css";
 import apiClient from '../../../utilis/apiClient'
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/opacity.css";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import Swal from 'sweetalert2';
 
-const CreateModal = forwardRef((props, ref) =>{
+const CreateModal = ({ setShowState, showModal }) =>{
     return(
-        <Modal ref={ref.createModalRef}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Create Product</h1>
-                <button type="button" className="btn-close" onClick={() => ref.createModalRef.current.close()}></button>
-            </div>
-            <Form method='post' encType='multipart/form-data' ref={ref.createModalForm}>
+        <>
+        <Button variant="btn btn-success" onClick={() => setShowState(true)}>
+            Create Product
+        </Button>
+        <Modal show={showModal} onHide={() => setShowState(false)}>
+            <Modal.Header closeButton>
+            <Modal.Title>Create Product</Modal.Title>
+            </Modal.Header>
+            <Form method="post" encType='multipart/form-data'>
+            <Modal.Body>
                 <div className="modal-body">
                     <div className="row mb-3">
                         <label htmlFor="name" className="form-label">Name</label>
@@ -86,214 +95,245 @@ const CreateModal = forwardRef((props, ref) =>{
                     <label htmlFor="image" className="form-label">Image</label>
                     <input className="form-control" type="file" id="image" name='image' required/>
                     </div>
-  
-                </div>
-                <div className={`${classes["modal-footer"]} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.createModalRef.current.close()}>Close</button>
-                    <button type="submit" className="btn btn-primary" name='intent' value="create">Save changes</button>
-                </div>
-            </Form>
-            </div>
-        </Modal>
-    )
-})
 
-const UpdateModal = forwardRef(({updateModalData}, ref) =>{
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowState(false)}>
+                Close
+                </Button>
+                <Button variant="primary" type='submit' onClick={() => setShowState(false)}>
+                Save Changes
+                </Button>
+            </Modal.Footer>
+            </Form>
+        </Modal>
+    </>
+    )
+}
+
+const UpdateModal = ({updateModalData, setShowState, showModal}) =>{
     return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Update Product Details</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
+        <>
+        <Button variant="btn btn-primary btn-sm" onClick={() => setShowState(true)}>
+          <FaRegEdit />
+        </Button>
+        <Modal show={showModal} onHide={() => setShowState(false)}>
+            <Modal.Header closeButton>
+            <Modal.Title>Update Product Details</Modal.Title>
+            </Modal.Header>
             <Form method="post" encType='multipart/form-data'>
-                <div className="modal-body">
-                    <input name='id' type="hidden" className="form-control" id="id" defaultValue={updateModalData.prodId}/>
-                    
-                    <div className="row mb-3">
-                        <label htmlFor="name" className="form-label">Name</label>
-                        <div>
-                        <input name='name' type="text" className="form-control" id="name" defaultValue={updateModalData.name} required/>
+                <Modal.Body>
+                    <div className="modal-body">
+                        <input name='id' type="hidden" className="form-control" id="id" defaultValue={updateModalData.prodId}/>
+                        
+                        <div className="row mb-3">
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <div>
+                            <input name='name' type="text" className="form-control" id="name" defaultValue={updateModalData.name} required/>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="row mb-3">
-                        <label htmlFor="quantity" className="form-label">Quantity</label>
-                        <div>
-                        <input name='quantity' type="number" max={50} min={1} className="form-control" id="quantity" defaultValue={updateModalData.quantity} required/>
+                        <div className="row mb-3">
+                            <label htmlFor="quantity" className="form-label">Quantity</label>
+                            <div>
+                            <input name='quantity' type="number" max={50} min={1} className="form-control" id="quantity" defaultValue={updateModalData.quantity} required/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="price" className="form-label">Price</label>
-                        <div>
-                        <input name='price' type="number" min={1} step={0.05} className="form-control" id="price" defaultValue={updateModalData.price} required/>
+                        <div className="row mb-3">
+                            <label htmlFor="price" className="form-label">Price</label>
+                            <div>
+                            <input name='price' type="number" min={1} step={0.05} className="form-control" id="price" defaultValue={updateModalData.price} required/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="oldPrice" className="form-label">Old Price</label>
-                        <div>
-                        <input name='oldPrice' type="number" min={0} className="form-control" id="oldPrice" defaultValue={updateModalData.oldPrice} required/>
+                        <div className="row mb-3">
+                            <label htmlFor="oldPrice" className="form-label">Old Price</label>
+                            <div>
+                            <input name='oldPrice' type="number" min={0} className="form-control" id="oldPrice" defaultValue={updateModalData.oldPrice} required/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="status" className="form-label">Status</label>
-                        <select defaultValue={updateModalData.status} name='status' className="form-select" id="status">
-                            <option value={1}>Available</option>
-                            <option value={0}>Not Available</option>
-                        </select>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="category" className="form-label">Category</label>
-                        <select defaultValue={updateModalData.category} name='category' className="form-select" id="category">
-                            <option value="Unisex">Unisex</option>
-                            <option value="Men">Men</option>
-                            <option value="Women">Women</option>
-                        </select>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="type" className="form-label">Type</label>
-                        <select defaultValue={updateModalData.type} name='type' className="form-select" id="type">
-                            <option value="eau de cologne">Eau de Cologne</option>
-                            <option value="parfum">Parfum</option>
-                            <option value="eau de toilette">Eau de Toilette</option>
-                            <option value="eau fraiche">Eau Fraiche</option>
-                        </select>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="ml" className="form-label">ML</label>
-                        <div>
-                        <input name='ml' type="number" max={500} min={50} className="form-control" id="ml" defaultValue={updateModalData.ml} required/>
+                        <div className="row mb-3">
+                            <label htmlFor="status" className="form-label">Status</label>
+                            <select defaultValue={updateModalData.status} name='status' className="form-select" id="status">
+                                <option value={1}>Available</option>
+                                <option value={0}>Not Available</option>
+                            </select>
                         </div>
-                    </div>
-                    <div className="row mb-3">
-                        <label htmlFor="description" className="form-label">Description</label>
-                        <div>
-                        <textarea name='description' className="form-control" id="description" defaultValue={updateModalData.description} required/>
+                        <div className="row mb-3">
+                            <label htmlFor="category" className="form-label">Category</label>
+                            <select defaultValue={updateModalData.category} name='category' className="form-select" id="category">
+                                <option value="Unisex">Unisex</option>
+                                <option value="Men">Men</option>
+                                <option value="Women">Women</option>
+                            </select>
                         </div>
-                    </div>
+                        <div className="row mb-3">
+                            <label htmlFor="type" className="form-label">Type</label>
+                            <select defaultValue={updateModalData.type} name='type' className="form-select" id="type">
+                                <option value="eau de cologne">Eau de Cologne</option>
+                                <option value="parfum">Parfum</option>
+                                <option value="eau de toilette">Eau de Toilette</option>
+                                <option value="eau fraiche">Eau Fraiche</option>
+                            </select>
+                        </div>
+                        <div className="row mb-3">
+                            <label htmlFor="ml" className="form-label">ML</label>
+                            <div>
+                            <input name='ml' type="number" max={500} min={50} className="form-control" id="ml" defaultValue={updateModalData.ml} required/>
+                            </div>
+                        </div>
+                        <div className="row mb-3">
+                            <label htmlFor="description" className="form-label">Description</label>
+                            <div>
+                            <textarea name='description' className="form-control" id="description" defaultValue={updateModalData.description} required/>
+                            </div>
+                        </div>
 
-                    <div className="mb-3">
-                    <label htmlFor="image" className="form-label">Image</label>
-                    <input className="form-control" type="file" id="image" name='image'/>
+                        <div className="mb-3">
+                        <label htmlFor="image" className="form-label">Image</label>
+                        <input className="form-control" type="file" id="image" name='image'/>
+                        </div>
+    
                     </div>
-  
-                </div>
-                <div className={`${classes["modal-footer"]} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>Close</button>
-                    <button type="submit" className="btn btn-primary" name='intent' value="update">Save changes</button>
-                </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowState(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" type='submit' onClick={() => setShowState(false)}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
             </Form>
-            </div>
         </Modal>
+    </>
     )
-})
+}
 
-const DetailsModal = forwardRef(({modalData}, ref) =>{
-    return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Product Details</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
-
-            <section className={classes.detailsBody}>
-                <div className={classes.detailsBodyText}>
-                    <p>PRODUCT ID: </p>
-                    <p>{modalData[0]?.prodId}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>NAME: </p>
-                    <p>{modalData[0]?.name}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>QUANTITY: </p>
-                    <p>{modalData[0]?.quantity}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>PRICE: </p>
-                    <p>${modalData[0]?.price}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>OLD PRICE: </p>
-                    <p>${modalData[0]?.oldPrice}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>STATUS: </p>
-                    <p>{modalData[0]?.status}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>CATEGORY: </p>
-                    <p>{modalData[0]?.category}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>TYPE: </p>
-                    <p>{modalData[0]?.type}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>ML: </p>
-                    <p>{modalData[0]?.ml}ml</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>DESCRIPTION: </p>
-                    <p>{modalData[0]?.description}</p>
-                </div>
-                <div className={classes.detailsBodyText}>
-                    <p>IMAGE: </p>
-                    {modalData[0]?.image.startsWith("https") ?
-                        <img src={modalData[0]?.image} alt='product'/> :
-                        <img src={`/images/${modalData[0]?.image}.webp`} alt='product'/>
-                    }
-                </div>
-            </section>
-            </div>
-        </Modal>
-    )
-})
-
-const DeleteModal = forwardRef(({deleteModalData ,deleteHandler}, ref) =>{
+const DetailsModal = ({updateModalData, setShowState, showModal}) =>{
+    // const keys = Object.keys(updateModalData[0]);
 
     return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Are sure you want to remove this?</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
+    <>
+    <Button variant="btn btn-primary btn-sm" onClick={() => setShowState(true)}>
+        <GrView />
+    </Button>
+    <Modal show={showModal} onHide={() => setShowState(false)}>
+    <Modal.Header closeButton>
+        <Modal.Title>Product Details</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        {/* <Container>
+        {keys.map((key, index) =>(
+            key == "image" ?
+                <LazyLoadImage
+                    src={`${updateModalData[0]?.[key].startsWith("https") ?"updateModalData[0]?.image" :`/images/${updateModalData[0]?.key}.webp`}`}
+                    alt="product"
+                    effect="opacity"
+                    width="100%"
+                    height="auto"
+                />
+                :
+                <Row key={index}>
+                <Col>{key}</Col>
+                <Col>{updateModalData[0]?.[key]}</Col>
+                </Row>
+                
+        ))}
+        </Container> */}
+        <section className={classes.detailsBody}>
+            <div className={classes.detailsBodyText}>
+                <p>PRODUCT ID: </p>
+                <p>{updateModalData[0]?.prodId}</p>
             </div>
-            <div className="modal-body">
-                <RiErrorWarningLine size={90} className='sign'/>
+            <div className={classes.detailsBodyText}>
+                <p>NAME: </p>
+                <p>{updateModalData[0]?.name}</p>
             </div>
-            <form onSubmit={(event) => {deleteHandler(event, deleteModalData)}}>
-                <div className={`${classes["modal-footer"]} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>No</button>
-                    <button type="submit" className="btn btn-primary">Yes</button>
-                </div>
-            </form>
+            <div className={classes.detailsBodyText}>
+                <p>QUANTITY: </p>
+                <p>{updateModalData[0]?.quantity}</p>
             </div>
-        </Modal>
+            <div className={classes.detailsBodyText}>
+                <p>PRICE: </p>
+                <p>${updateModalData[0]?.price}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>OLD PRICE: </p>
+                <p>${updateModalData[0]?.oldPrice}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>STATUS: </p>
+                <p>{updateModalData[0]?.status}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>CATEGORY: </p>
+                <p>{updateModalData[0]?.category}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>TYPE: </p>
+                <p>{updateModalData[0]?.type}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>ML: </p>
+                <p>{updateModalData[0]?.ml}ml</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>DESCRIPTION: </p>
+                <p>{updateModalData[0]?.description}</p>
+            </div>
+            <div className={classes.detailsBodyText}>
+                <p>IMAGE: </p>
+                {updateModalData[0]?.image.startsWith("https") ?
+                    // <img src={modalData[0]?.image} alt='product'/>
+                    <LazyLoadImage
+                        src={updateModalData[0]?.image}
+                        alt="product"
+                        effect="opacity"
+                        width="100%"
+                        height="auto"
+                    />
+                    :
+                    // <img src={`/images/${modalData[0]?.image}.webp`} alt='product'/>
+                    <LazyLoadImage
+                        src={`/images/${updateModalData[0]?.image}.webp`}
+                        alt="product"
+                        effect="opacity"
+                        width="100%"
+                        height="auto"
+                    />
+                }
+            </div>
+        </section>
+    </Modal.Body>
+    <Modal.Footer>
+        <Button variant="secondary" onClick={() => setShowState(false)}>Close</Button>
+    </Modal.Footer>
+    </Modal>
+    </>
     )
-})
+}
 
 function AdminProducts() {
     const data = useLoaderData();
     const changedData = useActionData();
-    const [tableData, setTableData] = useState(data);
-    //managing state for each modal
-    const [updateModalData, setUpdateModalData] = useState({});
-    const [deleteeModalData, setDeleteModalData] = useState([]);
-    const [productData, setProductData] = useState([]);
+    const [tableData, setTableData] = useState(data.products);
+    // //managing state for each modal
+    const [createModalState, setCreateModalState] = useState(false);
+    const [showModal, setShowModal] = useState({});
 
-    const modalRef = useRef();
-    const DetailsmodalRef = useRef();
-    const deleteModalRef = useRef();
-    const createModalRef = useRef();
-    const createModalForm = useRef();
+    const handleDetailsShowModal = (id) => {
+        setShowModal((prev) => ({ ...prev, [id]: true }));
+    };
+      
+    const handleDetailsCloseModal = (id) => {
+        setShowModal((prev) => ({ ...prev, [id]: false }));
+    };
     
     //updating state after admin updating product details
     useEffect(() =>{
       if(changedData?.prodId){
           toast.success("Product details updated!");
-          modalRef.current.close();
           setTableData((prev) => [...prev.filter((data) => data.prodId !== changedData.prodId), changedData])
       }
   
@@ -311,9 +351,15 @@ function AdminProducts() {
         name: 'Actions',
         cell: (row) => (
             <div className={classes.actionBtn}>
-            <button className="btn btn-primary btn-sm" onClick={() => handleViewDetails(row.prodId)}><GrView /></button>
-            <button className="btn btn-secondary btn-sm" onClick={() => handleUpdate(row)}><FaRegEdit /></button>
-            <button className="btn btn-danger btn-sm" onClick={() => initiateDeleteHandler(row.prodId)}><MdDelete /></button>
+            <DetailsModal 
+                updateModalData={handleViewDetails(row.prodId)} 
+                showModal={showModal[row.prodId+"view"] || false} 
+                setShowState={(state) => state ? handleDetailsShowModal(row.prodId+"view") : handleDetailsCloseModal(row.prodId+"view")}/>
+            <UpdateModal 
+                updateModalData={row} 
+                showModal={showModal[row.prodId+"patch"] || false} 
+                setShowState={(state) => state ? handleDetailsShowModal(row.prodId+"patch") : handleDetailsCloseModal(row.prodId+"patch")}/>
+            <button className="btn btn-danger btn-sm" onClick={() => handleDelete(row.prodId)}><MdDelete /></button>
             </div>
         ),
         },
@@ -321,24 +367,10 @@ function AdminProducts() {
 
     //updating relevant modal state with relevant product details
     const handleViewDetails = (id) =>{
-        const details = tableData.filter((data) => data.prodId === id);
-        setProductData(() => details);
-        DetailsmodalRef.current.showModal();
+        return tableData.filter((data) => data.prodId === id);
     }
-  
-    const handleUpdate = (row) => {
-        setUpdateModalData(row);
-        modalRef.current.showModal();
-    };
-
-    const initiateDeleteHandler = (id) =>{
-        setDeleteModalData(id);
-        deleteModalRef.current.showModal();
-    }
-
-    const deleteHandler = async (event, id) =>{
-        event.preventDefault();
-
+    //sending delete request
+    const deleteReq = async (id) =>{
         try{
             const response = await apiClient.delete(`/api/product/${id}`)
             const data = response.data;
@@ -352,7 +384,6 @@ function AdminProducts() {
 
             toast.success("Review removed!");
             setTableData((prev) => prev.filter((data) => data.prodId !== id));
-            deleteModalRef.current.close();
 
         }catch(error){
             if(error?.response?.data){
@@ -361,17 +392,29 @@ function AdminProducts() {
             return error;
         }
     }
-
-    const initiateCreateHandler = () =>{
-        createModalForm.current.reset();
-        createModalRef.current.showModal();
-    }
+    // delete handler
+    const handleDelete = (id) => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteReq(id)
+            Swal.fire("Deleted!", "Your item has been deleted.", "success");
+          }
+        });
+    };
 
   return (
     <div>
         <section className={classes.titleContainer}>
-            <h1>PRODUCTs DETAILS</h1>
-            <button className="btn btn-success" onClick={initiateCreateHandler}>Create</button>
+            <h1>PRODUCTS DETAILS</h1>
+            <CreateModal setShowState={setCreateModalState} showModal={createModalState}/>
         </section>
         <DataTable
             defaultSortFieldId={1}
@@ -380,10 +423,6 @@ function AdminProducts() {
             pagination
         />
         
-        {tableData && <DetailsModal modalData={productData} ref={DetailsmodalRef}/>}
-        {<CreateModal ref={{createModalRef, createModalForm}}/>}
-        {updateModalData && <UpdateModal updateModalData={updateModalData} ref={modalRef}/>}
-        {deleteeModalData && <DeleteModal deleteModalData={deleteeModalData} deleteHandler={deleteHandler} ref={deleteModalRef}/>}
     </div>
   )
 }
@@ -429,7 +468,9 @@ export async function action({request}){
   
 export async function loader(){
     try{
-        const response = await apiClient.get("/api/products")
+        const response = await apiClient.get("/api/products",{
+            params: {category: ["Unisex", "Women", "Men"], page: 1}
+        })
         const data = response.data;
         if(data.error){
             if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './Section.module.css'
-import Item from "../ProductItem/Item";
+import Item from "../Product/ProductItem/Item";
 import { Link } from "react-router-dom";
 import {motion} from 'framer-motion'
 

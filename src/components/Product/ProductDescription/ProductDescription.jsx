@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import classes from './ProductDescription.module.css';
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import apiClient from "../../utilis/apiClient";
+import apiClient from "../../../utilis/apiClient";
 
 const ProductDescription = (props) =>{
     const [showError, setShowError] = useState(undefined);

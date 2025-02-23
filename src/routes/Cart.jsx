@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData, useNavigate} from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import {toast } from 'react-toastify';
 import classes from './css/cart.module.css'
-import CartItem from "../components/CartItem/CartItem";
-import CartTotal from "../components/CartTotal/CartTotal";
+import CartItem from "../components/Cart/CartItem/CartItem";
+import CartTotal from "../components/Cart/CartTotal/CartTotal";
 import { motion, AnimatePresence } from "framer-motion"
 import { useDispatch } from "react-redux";
 import { cartActions } from "../store/cart-slice";
@@ -14,7 +14,6 @@ const Cart = () =>{
     const dispatch = useDispatch();
     const [cartItems, setCartItems] = useState(useLoaderData());
     const [checkoutBtnDisable, setCheckoutBtnDisable] = useState(false);
-    const navigation = useNavigate();
     let total = 0;
     const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
@@ -72,22 +71,7 @@ const Cart = () =>{
         cartItems.map((item) => orderItems.push({prodId: item.product.prodId, quantity: item.quantity}));
         const requestData = {cartItems: orderItems}
         setCheckoutBtnDisable(true);
-        // try{
-        //     const response = await apiClient.post("/api/order", requestData);
-        //     const data = response.data
-        //     if(data.error){
-        //         return toast.error(data.error);
-        //     }
-
-        //     return navigation("/orders");
-            
-        // }catch(error){            
-        //     if(error?.response?.data){
-        //         return toast.error(error.response.data.error);
-        //     }
-        //     throw new Error(error);
-        // }
-
+        sessionStorage.setItem("paymentInProgress", "true");
         try{
             const response = await apiClient.post("api/payment/create-checkout-session", requestData);
             const data = response.data
@@ -100,6 +84,7 @@ const Cart = () =>{
             stripe.redirectToCheckout({ sessionId: data.id });
             
         }catch(error){    
+            sessionStorage.setItem("paymentInProgress", "false");
             setCheckoutBtnDisable(false)        
             if(error?.response?.data){
                 return toast.error(error.response.data.error);

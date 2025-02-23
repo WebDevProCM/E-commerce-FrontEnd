@@ -1,9 +1,9 @@
 import React from "react";
 import { useLoaderData} from "react-router-dom";
 import classes from './css/itemPage.module.css'
-import ProductSlides from "../components/ProductSlides/ProductSlides";
-import ProductDescription from "../components/ProductDescription/ProductDescription";
-import ProductReview from "../components/ProductReview/ProductReview";
+import ProductSlides from "../components/Product/ProductSlides/ProductSlides";
+import ProductDescription from "../components/Product/ProductDescription/ProductDescription";
+import ProductReview from "../components/Product/ProductReview/ProductReview";
 import apiClient from "../utilis/apiClient";
 
 

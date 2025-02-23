@@ -1,27 +1,30 @@
-import React, { useRef, forwardRef, useState, useEffect, memo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, redirect, useActionData, useLoaderData } from 'react-router-dom';
 import classes from './adminOrders.module.css'
 import DataTable from 'react-data-table-component';
 import { FaRegEdit } from "react-icons/fa";
 import { BiDetail } from "react-icons/bi";
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import OrderDetails from './OrderDetails';
-import Modal from '../Modal/Modal';
 import apiClient from '../../../utilis/apiClient';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import OrderDetails from './OrderDetails';
 
-const UpdateModal = memo(forwardRef(({updateModalData}, ref) =>{
+const UpdateModal = ({updateModalData, setShowState, showModal}) =>{
     const status = updateModalData.status;
     const paid = updateModalData.paid;
 
     return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Update Order Details</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
+        <>
+        <Button variant="btn btn-primary btn-sm" onClick={() => setShowState(true)}>
+        <FaRegEdit />
+        </Button>
+        <Modal show={showModal} onHide={() => setShowState(false)}>
+            <Modal.Header closeButton>
+            <Modal.Title>Update Customer Details</Modal.Title>
+            </Modal.Header>
             <Form method="post" encType='multipart/form-data'>
+            <Modal.Body>
                 <div className="modal-body">
                         <input name='ordId' type="hidden" className="form-control" id="ordId" defaultValue={updateModalData.id}/>
                     <div className="row mb-3">
@@ -49,77 +52,97 @@ const UpdateModal = memo(forwardRef(({updateModalData}, ref) =>{
                         </select>
                     </div>
                 </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save changes</button>
-                </div>
+                </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowState(false)}>
+                    Close
+                </Button>
+                <Button variant="primary" type='submit' onClick={() => setShowState(false)}>
+                    Save Changes
+                </Button>
+            </Modal.Footer>
             </Form>
-            </div>
         </Modal>
+      </>
     )
-}))
+}
 
-const DetailsModal = memo(forwardRef(({modalData}, ref) =>{
+const DetailsModal = ({updateModalData, setShowState, showModal}) =>{
 
     return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Order Details</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
-
+        <>
+        <Button variant="btn btn-primary btn-sm" onClick={() => setShowState(true)}>
+            <BiDetail />
+        </Button>
+        <Modal show={showModal} onHide={() => setShowState(false)}>
+            <Modal.Header closeButton>
+            <Modal.Title>Order Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
             <section className={classes.detailsBody}>
                 <div className={classes.detailsBodyText}>
                     <p>ORDER ID: </p>
-                    <p>{modalData[0]?.ordId}</p>
+                    <p>{updateModalData[0]?.ordId}</p>
                 </div>
                 <div className={classes.detailsBodyText}>
                     <p>CUSTOMER: </p>
-                    <p>{modalData[0]?.customer.name}</p>
+                    <p>{updateModalData[0]?.customer.name}</p>
                 </div>
                 <div className={classes.detailsBodyText}>
                     <p>DELIVERY DATE: </p>
-                    <p>{modalData[0]?.deliveryDate?.slice(0, 10)}</p>
+                    <p>{updateModalData[0]?.deliveryDate?.slice(0, 10)}</p>
                 </div>
                 <div className={classes.detailsBodyText}>
                     <p>PAID: </p>
-                    <p>{modalData[0]?.paid}</p>
+                    <p>{updateModalData[0]?.paid}</p>
                 </div>
                 <div className={classes.detailsBodyText}>
                     <p>STATUS: </p>
-                    <p>{modalData[0]?.status}</p>
+                    <p>{updateModalData[0]?.status}</p>
                 </div>
                 <div className={classes.detailsBodyText}>
                     <p>TOTAL AMOUNT: </p>
-                    <p>${modalData[0]?.totalAmount}</p>
+                    <p>${updateModalData[0]?.totalAmount}</p>
                 </div>
                 <p>PRODUCTS: </p>
-                {modalData[0]?.products?.map((product) =>{
+                {updateModalData[0]?.products?.map((product) =>{
                     return (
                         <OrderDetails key={product?.prodId} product={product} />
                     )
                 })}
             </section>
-            </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowState(false)}>
+                    Close
+                </Button>
+                <Button variant="primary" type='submit' onClick={() => setShowState(false)}>
+                    Save Changes
+                </Button>
+            </Modal.Footer>
         </Modal>
+      </>
     )
-}))
+}
 
 function AdminOrders() {
     const initialData = useLoaderData();
     const changedData = useActionData();
     const [tableData, setTableData] = useState(initialData);
-    const [orderData, setOrderData] = useState([]);
-    const [updateModalData, setUpdateModalData] = useState({});
-    const modalRef = useRef();
-    const DetailsmodalRef = useRef();
+    const [show, setShow] = useState({});
+
+    const handleShowModal = (id) => {
+    setShow((prev) => ({ ...prev, [id]: true }));
+    };
+    
+    const handleCloseModal = (id) => {
+    setShow((prev) => ({ ...prev, [id]: false }));
+    };
 
     //updating state data after admin changing details
     useEffect(() =>{
         if(changedData?.ordId){
             toast.success("Order details updated!");
-            modalRef.current.close();
             setTableData((prev) => [...prev.filter((data) => data.ordId !== changedData.ordId), changedData]);
         }
 
@@ -138,25 +161,21 @@ function AdminOrders() {
           name: 'ACTIONS',
           cell: (row) => (
             <div className={classes.actionBtn}>
-              <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(row.ordId, row.deliveryDate, row.status, row.paid)}><FaRegEdit /></button>
-              <button className="btn btn-secondary btn-sm" onClick={() => showDetailHandler(row.ordId)}><BiDetail /></button>
+                <UpdateModal 
+                    updateModalData={{id: row.ordId, deliveryDate: row.deliveryDate, status: row.status, paid: row.paid}} 
+                    showModal={show[row.ordId+"patch"] || false} 
+                    setShowState={(state) => state ? handleShowModal(row.ordId+"patch") : handleCloseModal(row.ordId+"patch")}
+                />
+                <DetailsModal 
+                    updateModalData={tableData.filter((data) => data.ordId === row.ordId)} 
+                    showModal={show[row.ordId+"view"] || false} 
+                    setShowState={(state) => state ? handleShowModal(row.ordId+"view") : handleCloseModal(row.ordId+"view")}
+                />
+              {/* <button className="btn btn-secondary btn-sm" onClick={() => showDetailHandler(row.ordId)}><BiDetail /></button> */}
             </div>
           ),
         },
     ];
-
-    //updating data in the modal
-    const handleUpdate = (id, deliveryDate, status, paid) => {
-        setUpdateModalData({id, deliveryDate, status, paid});
-        modalRef.current.showModal();
-    };
-
-    //updating data in the modal
-    const showDetailHandler = (id) =>{
-        const details = tableData.filter((data) => data.ordId === id);
-        setOrderData(() => details);
-        DetailsmodalRef.current.showModal();
-    }
 
   return (
     <div>
@@ -169,9 +188,6 @@ function AdminOrders() {
             data={tableData}
             pagination
         />
-        
-        {updateModalData && <UpdateModal updateModalData={updateModalData} ref={modalRef}/>}
-        {orderData && <DetailsModal modalData={orderData} ref={DetailsmodalRef}/>}
 
     </div>
   )

@@ -1,5 +1,7 @@
 import React from 'react'
 import classes from "./adminOrders.module.css";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 
 function OrderDetails({product}) {
   return (
@@ -23,8 +25,21 @@ function OrderDetails({product}) {
         <div className={classes.orderProductsDetails}>
             <p>IMAGE: </p>
             {product.image.startsWith("https") ?
-                <img src={product.image} alt='product'/> :
-                <img src={`/images/${product.image}.webp`} alt='product'/>
+                <LazyLoadImage
+                    src={product.image}
+                    alt="product"
+                    effect="opacity"
+                    width="100%"
+                    height="auto"
+                />
+                :
+                <LazyLoadImage
+                src={`/images/${product.image}.webp`}
+                alt="product"
+                effect="opacity"
+                width="100%"
+                height="auto"
+                />
             }
             
         </div>

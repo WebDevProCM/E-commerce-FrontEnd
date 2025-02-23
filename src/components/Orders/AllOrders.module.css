@@ -10,10 +10,7 @@ p, button{
     padding:10px;
     border-bottom:1px solid rgba(0, 0, 0, 0.459);
     margin:20px auto;
-}
-
-.ordHeadCont{
-    color:rgb(70, 70, 70);
+    font-family: "Playfair Display", serif;
 }
 
 .ordHead{
@@ -22,12 +19,4 @@ p, button{
     font-weight: bold;
     font-size:14px;
     text-transform: uppercase;
-}
-
-.ordFooter{
-    display: flex;
-    padding:0 10px;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size:16px;
 }

@@ -3,13 +3,14 @@ import {Rating} from 'react-simple-star-rating';
 import {toast } from 'react-toastify';
 import classes from './ProductReview.module.css'
 import { useSelector } from "react-redux";
-import apiClient from "../../utilis/apiClient";
+import apiClient from "../../../utilis/apiClient";
 
 const ProductReview = (props) =>{
     const user = useSelector((state) => state.auth.user);
     const [rating, setRating] = useState(0);
     const [reviews, setReviews] = useState([]);
     const [description, setDescription] = useState('');
+    const [loading, setLoading] = useState(false);
     // const {user, setUser} = useContext(CurrentUserContext);
 
     const handleRating = (rate) => {
@@ -19,6 +20,7 @@ const ProductReview = (props) =>{
     //submitting user review about the product
     const submitHandler = async (e) =>{
         e.preventDefault();
+        setLoading(true);
         try{
             //checking user is authenticated or not.
             if(!user){
@@ -38,14 +40,16 @@ const ProductReview = (props) =>{
             toast.success("Review Submitted!");
             //after successfully submitting the reviews, upadte the page with new reviews
             setReviews( (prev) => [newReview, ...prev]);
+            setLoading(false);
         }catch(error){
             if(error?.response?.data){
                 return toast.error(error.response.data.error);
             }
             toast.error("Something went wrong!");
         }finally{
-            setRating(0)
-            setDescription('')
+            setRating(0);
+            setDescription('');
+            setLoading(false);
         }
     }
 
@@ -78,7 +82,9 @@ const ProductReview = (props) =>{
                     <textarea className={`form-control`} id="review" rows="3" value={description} onChange={(e) => {setDescription(e.target.value)}}></textarea>
                 </div>
                 <Rating className={classes.stars} onClick={handleRating} />
-                <button type="submit" className={`btn btn-dark`}>Submit</button>
+                <button type="submit" className={`btn btn-dark`} disabled={loading}>Submit
+                    {loading && <div className="spinner-border spinner-border-sm text-secondary ms-1" role="status" />}
+                </button>
             </form>
             
             {/*if there are reviews rendering them all otherwise return null */}

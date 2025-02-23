@@ -2,90 +2,103 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { Form, redirect, useActionData, useLoaderData } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import Modal from '../Modal/Modal'
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { RiErrorWarningLine } from "react-icons/ri";
 import axios from 'axios'
 import classes from "./adminReviews.module.css"
 import apiClient from '../../../utilis/apiClient'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-const UpdateModal = forwardRef(({updateModalData}, ref) =>{
-
-    return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Update Review Details</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
-            <Form method="post" encType='multipart/form-data'>
-                <div className="modal-body">
-                    <input name='id' type="hidden" className="form-control" id="id" defaultValue={updateModalData.id}/>
-                    
-                    <div className="row mb-3">
-                        <label htmlFor="name" className="form-label">Stars</label>
-                        <div>
-                        <input name='stars' type="number" max={5} min={1} className="form-control" id="stars" defaultValue={updateModalData.stars} required/>
-                        </div>
-                    </div>
-  
-                    <div className="row mb-3">
-                        <label htmlFor="description" className="form-label">Description</label>
-                        <div>
-                        <textarea name='description' type="text" className="form-control" id="description" defaultValue={updateModalData.description} required/>
-                        </div>
-                    </div>
-  
-                </div>
-                <div className={`${classes["modal-footer"]} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save changes</button>
-                </div>
-            </Form>
-            </div>
-        </Modal>
-    )
-  })
-
-const DeleteModal = forwardRef(({deleteModalData ,deleteHandler}, ref) =>{
+const UpdateModal =({updateModalData, setShowState, showModal}) =>{
 
     return(
-        <Modal ref={ref}>
-            <div className="modal-content">
-            <div className="modal-header">
-                <h1 className="modal-title fs-5">Are sure you want to remove this?</h1>
-                <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
-            </div>
+        <>
+        <Button variant="btn btn-primary btn-sm" onClick={() => setShowState(true)}>
+            <FaRegEdit />
+        </Button>
+      <Modal show={showModal} onHide={() => setShowState(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Review Details</Modal.Title>
+        </Modal.Header>
+        <Form method="post" encType='multipart/form-data'>
+            <Modal.Body>
             <div className="modal-body">
-                <RiErrorWarningLine size={90} className='sign'/>
-            </div>
-            <form onSubmit={(event) => {deleteHandler(event, deleteModalData)}}>
-                <div className={`${classes["modal-footer"]} modal-footer`}>
-                    <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>No</button>
-                    <button type="submit" className="btn btn-primary">Yes</button>
+                <input name='id' type="hidden" className="form-control" id="id" defaultValue={updateModalData.id}/>
+                
+                <div className="row mb-3">
+                    <label htmlFor="name" className="form-label">Stars</label>
+                    <div>
+                    <input name='stars' type="number" max={5} min={1} className="form-control" id="stars" defaultValue={updateModalData.stars} required/>
+                    </div>
                 </div>
-            </form>
+
+                <div className="row mb-3">
+                    <label htmlFor="description" className="form-label">Description</label>
+                    <div>
+                    <textarea name='description' type="text" className="form-control" id="description" defaultValue={updateModalData.description} required/>
+                    </div>
+                </div>
+
             </div>
-        </Modal>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowState(false)}>
+                Close
+                </Button>
+                <Button variant="primary" type='submit' onClick={() => setShowState(false)}>
+                Save Changes
+                </Button>
+            </Modal.Footer>
+        </Form>
+      </Modal>
+      </>
     )
-})
+}
+
+// const DeleteModal = forwardRef(({deleteModalData ,deleteHandler}, ref) =>{
+
+//     return(
+//         <Modal ref={ref}>
+//             <div className="modal-content">
+//             <div className="modal-header">
+//                 <h1 className="modal-title fs-5">Are sure you want to remove this?</h1>
+//                 <button type="button" className="btn-close" onClick={() => ref.current.close()}></button>
+//             </div>
+//             <div className="modal-body">
+//                 <RiErrorWarningLine size={90} className='sign'/>
+//             </div>
+//             <form onSubmit={(event) => {deleteHandler(event, deleteModalData)}}>
+//                 <div className={`${classes["modal-footer"]} modal-footer`}>
+//                     <button type="button" className="btn btn-secondary" onClick={() => ref.current.close()}>No</button>
+//                     <button type="submit" className="btn btn-primary">Yes</button>
+//                 </div>
+//             </form>
+//             </div>
+//         </Modal>
+//     )
+// })
 
 function AdminReviews() {
     const data = useLoaderData();
     const changedData = useActionData();
     const [tableData, setTableData] = useState(data);
 
-    const [updateModalData, setUpdateModalData] = useState({});
-    const [deleteeModalData, setDeleteModalData] = useState([]);
-
-    const modalRef = useRef();
-    const deleteModalRef = useRef();
+    const [updateModalState, setUpdateModalState] = useState({});
+    // const [deleteeModalData, setDeleteModalData] = useState([]);
   
+    const handleShowUpdateModal = (id) => {
+        setUpdateModalState((prev) => ({ ...prev, [id]: true }));
+    };
+      
+    const handleCloseUpdateModal = (id) => {
+        setUpdateModalState((prev) => ({ ...prev, [id]: false }));
+    };
+
     useEffect(() =>{
       if(changedData?._id){
           toast.success("Review details updated!");
-          modalRef.current.close();
           setTableData((prev) =>[...prev.filter((data) => data._id !== changedData._id), changedData])
       }
   
@@ -103,51 +116,49 @@ function AdminReviews() {
         name: 'ACTIONS',
         cell: (row) => (
             <div className={classes.actionBtn}>
-            <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(row._id, row.stars, row.description)}><FaRegEdit /></button>
-            <button className="btn btn-danger btn-sm" onClick={() => initiateDeleteHandler(row._id)}><MdDelete /></button>
+            <UpdateModal updateModalData={{id:row._id, stars:row.stars, description:row.description}} 
+                showModal={updateModalState[row._id] || false} 
+                setShowState={(state) => state ? handleShowUpdateModal(row._id) : handleCloseUpdateModal(row._id)}
+            />
+            {/* <button className="btn btn-danger btn-sm" onClick={() => initiateDeleteHandler(row._id)}><MdDelete /></button> */}
             </div>
         ),
         },
     ];
-  
-    const handleUpdate = (id, stars, description) => {
-        setUpdateModalData({id, stars, description});
-        modalRef.current.showModal();
-    };
 
-    const deleteHandler = async (event, id) =>{
-        event.preventDefault();
+    // const deleteHandler = async (event, id) =>{
+    //     event.preventDefault();
 
-        try{
-            const response = await apiClient.delete(`/api/review/${id}`)
-            const data = response.data;
-            if(data.error){
-                if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
-                    return redirect("/admin");
-                }
+    //     try{
+    //         const response = await apiClient.delete(`/api/review/${id}`)
+    //         const data = response.data;
+    //         if(data.error){
+    //             if(data.error === "Not a authorized Admin" || data.error === "You are not a authorized user!"){
+    //                 return redirect("/admin");
+    //             }
 
-                return toast.error(data.error);
-            }
+    //             return toast.error(data.error);
+    //         }
 
-            toast.success("Review removed!");
-            setTableData((prev) => prev.filter((data) => data._id !== id));
-            deleteModalRef.current.close();
+    //         toast.success("Review removed!");
+    //         setTableData((prev) => prev.filter((data) => data._id !== id));
+    //         deleteModalRef.current.close();
 
-        }catch(error){
-            if(error?.response?.data){
-                if(error?.response?.data.error === "Not a authorized Admin" || error?.response?.data.error === "You are not a authorized user!"){
-                    return redirect("/admin");
-                }
-                return error.response.data
-            }
-            return {error: "something went wrong"} 
-        }
-    }
+    //     }catch(error){
+    //         if(error?.response?.data){
+    //             if(error?.response?.data.error === "Not a authorized Admin" || error?.response?.data.error === "You are not a authorized user!"){
+    //                 return redirect("/admin");
+    //             }
+    //             return error.response.data
+    //         }
+    //         return {error: "something went wrong"} 
+    //     }
+    // }
 
-    const initiateDeleteHandler = (id) =>{
-        setDeleteModalData(id);
-        deleteModalRef.current.showModal();
-    }
+    // const initiateDeleteHandler = (id) =>{
+    //     setDeleteModalData(id);
+    //     deleteModalRef.current.showModal();
+    // }
 
   return (
     <div>
@@ -161,8 +172,6 @@ function AdminReviews() {
             pagination
         />
 
-        {updateModalData && <UpdateModal updateModalData={updateModalData} ref={modalRef}/>}
-        {deleteeModalData && <DeleteModal deleteModalData={deleteeModalData} deleteHandler={deleteHandler} ref={deleteModalRef}/>}
     </div>
   )
 }

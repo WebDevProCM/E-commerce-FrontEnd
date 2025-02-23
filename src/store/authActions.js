@@ -1,4 +1,3 @@
-import axios from "axios";
 import { authActions } from "./auth-slice";
 import { toast } from "react-toastify";
 import { cartActions } from "./cart-slice";

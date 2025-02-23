@@ -22,7 +22,7 @@ const CartTotal = ({ total, clickHandler, btnDisabled }) => {
                     >
                         Go To Checkout
                         {btnDisabled && 
-                        <div class="spinner-border spinner-border-sm" role="status" />
+                        <div className="spinner-border spinner-border-sm" role="status" />
                         }
                     </button>
                 </div>

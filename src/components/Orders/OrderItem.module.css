@@ -1,37 +1,10 @@
-p, button{
-    margin: 0;
-}
 .ordItem{
-    display: flex;
-    flex-direction: column;
-    gap:10px;
+    font-family: "Playfair Display", serif;
+    max-width:350px;
 }
 
-.ordItemBody{
-    display: flex;
-    justify-content: space-between;
-}
-.ordItemBody p{
-    display: block;
-    font-weight: bold;
-    font-size:14px;
-}
-
-.ordItemBody img{
-    max-width: 120px;
-}
-
-.ordItemQuan{
-    font-weight: bold;
-    font-size:13px;
-}
-.ordItemQuan p{
-    margin-right:15px;
-}
-
-@media only screen and (max-width: 360px) {
-    .ordItemBody img{
-        max-width: 100px;
+/* @media screen and (max-width: 1024px) {
+    .ordItem{
+        max-width:300px;
     }
-
-}
+} */

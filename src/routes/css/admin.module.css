@@ -11,6 +11,11 @@
     display: inline-block;
     max-width:80px;
 }
+.admin-nav{
+    font-size:1rem;
+    font-family: "Playfair Display", serif;
+    color: #230600;
+}
 
 
 @media only screen and (max-width: 450px) {
