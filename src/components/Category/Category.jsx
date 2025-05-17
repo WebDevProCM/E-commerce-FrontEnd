@@ -63,28 +63,32 @@ const Category = (props) =>{
     const limit = 9; 
     const [allPerfumes, setAllPerfumes] = useState(perfumesWithCount.products);
     const [remainingDocuments, setRemainingDocuments] = useState(perfumesWithCount.total - limit);
+    const [filters, setFilters] = useState([]);
 
     useEffect(() =>{
         setAllPerfumes(perfumesWithCount.products);
     }, [perfumesWithCount])
     
     const [currentPage, setCurrentPage] = useState(1);
-    
-    const [sort, setSort] = useState(["50", "100", "250", "500", "eau de cologne", "parfume", "eau de toilette", "eau fraiche"]);
 
     //changing sort state when user applying filters
-    const sortHandler = useCallback(function sortHandler(e) {
+    const filterHandler = useCallback(function filterHandler(e) {
         if(e.target.checked){
-            return setSort( (prev) => prev.filter((value) => value !== e.target.value));
+            return setFilters( (prev) => [...prev, e.target.value]);
         }
         if(!e.target.checked){
-            return setSort((exstingSort) => [e.target.value, ...exstingSort])
+            return setFilters((prev) => prev.filter((value) => value !== e.target.value));
         }
     }, []);
 
     //filtering perfumes based on user selected filters
-    const filteredPerfumes = sort.length > 7 ? allPerfumes : allPerfumes.filter(perfume => !sort.includes(perfume.type) || !sort.includes(perfume.ml.toString()));
-
+    const filteredPerfumes = allPerfumes.filter((product) => {
+        const matchesType = filters.length === 0 || filters.includes(product.type);
+        const matchesMl = filters.length === 0 || filters.includes(product.ml.toString()); 
+        
+        return matchesType || matchesMl;
+    })
+    
     const nextPageHandler = async () =>{
         let newPage = currentPage + 1
         if (remainingDocuments < 1){
@@ -138,7 +142,7 @@ const Category = (props) =>{
     return (
         <>
         <div className={classes.category} id="products">
-            <SortSection sortHandler={sortHandler} />
+            <SortSection sortHandler={filterHandler} />
             <div className={classes.items}>
                 <AnimatePresence mode="wait">
 

@@ -7,11 +7,13 @@ import apiClient from "../../../utilis/apiClient";
 
 const ProductDescription = (props) =>{
     const [showError, setShowError] = useState(undefined);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.user);
     // const {user} = useContext(CurrentUserContext);
 
     const addToCartHandler = async (prodId) =>{
+        setLoading(true);
         try{
             if(!user){
                 return toast.error("Please Log In!");
@@ -27,12 +29,15 @@ const ProductDescription = (props) =>{
             if(cartItem.error){
                 return setShowError(cartItem.error);
             }
+            setLoading(false);
             return navigate("/cart");
         }catch(error){
             if(error?.response?.data){
                 return setShowError(error.response.data.error);
             }
             return setShowError("Something went wrong");
+        }finally{
+            setLoading(false);
         }
     }
 
@@ -51,7 +56,8 @@ const ProductDescription = (props) =>{
                 <input type="number" name="quantity" id="quantity" min="1"></input>
             </div>
             <div className={classes.addCart}>
-                <button type="button" className={`btn btn-danger`} onClick={ () => addToCartHandler(props.perfume._id)}>Add to cart</button>
+                <button type="button" className={`btn btn-danger`} disabled={loading} onClick={ () => addToCartHandler(props.perfume._id)}>Add to cart</button>
+                {loading && <div className="spinner-border spinner-border-sm text-secondary ms-1" role="status" />}
                 <p className={classes.error}>{showError? showError : ''}</p>
             </div>
             <div className={classes.tags}>

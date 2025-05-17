@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -14,6 +14,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const HeaderNav = () =>{
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const user = useSelector((state) => state.auth.user);
     const isAuth = useSelector((state) => state.auth.isAuthenicated);
     const cart = useSelector((state) => state.cart.quantity);
@@ -27,7 +28,9 @@ const HeaderNav = () =>{
     }
 
     const logoutHandler = async () =>{
+        setLoading(true)
         dispatch(logoutUser());
+        setLoading(false);
         return navigate("/", window.scrollTo(0, 0));
     }
  return(
@@ -79,7 +82,12 @@ const HeaderNav = () =>{
                     <Dropdown.Menu as="div" className={`${classes["dropdown-menu"]}`}>
                         <Dropdown.Item><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/profile"}>Profile</Link></Dropdown.Item>
                         <Dropdown.Item><Link className={`${classes["dropdown-item"]} dropdown-item`} to={"/orders"}>My orders</Link></Dropdown.Item>
-                        <Dropdown.Item><button className={`${classes["dropdown-item"]} dropdown-item`} onClick={logoutHandler}>Log Out</button></Dropdown.Item>
+                        <Dropdown.Item>
+                            <button className={`${classes["dropdown-item"]} dropdown-item`} disabled={loading} onClick={logoutHandler}>
+                                Log Out
+                                {loading && <div className="spinner-border spinner-border-sm text-secondary ms-1" role="status" />}
+                            </button>
+                        </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                     : 

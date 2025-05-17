@@ -16,8 +16,8 @@ function Orders() {
   }
 
   return (
-    <main>
-      <h1>My Orders</h1>      
+    <main className={classes.main}>
+      <h1 className={classes.h1}>My Orders</h1>      
       <div className={classes.OrdersContainer}>
         {orders.map((order) =>{
           return (<AllOrders key={order.ordId} order={order} />)
